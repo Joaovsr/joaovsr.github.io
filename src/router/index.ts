@@ -6,13 +6,17 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'cosmos',
+      component: () => import('@/views/Version1View.vue')
+    },
+    {
+      path: '/versions',
       name: 'index',
       component: IndexView
     },
     {
       path: '/1',
-      name: 'cosmos',
-      component: () => import('@/views/Version1View.vue')
+      redirect: '/'
     },
     {
       path: '/2',
@@ -21,7 +25,7 @@ const router = createRouter({
     },
     {
       path: '/3',
-      name: 'clean-pro',
+      name: 'neon-grid',
       component: () => import('@/views/Version3View.vue')
     },
     {
@@ -31,7 +35,7 @@ const router = createRouter({
     },
     {
       path: '/5',
-      name: 'glass',
+      name: 'stealth',
       component: () => import('@/views/Version5View.vue')
     },
     {

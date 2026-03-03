@@ -29,13 +29,13 @@ $v2-muted:     rgba(0, 255, 65, 0.4);
 $v2-border:    rgba(0, 255, 65, 0.2);
 $v2-font:      'JetBrains Mono', 'Courier New', monospace;
 
-// ─── V3 Clean Pro ─────────────────────────────────────────────────────────────
-$v3-bg:        #111827;
-$v3-surface:   #1f2937;
-$v3-primary:   #818CF8;
-$v3-secondary: #e2e8f0;
-$v3-muted:     rgba(255, 255, 255, 0.45);
-$v3-border:    rgba(255, 255, 255, 0.1);
+// ─── V3 Neon Grid ────────────────────────────────────────────────────────────
+$v3-bg:        #0a0a14;
+$v3-surface:   #12121f;
+$v3-primary:   #C084FC;
+$v3-secondary: #e4e4e7;
+$v3-muted:     rgba(255, 255, 255, 0.4);
+$v3-border:    rgba(192, 132, 252, 0.2);
 $v3-font:      'Inter', sans-serif;
 
 // ─── V4 Bold ──────────────────────────────────────────────────────────────────
@@ -47,14 +47,11 @@ $v4-muted:     rgba(255, 255, 255, 0.4);
 $v4-border:    rgba(255, 107, 53, 0.3);
 $v4-font:      'Space Grotesk', sans-serif;
 
-// ─── V5 Glass ─────────────────────────────────────────────────────────────────
-$v5-bg-start:  #0F0C29;
-$v5-bg-mid:    #302B63;
-$v5-bg-end:    #24243E;
-$v5-primary:   #60A5FA;
-$v5-secondary: #e2e8f0;
-$v5-muted:     rgba(255, 255, 255, 0.5);
-$v5-border:    rgba(255, 255, 255, 0.15);
+// ─── V5 Stealth ──────────────────────────────────────────────────────────────
+$v5-bg:        #0a0a0a;
+$v5-surface:   #141414;
+$v5-primary:   #22D3EE;
+$v5-secondary: #e4e4e7;
+$v5-muted:     rgba(255, 255, 255, 0.4);
+$v5-border:    rgba(255, 255, 255, 0.06);
 $v5-font:      'Poppins', sans-serif;
-$v5-glass-bg:  rgba(255, 255, 255, 0.05);
-$v5-glass-border: rgba(255, 255, 255, 0.15);

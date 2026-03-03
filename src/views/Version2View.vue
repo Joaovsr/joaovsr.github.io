@@ -5,7 +5,7 @@
       <span class="v2-header__prompt">joaovsr@portfolio:~$</span>
       <div class="v2-header__right">
         <button class="v2-btn-lang" @click="toggleLocale">{{ t('lang_toggle') }}</button>
-        <RouterLink to="/" class="v2-link-ghost">← versões</RouterLink>
+        <RouterLink to="/versions" class="v2-link-ghost">← versões</RouterLink>
       </div>
     </header>
 
@@ -84,12 +84,12 @@
           <p class="v2-md-body">{{ t('about.text') }}</p>
           <p class="v2-md-body">{{ t('about.text2') }}</p>
           <div class="v2-md-list">
-            <p v-for="d in (t('about.differentials') as unknown as string[])" :key="d">
+            <p v-for="d in differentials" :key="d">
               <span class="v2-green">+</span> {{ d }}
             </p>
           </div>
           <p class="v2-comment">// {{ t('about.languages_title') }}</p>
-          <div v-for="lang in (t('about.languages') as unknown as Array<{name:string;level:string}>)" :key="lang.name" class="v2-lang-row">
+          <div v-for="lang in languages" :key="lang.name" class="v2-lang-row">
             <span class="v2-kw">{{ lang.name }}</span>
             <span class="v2-separator"> → </span>
             <span class="v2-green">{{ lang.level }}</span>
@@ -234,7 +234,7 @@ import { RouterLink } from 'vue-router'
 import { usePortfolio } from '@/composables/usePortfolio'
 import { toggleLocale } from '@/plugins/i18n'
 
-const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, formatDate, categoryLabel } = usePortfolio()
+const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, differentials, languages, formatDate, categoryLabel } = usePortfolio()
 
 const heroStack = ['TypeScript', 'React', 'NestJS', 'Flutter', 'Python', 'Docker', 'K8s']
 const copied = ref(false)
