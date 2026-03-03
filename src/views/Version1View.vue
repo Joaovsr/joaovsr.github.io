@@ -33,10 +33,9 @@
       </div>
     </nav>
 
-    <!-- Lang + Version toggle (top right) -->
+    <!-- Lang toggle (top right) -->
     <div class="v1-topbar">
       <button class="v1-topbar__lang" @click="toggleLocale">{{ t('lang_toggle') }}</button>
-      <RouterLink to="/" class="v1-topbar__versions">↗ versões</RouterLink>
     </div>
 
     <!-- Sections container -->
@@ -57,7 +56,7 @@
           </div>
           <div class="v1-hero__cta">
             <a href="/cv-joaovinicius.pdf" download class="v1-btn v1-btn--primary">{{ t('download_cv') }}</a>
-            <button class="v1-btn v1-btn--ghost" @click="scrollTo(1)">{{ t('nav.about') }} ↓</button>
+            <button class="v1-btn v1-btn--ghost" @click="scrollTo(0)">{{ t('nav.about') }} ↓</button>
           </div>
         </div>
         <PlanetIcon class="v1-hero__planet" />
@@ -74,7 +73,7 @@
             <p>{{ t('about.text') }}</p>
             <p>{{ t('about.text2') }}</p>
             <ul class="v1-about__differentials">
-              <li v-for="diff in (t('about.differentials') as unknown as string[])" :key="diff">
+              <li v-for="diff in differentials" :key="diff">
                 <span class="v1-accent">›</span> {{ diff }}
               </li>
             </ul>
@@ -90,7 +89,7 @@
             </div>
             <div class="v1-about__langs">
               <h4>{{ t('about.languages_title') }}</h4>
-              <div v-for="lang in (t('about.languages') as unknown as Array<{name: string; level: string}>)" :key="lang.name" class="v1-about__lang-row">
+              <div v-for="lang in languages" :key="lang.name" class="v1-about__lang-row">
                 <span>{{ lang.name }}</span>
                 <span class="v1-about__lang-level">{{ lang.level }}</span>
               </div>
@@ -128,7 +127,10 @@
           <div v-for="(skillList, cat) in groupedSkills" :key="cat" class="v1-skills__category">
             <h3 class="v1-skills__cat-name">{{ categoryLabel(cat) }}</h3>
             <div class="v1-skills__tags">
-              <span v-for="skill in skillList" :key="skill.id" class="v1-skill-tag">{{ skill.name }}</span>
+              <span v-for="skill in skillList" :key="skill.id" class="v1-skill-tag">
+                <component :is="skill.icon" v-if="skill.icon" class="v1-skill-tag__icon" />
+                {{ skill.name }}
+              </span>
             </div>
           </div>
         </div>
@@ -224,7 +226,7 @@ import PlanetIcon from '@/components/icons/Planet.vue'
 import ScrollTipIcon from '@/components/icons/ScrollTip.vue'
 import CertificateIcon from '@/components/icons/Certificate.vue'
 
-const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, formatDate, categoryLabel } = usePortfolio()
+const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, differentials, languages, formatDate, categoryLabel } = usePortfolio()
 
 const sections = [
   { id: 'about' },
@@ -236,7 +238,7 @@ const sections = [
 
 const heroStack = ['React', 'NestJS', 'Flutter', 'Python', 'TypeScript']
 
-const currentSection = ref(0)
+const currentSection = ref(-1)
 const glitchActive = ref(false)
 const copied = ref(false)
 const mainRef = ref<HTMLElement>()
@@ -266,15 +268,16 @@ function onWheel(e: WheelEvent) {
     scrollTo(currentSection.value + 1)
   } else if (e.deltaY < 0 && currentSection.value > 0) {
     scrollTo(currentSection.value - 1)
+  } else if (e.deltaY < 0 && currentSection.value === 0) {
+    currentSection.value = -1
+    document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })
   }
 }
 
+// sections[0]=about … sections[4]=contact (hero não faz parte do nav)
 function scrollTo(idx: number) {
   currentSection.value = idx
-  const id = idx === 0 ? 'hero' : sections[idx - 1]?.id ?? sections[idx].id
-  // map idx 0=hero,1=about,2=experience,...
-  const sectionIds = ['hero', 'about', 'experience', 'skills', 'projects', 'contact']
-  const el = document.getElementById(sectionIds[idx])
+  const el = document.getElementById(sections[idx].id)
   el?.scrollIntoView({ behavior: 'smooth' })
 }
 
@@ -282,19 +285,21 @@ function scrollTo(idx: number) {
 let observer: IntersectionObserver
 
 onMounted(() => {
-  const sectionIds = ['hero', 'about', 'experience', 'skills', 'projects', 'contact']
   observer = new IntersectionObserver(
     entries => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const idx = sectionIds.indexOf(entry.target.id)
+        if (!entry.isIntersecting) continue
+        if (entry.target.id === 'hero') {
+          currentSection.value = -1
+        } else {
+          const idx = sections.findIndex(s => s.id === entry.target.id)
           if (idx !== -1) currentSection.value = idx
         }
       }
     },
     { threshold: 0.5 }
   )
-  sectionIds.forEach(id => {
+  ;['hero', ...sections.map(s => s.id)].forEach(id => {
     const el = document.getElementById(id)
     if (el) observer.observe(el)
   })
@@ -896,10 +901,28 @@ async function copyEmail() {
   padding: 6px 14px;
   border: 1px solid $v1-border;
   transition: all $transition-fast;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
   &:hover {
     border-color: $v1-primary;
     color: $v1-primary;
+
+    .v1-skill-tag__icon :deep(svg) { fill: $v1-primary; }
+  }
+}
+
+.v1-skill-tag__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+
+  :deep(svg) {
+    width: 100%;
+    height: 100%;
+    fill: rgba($v1-secondary, 0.6);
+    transition: fill $transition-fast;
   }
 }
 

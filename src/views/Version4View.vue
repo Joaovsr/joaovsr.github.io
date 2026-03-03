@@ -11,7 +11,7 @@
           <a v-for="s in sections" :key="s.id" :href="`#v4-${s.id}`" class="v4-nav__link">{{ t(`nav.${s.id}`) }}</a>
         </nav>
         <button class="v4-lang-btn" @click="toggleLocale">{{ t('lang_toggle') }}</button>
-        <RouterLink to="/" class="v4-versions">↗</RouterLink>
+        <RouterLink to="/versions" class="v4-versions">↗</RouterLink>
       </div>
     </header>
 
@@ -69,12 +69,12 @@
             </div>
             <div class="v4-info-block">
               <div class="v4-info-block__label">{{ t('about.languages_title') }}</div>
-              <div v-for="lang in (t('about.languages') as unknown as Array<{name:string;level:string}>)" :key="lang.name" class="v4-lang-row">
+              <div v-for="lang in languages" :key="lang.name" class="v4-lang-row">
                 <span>{{ lang.name }}</span><span class="v4-accent">{{ lang.level }}</span>
               </div>
             </div>
             <div class="v4-differentials">
-              <div v-for="diff in (t('about.differentials') as unknown as string[])" :key="diff" class="v4-diff-item">
+              <div v-for="diff in differentials" :key="diff" class="v4-diff-item">
                 <span class="v4-diff-icon">⟶</span> {{ diff }}
               </div>
             </div>
@@ -117,7 +117,8 @@
             <h3 class="v4-skills__cat">{{ categoryLabel(cat) }}</h3>
             <div class="v4-skills__items">
               <div v-for="skill in skillList" :key="skill.id" class="v4-skill-item">
-                <span class="v4-skill-item__bullet">—</span>
+                <component :is="skill.icon" v-if="skill.icon" class="v4-skill-item__icon" />
+                <span v-else class="v4-skill-item__bullet">—</span>
                 {{ skill.name }}
               </div>
             </div>
@@ -185,7 +186,7 @@ import { RouterLink } from 'vue-router'
 import { usePortfolio } from '@/composables/usePortfolio'
 import { toggleLocale } from '@/plugins/i18n'
 
-const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, formatDate, categoryLabel } = usePortfolio()
+const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, differentials, languages, formatDate, categoryLabel } = usePortfolio()
 
 const heroStack = ['TypeScript', 'React', 'NestJS', 'Flutter', 'Python', 'Docker', 'K8s', 'Data & AI']
 const copied = ref(false)
@@ -524,8 +525,14 @@ async function copyEmail() {
 
 .v4-skills__items { display: flex; flex-direction: column; gap: 10px; }
 
-.v4-skill-item { font-size: 14px; color: rgba($v4-secondary, 0.75); display: flex; gap: 10px; }
+.v4-skill-item { font-size: 14px; color: rgba($v4-secondary, 0.75); display: flex; align-items: center; gap: 10px; }
 .v4-skill-item__bullet { color: $v4-primary; }
+.v4-skill-item__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  :deep(svg) { width: 100%; height: 100%; }
+}
 
 // ─── Edu strip ───────────────────────────────────────────────────────────────
 .v4-edu-strip {

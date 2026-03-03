@@ -7,6 +7,16 @@
     <meta name="description" content="João Vinicius Rodrigues — Full Stack Developer | Data &amp; AI" />
     <meta name="author" content="João Vinicius Rodrigues" />
     <title>João Vinicius — Portfolio</title>
+    <!-- SPA redirect: decodes the path encoded by 404.html -->
+    <script>
+      (function () {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          var q = new URLSearchParams(window.location.search).get('q');
+          window.history.replaceState(null, null, '/' + p + (q ? '?' + q : '') + window.location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

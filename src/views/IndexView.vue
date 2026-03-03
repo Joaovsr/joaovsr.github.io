@@ -65,11 +65,11 @@ const versions = [
   },
   {
     path: '/3',
-    name: 'Clean Pro',
-    description: 'Layout organizado e estruturado, foto de perfil em destaque, cards de experiência bem definidos.',
-    accent: '#818CF8',
-    colors: ['#111827', '#1f2937', '#818CF8', '#e2e8f0'],
-    tags: ['Indigo', 'Inter', 'Profissional']
+    name: 'Neon Grid',
+    description: 'Fundo com grid roxo, ícones de tech flutuando no hero, cards de skills com efeito neon ao hover.',
+    accent: '#C084FC',
+    colors: ['#0a0a14', '#12121f', '#C084FC', '#e4e4e7'],
+    tags: ['Roxo', 'Inter', 'Tech Icons']
   },
   {
     path: '/4',
@@ -81,11 +81,11 @@ const versions = [
   },
   {
     path: '/5',
-    name: 'Glass',
-    description: 'Glassmorphism com cards em frosted glass, orbs animados e gradiente azul → roxo no fundo.',
-    accent: '#60A5FA',
-    colors: ['#0F0C29', '#302B63', '#60A5FA', '#e2e8f0'],
-    tags: ['Azul', 'Poppins', 'Premium']
+    name: 'Stealth',
+    description: 'Ultra minimal, fundo quase preto, tipografia grande, timeline de experiência e ícones de skills.',
+    accent: '#22D3EE',
+    colors: ['#0a0a0a', '#141414', '#22D3EE', '#e4e4e7'],
+    tags: ['Cyan', 'Poppins', 'Minimal']
   }
 ]
 </script>

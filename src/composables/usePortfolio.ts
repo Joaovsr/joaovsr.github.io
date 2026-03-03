@@ -7,7 +7,7 @@ import { projects } from '@/data/projects'
 import { education, certifications } from '@/data/education'
 
 export function usePortfolio() {
-  const { locale, t } = useI18n()
+  const { locale, t, tm } = useI18n()
 
   const currentLocale = computed(() => locale.value as Locale)
 
@@ -54,6 +54,10 @@ export function usePortfolio() {
     return map ? (map[currentLocale.value] ?? map['pt-BR']) : category
   }
 
+  const differentials = computed(() => tm('about.differentials') as string[])
+
+  const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
+
   return {
     t,
     currentLocale,
@@ -62,6 +66,8 @@ export function usePortfolio() {
     projects: localizedProjects,
     education: localizedEducation,
     certifications,
+    differentials,
+    languages,
     formatDate,
     categoryLabel,
     skillCategories
