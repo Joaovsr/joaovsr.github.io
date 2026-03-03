@@ -1,0 +1,76 @@
+{
+  "lang": "pt-BR",
+  "lang_toggle": "EN",
+  "name": "João Vinicius Rodrigues",
+  "name_short": "João Vinicius",
+  "role": "Desenvolvedor Full Stack",
+  "role_sub": "Dados & IA",
+  "location": "Barbacena, MG — Brasil",
+  "available_remote": "Disponível para remoto internacional",
+  "download_cv": "Baixar CV",
+  "tagline": "Construindo sistemas que funcionam de ponta a ponta — da infraestrutura ao produto.",
+
+  "nav": {
+    "about": "Sobre",
+    "experience": "Experiência",
+    "skills": "Skills",
+    "projects": "Projetos",
+    "contact": "Contato"
+  },
+
+  "about": {
+    "title": "Sobre Mim",
+    "text": "Desenvolvedor Full Stack com experiência na construção de sistemas reais para web e mobile, atuando de ponta a ponta em aplicações produtivas. Minha trajetória passa por infraestrutura, automação e dados — o que me dá uma visão ampla de como sistemas funcionam na prática.",
+    "text2": "Atuo com foco em soluções pragmáticas, integração entre sistemas e desenvolvimento de aplicações escaláveis e de fácil manutenção. Atualmente aprofundando conhecimentos em sistemas orientados a dados, IA generativa e arquitetura moderna.",
+    "differentials": ["Curiosidade e aprendizado contínuo", "Adaptabilidade", "Visão de ponta a ponta"],
+    "open_to": "Aberto a oportunidades remotas",
+    "languages_title": "Idiomas",
+    "languages": [
+      { "name": "Português", "level": "Nativo" },
+      { "name": "Inglês", "level": "Intermediário" }
+    ]
+  },
+
+  "experience": {
+    "title": "Experiência",
+    "present": "Presente",
+    "skills_label": "Tecnologias"
+  },
+
+  "skills": {
+    "title": "Skills",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "data-ai": "Dados & IA",
+      "devops": "DevOps / Infra"
+    }
+  },
+
+  "projects": {
+    "title": "Projetos",
+    "private_label": "Projeto privado",
+    "repo_label": "Ver código",
+    "site_label": "Ver site",
+    "tech_label": "Tecnologias"
+  },
+
+  "education": {
+    "title": "Formação",
+    "certifications_title": "Certificações",
+    "ongoing": "Em andamento",
+    "in_progress": "Em progresso"
+  },
+
+  "contact": {
+    "title": "Contato",
+    "subtitle": "Vamos conversar?",
+    "email_label": "Enviar e-mail",
+    "copy_label": "Copiar e-mail",
+    "copied": "Copiado!",
+    "github_label": "Ver GitHub",
+    "linkedin_label": "Ver LinkedIn",
+    "footer": "Desenvolvido com Vue 3, TypeScript e SCSS"
+  }
+}

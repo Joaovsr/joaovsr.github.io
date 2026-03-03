@@ -1,0 +1,76 @@
+{
+  "lang": "en-US",
+  "lang_toggle": "PT",
+  "name": "João Vinicius Rodrigues",
+  "name_short": "João Vinicius",
+  "role": "Full Stack Developer",
+  "role_sub": "Data & AI",
+  "location": "Barbacena, MG — Brazil",
+  "available_remote": "Available for international remote",
+  "download_cv": "Download CV",
+  "tagline": "Building systems that work end-to-end — from infrastructure to product.",
+
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+
+  "about": {
+    "title": "About Me",
+    "text": "Full Stack Developer with experience building real-world systems for web and mobile, working end-to-end in production applications. My background spans infrastructure, automation, and data — giving me a broad view of how systems work in practice.",
+    "text2": "I focus on pragmatic solutions, system integration, and building scalable, maintainable applications. Currently deepening my knowledge in data-oriented systems, generative AI, and modern architecture.",
+    "differentials": ["Curiosity and continuous learning", "Adaptability", "End-to-end vision"],
+    "open_to": "Open to remote opportunities",
+    "languages_title": "Languages",
+    "languages": [
+      { "name": "Portuguese", "level": "Native" },
+      { "name": "English", "level": "Intermediate" }
+    ]
+  },
+
+  "experience": {
+    "title": "Experience",
+    "present": "Present",
+    "skills_label": "Technologies"
+  },
+
+  "skills": {
+    "title": "Skills",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "mobile": "Mobile",
+      "data-ai": "Data & AI",
+      "devops": "DevOps / Infra"
+    }
+  },
+
+  "projects": {
+    "title": "Projects",
+    "private_label": "Private project",
+    "repo_label": "View code",
+    "site_label": "View site",
+    "tech_label": "Technologies"
+  },
+
+  "education": {
+    "title": "Education",
+    "certifications_title": "Certifications",
+    "ongoing": "Ongoing",
+    "in_progress": "In progress"
+  },
+
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Let's talk?",
+    "email_label": "Send email",
+    "copy_label": "Copy email",
+    "copied": "Copied!",
+    "github_label": "View GitHub",
+    "linkedin_label": "View LinkedIn",
+    "footer": "Built with Vue 3, TypeScript and SCSS"
+  }
+}

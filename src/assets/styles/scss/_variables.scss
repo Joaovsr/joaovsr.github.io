@@ -1,0 +1,60 @@
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+$mobile: 768px;
+$tablet: 1024px;
+
+// ─── Z-index ──────────────────────────────────────────────────────────────────
+$z-nav: 100;
+$z-overlay: 200;
+
+// ─── Transitions ──────────────────────────────────────────────────────────────
+$transition-fast: 0.15s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.6s ease;
+
+// ─── V1 Cosmos ────────────────────────────────────────────────────────────────
+$v1-bg:        #0D0F12;
+$v1-surface:   #161920;
+$v1-primary:   #39DFAA;
+$v1-secondary: #e3d9d9;
+$v1-muted:     rgba(255, 255, 255, 0.4);
+$v1-border:    rgba(255, 255, 255, 0.08);
+$v1-font:      'Metropolis', sans-serif;
+
+// ─── V2 Terminal ──────────────────────────────────────────────────────────────
+$v2-bg:        #000000;
+$v2-surface:   #0a0a0a;
+$v2-primary:   #00FF41;
+$v2-secondary: #cccccc;
+$v2-muted:     rgba(0, 255, 65, 0.4);
+$v2-border:    rgba(0, 255, 65, 0.2);
+$v2-font:      'JetBrains Mono', 'Courier New', monospace;
+
+// ─── V3 Clean Pro ─────────────────────────────────────────────────────────────
+$v3-bg:        #111827;
+$v3-surface:   #1f2937;
+$v3-primary:   #818CF8;
+$v3-secondary: #e2e8f0;
+$v3-muted:     rgba(255, 255, 255, 0.45);
+$v3-border:    rgba(255, 255, 255, 0.1);
+$v3-font:      'Inter', sans-serif;
+
+// ─── V4 Bold ──────────────────────────────────────────────────────────────────
+$v4-bg:        #080808;
+$v4-surface:   #111111;
+$v4-primary:   #FF6B35;
+$v4-secondary: #ffffff;
+$v4-muted:     rgba(255, 255, 255, 0.4);
+$v4-border:    rgba(255, 107, 53, 0.3);
+$v4-font:      'Space Grotesk', sans-serif;
+
+// ─── V5 Glass ─────────────────────────────────────────────────────────────────
+$v5-bg-start:  #0F0C29;
+$v5-bg-mid:    #302B63;
+$v5-bg-end:    #24243E;
+$v5-primary:   #60A5FA;
+$v5-secondary: #e2e8f0;
+$v5-muted:     rgba(255, 255, 255, 0.5);
+$v5-border:    rgba(255, 255, 255, 0.15);
+$v5-font:      'Poppins', sans-serif;
+$v5-glass-bg:  rgba(255, 255, 255, 0.05);
+$v5-glass-border: rgba(255, 255, 255, 0.15);
