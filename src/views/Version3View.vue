@@ -56,7 +56,7 @@
             </ul>
           </div>
           <div class="v3-about__sidebar">
-            <div class="v3-about__avatar">JV</div>
+            <img src="/avatar.jpg" alt="João Vinicius" />
             <div class="v3-about__info">
               <p>📍 {{ t('location') }}</p>
               <p>✉ joaovinicius2525@gmail.com</p>

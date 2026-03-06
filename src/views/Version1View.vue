@@ -1,5 +1,5 @@
 <template>
-  <div class="v1" @wheel.prevent="onWheel">
+  <div class="v1" @wheel="onWheel">
     <!-- Stars Background -->
     <div class="stars" aria-hidden="true">
       <span v-for="i in 60" :key="i" class="star" :style="starStyle(i)" />
@@ -82,7 +82,7 @@
             </p>
           </div>
           <div class="v1-about__profile">
-            <div class="v1-about__avatar">JV</div>
+            <img src="/avatar.jpg" alt="João Vinicius" class="v1-about__avatar"/>
             <div class="v1-about__info">
               <p class="v1-about__location">📍 {{ t('location') }}</p>
               <p class="v1-about__email">✉ joaovinicius2525@gmail.com</p>
@@ -261,7 +261,17 @@ function starStyle(i: number) {
 let wheelTimeout: ReturnType<typeof setTimeout> | null = null
 
 function onWheel(e: WheelEvent) {
+  const currentId = currentSection.value === -1 ? 'hero' : sections[currentSection.value]?.id
+  const currentEl = currentId ? document.getElementById(currentId) : null
+
+  if (currentEl) {
+    const rect = currentEl.getBoundingClientRect()
+    if (e.deltaY > 0 && rect.bottom > window.innerHeight + 5) return
+    if (e.deltaY < 0 && rect.top < -5) return
+  }
+
   if (wheelTimeout) return
+  e.preventDefault()
   wheelTimeout = setTimeout(() => { wheelTimeout = null }, 700)
 
   if (e.deltaY > 0 && currentSection.value < sections.length - 1) {
@@ -297,7 +307,7 @@ onMounted(() => {
         }
       }
     },
-    { threshold: 0.5 }
+    { threshold: 0, rootMargin: '-40% 0px -40% 0px' }
   )
   ;['hero', ...sections.map(s => s.id)].forEach(id => {
     const el = document.getElementById(id)
