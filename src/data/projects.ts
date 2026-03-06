@@ -3,72 +3,74 @@ import type { IProject } from '@/interfaces/project'
 export const projects: IProject[] = [
   {
     id: 1,
-    title: 'Super-App Fictor',
+    title: 'Super-App Fictor Alimentos',
     description: {
       'pt-BR':
-        'App interno de operações e logística com arquitetura modular. Flutter no frontend mobile, NestJS no backend, deploy com Kubernetes. Inclui automações inteligentes e integrações com sistemas internos.',
+        'Plataforma interna desenvolvida do zero para digitalizar operações da Fictor Alimentos. Centraliza reserva de veículos com fluxo de aprovação e validação por IA, hospedagem em hotéis, comunicados internos com notificações em tempo real e dashboards de BI — tudo com autenticação corporativa via Azure AD e RBAC por módulo.',
       'en-US':
-        'Internal operations and logistics app with modular architecture. Flutter on mobile frontend, NestJS on backend, deployed with Kubernetes. Includes intelligent automation and integrations with internal systems.'
+        'Internal platform built from scratch to digitize Fictor Alimentos operations. Centralizes vehicle reservations with approval workflows and AI validation, hotel bookings, internal announcements with real-time push notifications, and BI dashboards — all with Azure AD corporate auth and per-module RBAC.',
     },
-    technologies: ['Flutter', 'NestJS', 'TypeScript', 'Kubernetes', 'Docker'],
-    status: 'private'
+    technologies: ['Flutter', 'NestJS', 'React', 'TypeScript', 'Kubernetes', 'RabbitMQ'],
+    status: 'private',
   },
   {
     id: 2,
-    title: 'Pipeline de Dados BI',
+    title: 'Fictor360 — Power BI Embedded',
     description: {
       'pt-BR':
-        'Pipelines de dados em Python para raspagem, tratamento e estruturação de informações. Implantação do Metabase como BI interno com dashboards para suporte à decisão, integrado ao Power BI.',
+        'Módulo que leva dashboards Power BI diretamente ao Super-App, garantindo que cada usuário veja apenas os dados do seu perfil via RLS configurado por papel e grupo Azure. Geração de embed tokens dinâmicos e gerenciamento de workspaces via API.',
       'en-US':
-        'Python data pipelines for scraping, processing and structuring information. Metabase deployment as internal BI with decision-support dashboards, integrated with Power BI.'
+        'Module that brings Power BI dashboards directly into the Super-App, ensuring each user sees only their own data through role and Azure group-based RLS. Dynamic embed token generation and workspace management via API.',
     },
-    technologies: ['Python', 'Metabase', 'Power BI', 'ETL', 'SQL'],
-    status: 'private'
+    technologies: ['Power BI', 'NestJS', 'TypeScript', 'Azure AD', 'GraphQL'],
+    status: 'private',
   },
   {
     id: 3,
-    title: 'RPA para ERP Legado',
+    title: 'Plataforma de RH com IA',
     description: {
       'pt-BR':
-        'Robôs em Python para extração automatizada de dados de ERP legado sem acesso via API ou banco de dados. Utilizando técnicas de scraping e automação de interface para otimizar processos manuais.',
+        'Sistema corporativo de recrutamento com pipeline Kanban, SLA automático e scoring semântico de currículos usando Azure OpenAI + pgvector. Autenticação via Azure AD (SSO + RBAC), jobs assíncronos com Bull e integração bidirecional com portal externo via webhooks.',
       'en-US':
-        'Python robots for automated data extraction from legacy ERP without API or database access. Using scraping and UI automation techniques to optimize manual processes.'
+        'Corporate recruitment system with Kanban pipeline, automatic SLA tracking, and semantic CV scoring using Azure OpenAI + pgvector. Azure AD authentication (SSO + RBAC), async jobs with Bull, and bidirectional integration with an external portal via webhooks.',
     },
-    technologies: ['Python', 'RPA', 'Automação', 'Web Scraping'],
-    status: 'private'
+    technologies: ['NestJS', 'React', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'Azure AD', 'Bull'],
+    status: 'private',
   },
   {
     id: 4,
-    title: 'Sudoku do Dia',
+    title: 'Fictor360 AI — Insights com IA',
     description: {
-      'pt-BR': 'Aplicativo mobile de Sudoku construído com Flutter e Dart. Geração de puzzles diários com diferentes níveis de dificuldade.',
-      'en-US': 'Mobile Sudoku app built with Flutter and Dart. Daily puzzle generation with different difficulty levels.'
+      'pt-BR':
+        'Agente conversacional que transforma perguntas em linguagem natural em queries DAX e consulta modelos semânticos do Power BI em tempo real. Orquestrado com LangGraph, gera e valida DAX via MCP, transmite respostas por streaming WebSocket e produz um perfil completo do modelo semântico para orientar o raciocínio do LLM.',
+      'en-US':
+        'Conversational agent that turns natural language questions into DAX queries and queries Power BI semantic models in real time. Orchestrated with LangGraph, generates and validates DAX via MCP, streams responses over WebSocket, and produces a full semantic model profile to guide LLM reasoning.',
     },
-    technologies: ['Flutter', 'Dart'],
-    repoUrl: 'https://github.com/Joaovsr/sudoku-do-dia-app',
-    status: 'public'
+    technologies: ['LangGraph', 'Azure OpenAI', 'NestJS', 'TypeScript', 'Power BI MCP', 'DAX'],
+    status: 'private',
   },
   {
     id: 5,
-    title: 'Sistema de Agendamento — Museu da Loucura',
+    title: 'Portal do Candidato — Fictor Alimentos',
     description: {
-      'pt-BR': 'Sistema web para agendamento de visitas ao Museu da Loucura. Desenvolvido em Java com interface web para gestão de reservas e controle de capacidade.',
-      'en-US': 'Web system for scheduling visits to the Museum of Madness. Developed in Java with a web interface for booking management and capacity control.'
+      'pt-BR':
+        'Portal público de recrutamento desacoplado do sistema interno de RH, com autenticação multicanal (OAuth2 Google/LinkedIn + e-mail), scoring automático de currículos por IA e sincronização bidirecional via webhooks. Desenvolvido com conformidade à LGPD e rate limiting por IP.',
+      'en-US':
+        'Public recruitment portal decoupled from the internal HR system, with multi-channel authentication (OAuth2 Google/LinkedIn + email), automatic AI-powered CV scoring, and bidirectional sync via webhooks. Built with LGPD compliance and IP-based rate limiting.',
     },
-    technologies: ['Java', 'HTML', 'CSS', 'JavaScript'],
-    repoUrl: 'https://github.com/Joaovsr/ti-museu-da-loucura-web',
-    status: 'public'
+    technologies: ['NestJS', 'React', 'Vite', 'PostgreSQL', 'OAuth2', 'Azure OpenAI', 'SendGrid'],
+    status: 'private',
   },
   {
     id: 6,
-    title: 'Portfolio',
+    title: 'Pipeline de Dados BI',
     description: {
-      'pt-BR': 'Você está aqui! Portfolio pessoal construído com Vue 3, TypeScript e SCSS. 5 versões de design distintas em uma só aplicação.',
-      'en-US': "You're here! Personal portfolio built with Vue 3, TypeScript and SCSS. 5 distinct design versions in a single application."
+      'pt-BR':
+        'Pipelines em Python para extração, tratamento e carga de dados de múltiplas fontes internas. Implantação e configuração do Metabase como BI self-service para gestores, com dashboards conectados ao Power BI para consolidação de indicadores.',
+      'en-US':
+        'Python pipelines for extracting, transforming, and loading data from multiple internal sources. Metabase deployment as a self-service BI tool for managers, with dashboards connected to Power BI for KPI consolidation.',
     },
-    technologies: ['Vue 3', 'TypeScript', 'SCSS', 'Vite'],
-    repoUrl: 'https://github.com/joaovsr',
-    siteUrl: 'https://joaovsr.is-a.dev',
-    status: 'public'
-  }
+    technologies: ['Python', 'Pandas', 'Metabase', 'Power BI', 'SQL'],
+    status: 'private',
+  },
 ]
