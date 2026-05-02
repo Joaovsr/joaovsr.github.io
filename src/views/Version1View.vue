@@ -8,7 +8,7 @@
     <!-- Fixed Left Nav -->
     <nav class="v1-nav">
       <div class="v1-nav__logo" @mouseenter="glitchActive = true" @mouseleave="glitchActive = false">
-        <span class="v1-nav__logo-text" :class="{ glitch: glitchActive }" data-text="JVR">JVR</span>
+        <span class="v1-nav__logo-text" :class="{ glitch: glitchActive }" data-text="JVSR">JVSR</span>
       </div>
       <ul class="v1-nav__items">
         <li v-for="(section, idx) in sections" :key="section.id">
@@ -236,7 +236,7 @@ const sections = [
   { id: 'contact' }
 ]
 
-const heroStack = ['React', 'NestJS', 'Flutter', 'Python', 'TypeScript']
+const heroStack = ['LLMS', 'RAG', 'Agents', 'Python', 'TypeScript', 'Cloud', 'Devops']
 
 const currentSection = ref(-1)
 const glitchActive = ref(false)

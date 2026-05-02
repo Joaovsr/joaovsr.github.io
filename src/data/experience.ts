@@ -5,71 +5,38 @@ export const experiences: IExperience[] = [
     id: 1,
     company: 'Fictor Alimentos',
     role: {
-      'pt-BR': 'Desenvolvedor Full Stack',
-      'en-US': 'Full Stack Developer'
+      'pt-BR': 'Desenvolvedor Full Stack | IA Engineer',
+      'en-US': 'Full Stack Developer | AI Engineer'
     },
     description: {
       'pt-BR':
-        'Atuação na evolução de um super-app interno utilizado em operações e logística. Desenvolvimento full stack com Flutter e NestJS, construindo soluções modulares focadas em escalabilidade e manutenção a longo prazo. Desenvolvimento de integrações com sistemas internos, automações de processos e uso do Kubernetes no ciclo de entrega e deploy em ambientes de nuvem. Exploração de recursos de IA generativa em ferramentas internas.',
+        'Desenvolvi aplicações web e mobile integradas com IA utilizadas em múltiplas empresas do grupo. Plataforma completa de RH com scoring semântico de currículos via RAG + Azure OpenAI + pgvector, avaliação de fit técnico e integração com Totvs/RM. Super-app corporativo em Flutter, React e Node.js com reserva de veículos com validação por IA, hospedagem, notificações em tempo real, dashboards de BI e autenticação via Azure AD com RBAC por módulo. Fictor360 AI: consulta de indicadores corporativos em linguagem natural via LLM + MCP PowerBI. Infraestrutura com Docker, Kubernetes e pipelines CI/CD via Azure DevOps + GitFlow.',
       'en-US':
-        'Working on the evolution of an internal super-app used in operations and logistics. Full stack development with Flutter and NestJS, building modular solutions focused on scalability and long-term maintainability. Development of integrations with internal systems, process automation, and use of Kubernetes in the delivery cycle and deployment in cloud environments. Exploration of generative AI features in internal tools.'
+        'Developed web and mobile applications integrated with AI, used across multiple companies in the group. Complete HR platform with semantic resume scoring via RAG + Azure OpenAI + pgvector, role fit evaluation, and Totvs/RM integration. Corporate super-app built in Flutter, React, and Node.js with AI-validated vehicle reservation, hosting, real-time notifications, BI dashboards, and Azure AD authentication with RBAC per module. Fictor360 AI: corporate indicator queries in natural language via LLM + MCP PowerBI. Infrastructure with Docker, Kubernetes, and CI/CD pipelines via Azure DevOps + GitFlow.'
     },
-    startDate: '2025-09',
-    skills: ['Flutter', 'NestJS', 'TypeScript', 'Kubernetes', 'Docker', 'IA Generativa', 'REST APIs']
+    startDate: '2025-03',
+    finishDate: '2026-04',
+    skills: ['Flutter', 'React', 'Node.js', 'TypeScript', 'RAG', 'Azure OpenAI', 'pgvector', 'LLM', 'Docker', 'Kubernetes', 'CI/CD', 'Azure AD']
   },
   {
     id: 2,
-    company: 'Fictor Alimentos',
+    company: 'Atalaia Alimentos',
     role: {
-      'pt-BR': 'Analista de T.I.',
-      'en-US': 'IT Analyst'
+      'pt-BR': 'Analista de Desenvolvimento de Sistemas | Analista de Dados',
+      'en-US': 'Systems Developer | Data Analyst'
     },
     description: {
       'pt-BR':
-        'Desenvolvimento de pipelines de dados em Python, incluindo raspagem, tratamento e estruturação de informações para uso analítico. Implantação do Metabase como ferramenta de BI interna, criando dashboards e visuais para suporte à tomada de decisão. Integração das bases tratadas para consumo em Power BI e evolução de automações e fluxos orientados a dados.',
+        'Desenvolvi e implantei soluções tecnológicas com Python, automatizando operações, estruturando pipelines de dados e criando sistemas internos para suporte às áreas de negócio. Desenvolvimento de agente de cobrança de clientes inadimplentes, pipelines de dados e ETL com Pandas, análise e visualização de dados com Pandas e Seaborn, implantação do Metabase com 10+ dashboards automatizados para suporte à decisão, desenvolvimento do site institucional e plataforma de intranet em Django. Suporte técnico e funcional ao ERP Agrosys, análise de bugs e gestão de acessos.',
       'en-US':
-        'Development of data pipelines in Python, including scraping, processing and structuring information for analytical use. Implementation of Metabase as an internal BI tool, creating dashboards and visualizations to support decision-making. Integration of processed data for consumption in Power BI and evolution of data-driven automations and workflows.'
+        'Developed and deployed technology solutions with Python, automating operations, structuring data pipelines, and building internal systems to support business areas. Built a client debt collection agent, data pipelines and ETL with Pandas, data analysis and visualization with Pandas and Seaborn, deployed Metabase with 10+ automated dashboards for decision support, and developed the institutional website and intranet platform using Django. Technical and functional support for Agrosys ERP, bug analysis, and access management.'
     },
-    startDate: '2025-03',
-    finishDate: '2025-08',
-    skills: ['Python', 'ETL', 'Metabase', 'Power BI', 'Data Pipelines', 'Web Scraping']
+    startDate: '2022-09',
+    finishDate: '2025-03',
+    skills: ['Python', 'RPA', 'Selenium', 'Pandas', 'ETL', 'Metabase', 'Power BI', 'Django', 'SQL', 'LLMs']
   },
   {
     id: 3,
-    company: 'Atalaia Alimentos',
-    role: {
-      'pt-BR': 'Analista de T.I.',
-      'en-US': 'IT Analyst'
-    },
-    description: {
-      'pt-BR':
-        'Liderança Técnica de Nível 2: ponto de escalonamento para chamados complexos, com foco em análise de sistemas e melhoria contínua de processos. Projeto e implementação de robôs em Python para extração de dados de ERP legado sem acesso via API ou banco de dados, otimizando processos manuais críticos da operação.',
-      'en-US':
-        'Level 2 Technical Leadership: escalation point for complex tickets, focusing on systems analysis and continuous process improvement. Design and implementation of Python robots for data extraction from legacy ERP without API or database access, optimizing critical manual operational processes.'
-    },
-    startDate: '2024-01',
-    finishDate: '2025-03',
-    skills: ['Python', 'RPA', 'Web Scraping', 'Automação', 'Análise de Sistemas']
-  },
-  {
-    id: 4,
-    company: 'Atalaia Alimentos',
-    role: {
-      'pt-BR': 'Técnico de T.I.',
-      'en-US': 'IT Technician'
-    },
-    description: {
-      'pt-BR':
-        'Suporte técnico e funcional ao ERP Agrosys, análise de bugs e gestão de acessos. Gerenciamento de usuários e permissões via Active Directory com GPOs. Iniciou a transição para cultura de automação implementando os primeiros scripts Python para tarefas repetitivas de infraestrutura.',
-      'en-US':
-        'Technical and functional support for the Agrosys ERP, bug analysis and access management. User and permissions management via Active Directory with GPOs. Initiated the transition to an automation culture by implementing the first Python scripts for repetitive infrastructure tasks.'
-    },
-    startDate: '2022-09',
-    finishDate: '2024-01',
-    skills: ['Python', 'Active Directory', 'ERP', 'Redes', 'Suporte Técnico', 'Bash']
-  },
-  {
-    id: 5,
     company: 'INSS',
     role: {
       'pt-BR': 'Estagiário de T.I.',
@@ -77,9 +44,9 @@ export const experiences: IExperience[] = [
     },
     description: {
       'pt-BR':
-        'Suporte técnico ao usuário e manutenção preventiva de hardware e infraestrutura de redes.',
+        'Responsável pela manutenção de equipamentos de informática, suporte técnico ao usuário com foco em hardware, software e rede, além de recuperação de sistemas com formatação e reinstalação de sistemas operacionais, melhorando o desempenho das máquinas.',
       'en-US':
-        'Technical user support and preventive maintenance of hardware and network infrastructure.'
+        'Responsible for computer equipment maintenance, technical user support focused on hardware, software, and networking, as well as system recovery through OS formatting and reinstallation, improving machine performance.'
     },
     startDate: '2019-08',
     finishDate: '2020-05',

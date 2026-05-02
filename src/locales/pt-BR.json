@@ -3,12 +3,12 @@
   "lang_toggle": "EN",
   "name": "João Vinicius Rodrigues",
   "name_short": "João Vinicius",
-  "role": "Desenvolvedor Full Stack",
+  "role": "Software Engineer",
   "role_sub": "Dados & IA",
   "location": "Barbacena, MG — Brasil",
   "available_remote": "Disponível para remoto internacional",
   "download_cv": "Baixar CV",
-  "tagline": "Construindo sistemas que funcionam de ponta a ponta — da infraestrutura ao produto.",
+  "tagline": "Construindo sistemas com IA embarcada que funcionam de ponta a ponta — da infraestrutura ao produto.",
 
   "nav": {
     "about": "Sobre",
@@ -20,8 +20,8 @@
 
   "about": {
     "title": "Sobre Mim",
-    "text": "Desenvolvedor Full Stack com experiência na construção de sistemas reais para web e mobile, atuando de ponta a ponta em aplicações produtivas. Minha trajetória passa por infraestrutura, automação e dados — o que me dá uma visão ampla de como sistemas funcionam na prática.",
-    "text2": "Atuo com foco em soluções pragmáticas, integração entre sistemas e desenvolvimento de aplicações escaláveis e de fácil manutenção. Atualmente aprofundando conhecimentos em sistemas orientados a dados, IA generativa e arquitetura moderna.",
+    "text": "Software Engineer com 4 anos de experiência em desenvolvimento full stack, atuando na construção de aplicações escaláveis e APIs robustas. Domínio de TypeScript e Python, com foco em backend utilizando FastAPI e Node.js, além de frontend com React. Experiência na construção e consumo de APIs REST, integração com sistemas e modelagem de dados em bancos relacionais e não relacionais, incluindo uso de bancos vetoriais para busca semântica.",
+    "text2": "Experiência com SQL, Python e ferramentas de BI (Power BI, Metabase) na análise de indicadores operacionais e financeiros. Atuação com arquiteturas orientadas a eventos, Clean Architecture, SOLID, testes automatizados, CI/CD e cloud (AWS e Azure). Desenvolvo soluções com IA generativa (LLMs, RAG, LangChain), incluindo prompt engineering, pipelines de IA e interfaces conversacionais integradas a sistemas reais de negócio.",
     "differentials": ["Curiosidade e aprendizado contínuo", "Adaptabilidade", "Visão de ponta a ponta"],
     "open_to": "Aberto a oportunidades remotas",
     "languages_title": "Idiomas",

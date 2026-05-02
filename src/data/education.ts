@@ -10,7 +10,6 @@ export const education: IEducation[] = [
     },
     startDate: '2024',
     finishDate: '2026',
-    ongoing: true
   },
   {
     id: 2,
@@ -39,8 +38,39 @@ export const certifications: ICertification[] = [
   },
   {
     id: 3,
-    title: 'AI Engineer Roadmap — Azure AI-900 & AI-102',
-    issuer: 'Microsoft Azure',
-    status: 'in-progress'
-  }
+    title: 'TensorFlow Developer Professional Certificate',
+    issuer: 'DeepLearning.AI',
+    status: 'completed'
+  },
+  {
+    id: 4,
+    title: 'Neural Networks and Deep Learning',
+    issuer: 'DeepLearning.AI',
+    status: 'completed'
+  },
+  {
+    id: 5,
+    title: 'Agentic AI',
+    issuer: 'DeepLearning.AI',
+    status: 'completed'
+  },
+  {
+    id: 6,
+    title: 'A2A: The Agent2Agent Protocol',
+    issuer: 'DeepLearning.AI',
+    status: 'completed'
+  },
+  {
+    id: 7,
+    title: 'Retrieval Augmented Generation (RAG)',
+    issuer: 'DeepLearning.AI',
+    status: 'completed'
+  },
+  {
+    id: 8,
+    title: 'Hackers do Bem - Formação em Cibersegurança',
+    issuer: 'RNP',
+    status: 'completed'
+  },
+
 ]

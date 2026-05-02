@@ -3,7 +3,7 @@
   "lang_toggle": "PT",
   "name": "João Vinicius Rodrigues",
   "name_short": "João Vinicius",
-  "role": "Full Stack Developer",
+  "role": "Software Engineer",
   "role_sub": "Data & AI",
   "location": "Barbacena, MG — Brazil",
   "available_remote": "Available for international remote",
@@ -20,8 +20,8 @@
 
   "about": {
     "title": "About Me",
-    "text": "Full Stack Developer with experience building real-world systems for web and mobile, working end-to-end in production applications. My background spans infrastructure, automation, and data — giving me a broad view of how systems work in practice.",
-    "text2": "I focus on pragmatic solutions, system integration, and building scalable, maintainable applications. Currently deepening my knowledge in data-oriented systems, generative AI, and modern architecture.",
+    "text": "Software Engineer with 4 years of experience in full stack development, building scalable applications and robust APIs. Proficient in TypeScript and Python, with a backend focus using FastAPI and Node.js, as well as React on the frontend. Experience building and consuming REST APIs, system integration, and data modeling in relational and non-relational databases, including vector databases for semantic search.",
+    "text2": "Experience with SQL, Python, and BI tools (Power BI, Metabase) for operational and financial indicator analysis. Hands-on with event-driven architectures, Clean Architecture, SOLID, automated testing, CI/CD, and cloud (AWS and Azure). Also develops generative AI solutions (LLMs, RAG, LangChain), including prompt engineering, AI pipelines, and conversational interfaces integrated into real business systems.",
     "differentials": ["Curiosity and continuous learning", "Adaptability", "End-to-end vision"],
     "open_to": "Open to remote opportunities",
     "languages_title": "Languages",
