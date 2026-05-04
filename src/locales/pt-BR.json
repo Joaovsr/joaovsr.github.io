@@ -27,7 +27,7 @@
     "languages_title": "Idiomas",
     "languages": [
       { "name": "Português", "level": "Nativo" },
-      { "name": "Inglês", "level": "Intermediário" }
+      { "name": "Inglês", "level": "Avançado" }
     ]
   },
 
@@ -72,5 +72,38 @@
     "github_label": "Ver GitHub",
     "linkedin_label": "Ver LinkedIn",
     "footer": "Desenvolvido com Vue 3, TypeScript e SCSS"
+  },
+
+  "v2": {
+    "status_online": "online · disponível",
+    "hero": {
+      "tag": "ENGINEERING · AI · INFRASTRUCTURE",
+      "embed_label": "vetor de embedding · representação semântica",
+      "ask_cta": "Pergunte ao meu portfólio",
+      "metric_years": "anos de exp",
+      "metric_projects": "projetos",
+      "metric_certs": "certificações"
+    },
+    "ask": {
+      "title": "Pergunte ao meu portfólio",
+      "sub": "Demo conceitual de RAG. Sua pergunta é convertida em embedding, busca chunks similares no meu vetor de experiência e o LLM responde com base no contexto.",
+      "retrieved": "Contexto recuperado",
+      "chunks": "chunks",
+      "q1": "Como você usa LLMs em produção?",
+      "q1_chunk1": "Plataforma de RH com scoring semântico de currículos via RAG + Azure OpenAI + pgvector.",
+      "q1_chunk2": "Avaliação de fit técnico, integração com Totvs/RM e portal do candidato.",
+      "q1_answer": "Em produção uso LLMs principalmente em três frentes: (1) RAG para scoring semântico de currículos na plataforma de RH — embeddings via Azure OpenAI armazenados em pgvector, busca por similaridade na vaga + reranking; (2) agente conversacional Fictor360 AI que traduz perguntas em linguagem natural para queries DAX no Power BI via MCP, orquestrado com LangGraph e streaming WebSocket; (3) validação de regras de negócio em fluxos de aprovação no super-app. Sempre com observabilidade, fallbacks e testes determinísticos para os trechos críticos.",
+      "q2": "Como funciona o Fictor360 AI?",
+      "q2_chunk1": "Agente conversacional que transforma perguntas em DAX e consulta modelos semânticos do Power BI em tempo real.",
+      "q2_chunk2": "LangGraph + Azure OpenAI + Power BI MCP, streaming WebSocket.",
+      "q2_answer": "Fictor360 AI é um agente que conversa com Power BI. Pipeline: usuário pergunta em linguagem natural → o agente carrega o perfil completo do modelo semântico (tabelas, medidas, relacionamentos) como contexto → LangGraph orquestra: gera DAX, valida via MCP, executa, interpreta resultado → resposta volta por WebSocket em streaming. O perfil do modelo guia o raciocínio do LLM e reduz drasticamente alucinação em nomes de medidas. Stack: NestJS, LangGraph, Azure OpenAI, Power BI MCP server, DAX.",
+      "q3": "Qual é sua experiência com dados?",
+      "q3_chunk1": "Pipelines em Python, ETL com Pandas, dashboards no Metabase e Power BI.",
+      "q3_chunk2": "RPA com Selenium para extração de ERP legado sem API.",
+      "q3_answer": "Comecei na Atalaia transformando processos manuais em automação: RPA em Python + Selenium para raspar ERP legado sem API (~70% redução no tempo de coleta), pipelines ETL com Pandas, implantação do Metabase com 10+ dashboards. Na Fictor evoluí para integração com Power BI via REST/MCP, modelagem semântica e BI embedded com RLS por Azure AD. SQL é meu canivete suíço — desde queries de produção a análise exploratória."
+    },
+    "skills": {
+      "sub": "Hover nos nós para ver as conexões. As habilidades estão organizadas por domínio."
+    }
   }
 }
