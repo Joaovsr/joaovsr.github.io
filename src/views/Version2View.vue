@@ -202,32 +202,21 @@
         </div>
       </section>
 
-      <!-- EXPERIENCE -->
-      <section id="experience" class="v2-section v2-exp">
+      <!-- PROJECTS -->
+      <section id="projects" class="v2-section v2-projects">
         <div class="v2-section__head">
           <span class="v2-section__num">// 03</span>
-          <h2 class="v2-section__title">{{ t('experience.title') }}</h2>
+          <h2 class="v2-section__title">{{ t('projects.title') }}</h2>
         </div>
-        <div class="v2-exp__list">
-          <article v-for="(exp, idx) in experiences" :key="exp.id" class="v2-exp-item">
-            <div class="v2-exp-item__rail">
-              <div class="v2-exp-item__node">
-                <div class="v2-exp-item__node-inner"></div>
-              </div>
-              <div v-if="idx < experiences.length - 1" class="v2-exp-item__line"></div>
-            </div>
-            <div class="v2-exp-item__body">
-              <header class="v2-exp-item__head">
-                <div>
-                  <div class="v2-exp-item__period">{{ formatDate(exp.startDate) }} → {{ exp.finishDate ? formatDate(exp.finishDate) : t('experience.present') }}</div>
-                  <h3 class="v2-exp-item__role">{{ exp.role }}</h3>
-                  <p class="v2-exp-item__company">@ {{ exp.company }}</p>
-                </div>
-              </header>
-              <p class="v2-exp-item__desc">{{ exp.description }}</p>
-              <div class="v2-exp-item__skills">
-                <span v-for="s in exp.skills" :key="s" class="v2-chip">{{ s }}</span>
-              </div>
+        <div class="v2-projects__grid">
+          <article v-for="proj in projects" :key="proj.id" class="v2-proj">
+            <header class="v2-proj__head">
+              <h3 class="v2-proj__title">{{ proj.title }}</h3>
+              <span v-if="proj.status === 'private'" class="v2-proj__badge">{{ t('projects.private_label') }}</span>
+            </header>
+            <p class="v2-proj__desc">{{ proj.description }}</p>
+            <div class="v2-proj__tech">
+              <span v-for="t in proj.technologies" :key="t" class="v2-chip v2-chip--sm">{{ t }}</span>
             </div>
           </article>
         </div>
@@ -284,21 +273,32 @@
         </div>
       </section>
 
-      <!-- PROJECTS -->
-      <section id="projects" class="v2-section v2-projects">
+      <!-- EXPERIENCE -->
+      <section id="experience" class="v2-section v2-exp">
         <div class="v2-section__head">
           <span class="v2-section__num">// 05</span>
-          <h2 class="v2-section__title">{{ t('projects.title') }}</h2>
+          <h2 class="v2-section__title">{{ t('experience.title') }}</h2>
         </div>
-        <div class="v2-projects__grid">
-          <article v-for="proj in projects" :key="proj.id" class="v2-proj">
-            <header class="v2-proj__head">
-              <h3 class="v2-proj__title">{{ proj.title }}</h3>
-              <span v-if="proj.status === 'private'" class="v2-proj__badge">{{ t('projects.private_label') }}</span>
-            </header>
-            <p class="v2-proj__desc">{{ proj.description }}</p>
-            <div class="v2-proj__tech">
-              <span v-for="t in proj.technologies" :key="t" class="v2-chip v2-chip--sm">{{ t }}</span>
+        <div class="v2-exp__list">
+          <article v-for="(exp, idx) in experiences" :key="exp.id" class="v2-exp-item">
+            <div class="v2-exp-item__rail">
+              <div class="v2-exp-item__node">
+                <div class="v2-exp-item__node-inner"></div>
+              </div>
+              <div v-if="idx < experiences.length - 1" class="v2-exp-item__line"></div>
+            </div>
+            <div class="v2-exp-item__body">
+              <header class="v2-exp-item__head">
+                <div>
+                  <div class="v2-exp-item__period">{{ formatDate(exp.startDate) }} → {{ exp.finishDate ? formatDate(exp.finishDate) : t('experience.present') }}</div>
+                  <h3 class="v2-exp-item__role">{{ exp.role }}</h3>
+                  <p class="v2-exp-item__company">@ {{ exp.company }}</p>
+                </div>
+              </header>
+              <p class="v2-exp-item__desc">{{ exp.description }}</p>
+              <div class="v2-exp-item__skills">
+                <span v-for="s in exp.skills" :key="s" class="v2-chip">{{ s }}</span>
+              </div>
             </div>
           </article>
         </div>
@@ -368,9 +368,9 @@ const { downloadCv } = useCvPdf()
 
 const sections = [
   { id: 'about' },
-  { id: 'experience' },
-  { id: 'skills' },
   { id: 'projects' },
+  { id: 'skills' },
+  { id: 'experience' },
   { id: 'contact' }
 ]
 
