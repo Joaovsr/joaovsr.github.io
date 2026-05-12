@@ -89,6 +89,13 @@
       "sub": "Demo conceitual de RAG. Sua pergunta é convertida em embedding, busca chunks similares no meu vetor de experiência e o LLM responde com base no contexto.",
       "retrieved": "Contexto recuperado",
       "chunks": "chunks",
+      "pipeline": {
+        "query": "query",
+        "embed": "embed",
+        "vector": "vector db",
+        "llm": "LLM",
+        "answer": "answer"
+      },
       "q1": "Como você usa LLMs em produção?",
       "q1_chunk1": "Plataforma de RH com scoring semântico de currículos via RAG + Azure OpenAI + pgvector.",
       "q1_chunk2": "Avaliação de fit técnico, integração com Totvs/RM e portal do candidato.",

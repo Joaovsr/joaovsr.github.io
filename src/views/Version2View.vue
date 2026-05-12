@@ -20,8 +20,8 @@
           </svg>
         </div>
         <div class="v2-top__title">
-          <span class="v2-top__name">João Vinicius</span>
-          <span class="v2-top__sys">// neural-lab</span>
+          <span class="v2-top__name">{{ profile.nameShort }}</span>
+          <span class="v2-top__sys">{{ profile.brand }}</span>
         </div>
       </div>
 
@@ -48,8 +48,8 @@
             <span class="v2-tag__dot"></span> {{ t('v2.hero.tag') }}
           </div>
           <h1 class="v2-hero__name">
-            <span class="v2-hero__name-line">João</span>
-            <span class="v2-hero__name-line v2-hero__name-line--accent">Vinicius<span class="v2-cursor">_</span></span>
+            <span class="v2-hero__name-line">{{ firstName }}</span>
+            <span class="v2-hero__name-line v2-hero__name-line--accent">{{ lastName }}<span class="v2-cursor">_</span></span>
           </h1>
           <p class="v2-hero__role">
             {{ t('role') }} <span class="v2-divider">·</span> <span class="v2-accent">{{ t('role_sub') }}</span>
@@ -83,7 +83,7 @@
             <span v-for="(p, i) in orbParticles" :key="i" class="v2-orb__particle" :style="p" />
           </div>
           <div class="v2-hero__metrics">
-            <div class="v2-metric"><span class="v2-metric__num">4</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_years') }}</span></div>
+            <div class="v2-metric"><span class="v2-metric__num">{{ yearsOfExperience }}</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_years') }}</span></div>
             <div class="v2-metric"><span class="v2-metric__num">{{ projects.length }}+</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_projects') }}</span></div>
             <div class="v2-metric"><span class="v2-metric__num">{{ certifications.length }}</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_certs') }}</span></div>
           </div>
@@ -107,10 +107,10 @@
             </ul>
           </div>
           <aside class="v2-about__side">
-            <img src="/avatar.jpg" alt="João Vinicius" class="v2-about__avatar" />
+            <img :src="profile.avatar" :alt="profile.nameShort" class="v2-about__avatar" />
             <div class="v2-about__meta">
               <div class="v2-about__row"><span class="v2-about__key">location</span><span class="v2-about__val">{{ t('location') }}</span></div>
-              <div class="v2-about__row"><span class="v2-about__key">email</span><span class="v2-about__val v2-accent">joaovinicius2525@gmail.com</span></div>
+              <div class="v2-about__row"><span class="v2-about__key">email</span><span class="v2-about__val v2-accent">{{ profile.email }}</span></div>
               <div class="v2-about__row"><span class="v2-about__key">status</span><span class="v2-about__val"><span class="v2-pulse"></span> {{ t('about.open_to') }}</span></div>
             </div>
             <div class="v2-about__langs">
@@ -135,30 +135,17 @@
         <div class="v2-ask__panel">
           <!-- Pipeline visualization -->
           <div class="v2-pipeline">
-            <div class="v2-pipe-node" :class="{ active: pipeStep >= 1 }">
-              <div class="v2-pipe-node__icon">?</div>
-              <div class="v2-pipe-node__label">query</div>
-            </div>
-            <div class="v2-pipe-arrow" :class="{ active: pipeStep >= 1 }"></div>
-            <div class="v2-pipe-node" :class="{ active: pipeStep >= 2 }">
-              <div class="v2-pipe-node__icon">⟁</div>
-              <div class="v2-pipe-node__label">embed</div>
-            </div>
-            <div class="v2-pipe-arrow" :class="{ active: pipeStep >= 2 }"></div>
-            <div class="v2-pipe-node" :class="{ active: pipeStep >= 3 }">
-              <div class="v2-pipe-node__icon">▦</div>
-              <div class="v2-pipe-node__label">vector db</div>
-            </div>
-            <div class="v2-pipe-arrow" :class="{ active: pipeStep >= 3 }"></div>
-            <div class="v2-pipe-node" :class="{ active: pipeStep >= 4 }">
-              <div class="v2-pipe-node__icon">✦</div>
-              <div class="v2-pipe-node__label">LLM</div>
-            </div>
-            <div class="v2-pipe-arrow" :class="{ active: pipeStep >= 4 }"></div>
-            <div class="v2-pipe-node" :class="{ active: pipeStep >= 5 }">
-              <div class="v2-pipe-node__icon">↩</div>
-              <div class="v2-pipe-node__label">answer</div>
-            </div>
+            <template v-for="(node, idx) in ragPipeline" :key="node.id">
+              <div class="v2-pipe-node" :class="{ active: pipeStep >= idx + 1 }">
+                <div class="v2-pipe-node__icon">{{ node.icon }}</div>
+                <div class="v2-pipe-node__label">{{ node.label }}</div>
+              </div>
+              <div
+                v-if="idx < ragPipeline.length - 1"
+                class="v2-pipe-arrow"
+                :class="{ active: pipeStep >= idx + 1 }"
+              ></div>
+            </template>
           </div>
 
           <!-- Question chips -->
@@ -340,15 +327,15 @@
           <h2 class="v2-section__title">{{ t('contact.title') }}</h2>
         </div>
         <p class="v2-contact__sub">{{ t('contact.subtitle') }}</p>
-        <a href="mailto:joaovinicius2525@gmail.com" class="v2-contact__email">joaovinicius2525@gmail.com</a>
+        <a :href="`mailto:${profile.email}`" class="v2-contact__email">{{ profile.email }}</a>
         <div class="v2-contact__row">
-          <a href="https://github.com/joaovsr" target="_blank" rel="noopener noreferrer" class="v2-contact__btn"><GithubIcon /> GitHub</a>
-          <a href="https://www.linkedin.com/in/joão-vinicius-rodrigues-17b35a202/" target="_blank" rel="noopener noreferrer" class="v2-contact__btn"><LinkedinIcon /> LinkedIn</a>
+          <a :href="profile.social.github" target="_blank" rel="noopener noreferrer" class="v2-contact__btn"><GithubIcon /> GitHub</a>
+          <a :href="profile.social.linkedin" target="_blank" rel="noopener noreferrer" class="v2-contact__btn"><LinkedinIcon /> LinkedIn</a>
           <button type="button" @click="downloadCv" class="v2-contact__btn">↓ {{ t('download_cv') }}</button>
         </div>
         <footer class="v2-footer">
-          <span>{{ t('contact.footer') }} · neural-lab</span>
-          <span class="v2-footer__sig">© {{ year }} João Vinicius</span>
+          <span>{{ t('contact.footer') }} · {{ profile.brand.replace(/^\/\/\s*/, '') }}</span>
+          <span class="v2-footer__sig">© {{ year }} {{ profile.nameShort }}</span>
         </footer>
       </section>
     </main>
@@ -363,8 +350,28 @@ import { toggleLocale } from '@/plugins/i18n'
 import GithubIcon from '@/components/icons/Github.vue'
 import LinkedinIcon from '@/components/icons/Linkedin.vue'
 
-const { t, currentLocale, experiences, groupedSkills, projects, education, certifications, differentials, languages, formatDate, categoryLabel } = usePortfolio()
+const {
+  t,
+  profile,
+  yearsOfExperience,
+  experiences,
+  groupedSkills,
+  projects,
+  education,
+  certifications,
+  differentials,
+  languages,
+  ragPipeline,
+  ragQuestions: askQuestions,
+  formatDate,
+  categoryLabel
+} = usePortfolio()
 const { downloadCv } = useCvPdf()
+
+const firstName = computed(() => profile.nameShort.split(' ')[0] ?? profile.nameShort)
+const lastName = computed(() =>
+  profile.nameShort.split(' ').slice(1).join(' ') || ''
+)
 
 const sections = [
   { id: 'about' },
@@ -509,42 +516,11 @@ function setupCanvas() {
 }
 
 // ─── RAG demo ──────────────────────────────────────────────────────
-interface AskItem {
-  q: string
-  chunks: { src: string; score: string; text: string }[]
-  answer: string
-}
-
-const askQuestions = computed<AskItem[]>(() => [
-  {
-    q: t('v2.ask.q1'),
-    chunks: [
-      { src: 'experience.json#fictor', score: '0.91', text: t('v2.ask.q1_chunk1') },
-      { src: 'projects.json#hr-platform', score: '0.86', text: t('v2.ask.q1_chunk2') }
-    ],
-    answer: t('v2.ask.q1_answer')
-  },
-  {
-    q: t('v2.ask.q2'),
-    chunks: [
-      { src: 'projects.json#fictor360-ai', score: '0.94', text: t('v2.ask.q2_chunk1') },
-      { src: 'skills.json#data-ai', score: '0.83', text: t('v2.ask.q2_chunk2') }
-    ],
-    answer: t('v2.ask.q2_answer')
-  },
-  {
-    q: t('v2.ask.q3'),
-    chunks: [
-      { src: 'experience.json#atalaia', score: '0.88', text: t('v2.ask.q3_chunk1') },
-      { src: 'skills.json#data', score: '0.79', text: t('v2.ask.q3_chunk2') }
-    ],
-    answer: t('v2.ask.q3_answer')
-  }
-])
+type AskChunk = { src: string; score: string; text: string }
 
 const askIndex = ref<number | null>(null)
 const askLoading = ref(false)
-const askChunks = ref<AskItem['chunks']>([])
+const askChunks = ref<AskChunk[]>([])
 const askAnswer = ref('')
 const pipeStep = ref(0)
 let typingTimer: ReturnType<typeof setTimeout> | null = null

@@ -5,6 +5,8 @@ import { experiences } from '@/data/experience'
 import { skills, skillCategories } from '@/data/skills'
 import { projects } from '@/data/projects'
 import { education, certifications } from '@/data/education'
+import { profile } from '@/data/profile'
+import { ragPipeline, ragQuestions } from '@/data/ragDemo'
 
 export function usePortfolio() {
   const { locale, t, tm } = useI18n()
@@ -58,9 +60,39 @@ export function usePortfolio() {
 
   const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
 
+  const yearsOfExperience = computed(() => {
+    const [year, month = '1'] = profile.careerStart.split('-')
+    const start = new Date(Number(year), Number(month) - 1)
+    const diffMs = Date.now() - start.getTime()
+    return Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25)))
+  })
+
+  const localizedRagQuestions = computed(() =>
+    ragQuestions.map(q => ({
+      id: q.id,
+      q: t(q.questionKey),
+      answer: t(q.answerKey),
+      chunks: q.chunks.map(c => ({
+        src: c.src,
+        score: c.score,
+        text: t(c.textKey)
+      }))
+    }))
+  )
+
+  const localizedRagPipeline = computed(() =>
+    ragPipeline.map(n => ({
+      id: n.id,
+      icon: n.icon,
+      label: t(n.labelKey)
+    }))
+  )
+
   return {
     t,
     currentLocale,
+    profile,
+    yearsOfExperience,
     experiences: localizedExperiences,
     groupedSkills,
     projects: localizedProjects,
@@ -68,6 +100,8 @@ export function usePortfolio() {
     certifications,
     differentials,
     languages,
+    ragPipeline: localizedRagPipeline,
+    ragQuestions: localizedRagQuestions,
     formatDate,
     categoryLabel,
     skillCategories

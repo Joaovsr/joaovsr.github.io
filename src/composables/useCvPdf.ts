@@ -95,7 +95,7 @@ function chips(c: Cursor, items: string[]) {
 }
 
 export function useCvPdf() {
-  const { t, currentLocale, experiences, groupedSkills, education, certifications, languages, formatDate, categoryLabel } = usePortfolio()
+  const { t, currentLocale, profile, experiences, groupedSkills, education, certifications, languages, formatDate, categoryLabel } = usePortfolio()
 
   async function downloadCv() {
     const { default: JsPdfCtor } = await import('jspdf')
@@ -105,7 +105,7 @@ export function useCvPdf() {
     // ─── Header ───────────────────────────────────────────────────────
     setFont(doc, 22, 'bold')
     setColor(doc, TEXT)
-    doc.text('JOÃO VINICIUS RODRIGUES', MARGIN, c.y + 6)
+    doc.text(profile.name.toUpperCase(), MARGIN, c.y + 6)
     c.y += 11
 
     setFont(doc, 11, 'normal')
@@ -115,8 +115,10 @@ export function useCvPdf() {
 
     setFont(doc, 8.5, 'normal')
     setColor(doc, MUTED)
-    const contactLine1 = `${t('location')}  ·  joaovinicius2525@gmail.com`
-    const contactLine2 = 'github.com/joaovsr  ·  linkedin.com/in/joão-vinicius-rodrigues-17b35a202'
+    const githubLabel = profile.social.github.replace(/^https?:\/\//, '')
+    const linkedinLabel = profile.social.linkedin.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    const contactLine1 = `${t('location')}  ·  ${profile.email}`
+    const contactLine2 = `${githubLabel}  ·  ${linkedinLabel}`
     doc.text(contactLine1, MARGIN, c.y)
     c.y += 4
     doc.text(contactLine2, MARGIN, c.y)
@@ -204,7 +206,7 @@ export function useCvPdf() {
 
     // ─── Certifications ────────────────────────────────────────────────
     sectionTitle(c, t('education.certifications_title'))
-    for (const cert of certifications.value) {
+    for (const cert of certifications) {
       ensurePage(c, 5)
       setFont(doc, 9, 'bold')
       setColor(doc, TEXT)
@@ -224,7 +226,7 @@ export function useCvPdf() {
     }
 
     // ─── Footer ────────────────────────────────────────────────────────
-    const totalPages = (doc.internal as { getNumberOfPages: () => number }).getNumberOfPages()
+    const totalPages = doc.getNumberOfPages()
     for (let i = 1; i <= totalPages; i++) {
       doc.setPage(i)
       setFont(doc, 7.5, 'normal')
@@ -233,7 +235,8 @@ export function useCvPdf() {
       doc.text(footerText, PAGE_W / 2, PAGE_H - 8, { align: 'center' })
     }
 
-    const filename = `Joao-Vinicius-Rodrigues-CV-${currentLocale.value === 'pt-BR' ? 'PT' : 'EN'}.pdf`
+    const slug = profile.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-')
+    const filename = `${slug}-CV-${currentLocale.value === 'pt-BR' ? 'PT' : 'EN'}.pdf`
     doc.save(filename)
   }
 
