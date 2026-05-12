@@ -14,52 +14,46 @@ import GitLogo from '@/components/icons/skills/GitLogo.vue'
 import LinuxLogo from '@/components/icons/skills/LinuxLogo.vue'
 
 export const skills: ISkill[] = [
-  // Frontend
-  { id: 1, name: 'React', category: 'frontend', icon: ReactLogo },
-  { id: 2, name: 'TypeScript', category: 'frontend', icon: TypescriptLogo },
-  { id: 3, name: 'JavaScript', category: 'frontend', icon: JavascriptLogo },
+  // AI & Data (priority 1)
+  { id: 1, name: 'IA Generativa', category: 'data-ai' },
+  { id: 2, name: 'RAG', category: 'data-ai' },
+  { id: 3, name: 'LangChain', category: 'data-ai' },
+  { id: 4, name: 'LangGraph', category: 'data-ai' },
+  { id: 5, name: 'Tool Calling', category: 'data-ai' },
+  { id: 6, name: 'Engenharia de Prompt', category: 'data-ai' },
+  { id: 7, name: 'pgvector', category: 'data-ai' },
+  { id: 8, name: 'Azure OpenAI', category: 'data-ai' },
+  { id: 9, name: 'Pandas', category: 'data-ai' },
+  { id: 10, name: 'ETL / Data Pipelines', category: 'data-ai' },
+  { id: 11, name: 'Power BI', category: 'data-ai' },
+  { id: 12, name: 'Metabase', category: 'data-ai' },
+  { id: 13, name: 'SQL', category: 'data-ai' },
+  { id: 14, name: 'RPA com Python', category: 'data-ai' },
 
-  // Backend
-  { id: 4, name: 'Node.js', category: 'backend', icon: NodeLogo },
-  { id: 5, name: 'NestJS', category: 'backend', icon: NestjsLogo },
-  { id: 6, name: 'Python', category: 'backend', icon: PythonLogo },
-  { id: 7, name: 'Java', category: 'backend', icon: JavaLogo },
-  { id: 8, name: 'SQL', category: 'backend' },
-  { id: 9, name: 'PHP', category: 'backend' },
-  { id: 10, name: 'APIs REST', category: 'backend' },
-  { id: 11, name: 'Clean Code', category: 'backend' },
-  { id: 12, name: 'Design Patterns', category: 'backend' },
-  { id: 13, name: 'Arquitetura Modular', category: 'backend' },
-  { id: 14, name: 'POO', category: 'backend' },
-
-  // Mobile
-  { id: 15, name: 'Flutter', category: 'mobile', icon: FlutterLogo },
-  { id: 16, name: 'Dart', category: 'mobile', icon: DartLogo },
-
-  // Data & AI
-  { id: 17, name: 'ETL / Data Pipelines', category: 'data-ai' },
-  { id: 18, name: 'RPA com Python', category: 'data-ai' },
-  { id: 19, name: 'Pandas', category: 'data-ai' },
-  { id: 20, name: 'Metabase', category: 'data-ai' },
-  { id: 21, name: 'Power BI', category: 'data-ai' },
-  { id: 22, name: 'Excel', category: 'data-ai' },
-  { id: 23, name: 'IA Generativa', category: 'data-ai' },
-  { id: 24, name: 'LangChain', category: 'data-ai' },
-  { id: 25, name: 'Engenharia de Prompt', category: 'data-ai' },
-  { id: 26, name: 'RAG', category: 'data-ai' },
-  { id: 27, name: 'Tool Calling', category: 'data-ai' },
+  // Backend (priority 2)
+  { id: 15, name: 'Node.js', category: 'backend', icon: NodeLogo },
+  { id: 16, name: 'NestJS', category: 'backend', icon: NestjsLogo },
+  { id: 17, name: 'Python', category: 'backend', icon: PythonLogo },
+  { id: 18, name: 'TypeScript', category: 'backend', icon: TypescriptLogo },
+  { id: 19, name: 'APIs REST', category: 'backend' },
+  { id: 20, name: 'Arquitetura Modular', category: 'backend' },
+  { id: 21, name: 'Clean Code', category: 'backend' },
+  { id: 22, name: 'Design Patterns', category: 'backend' },
+  { id: 23, name: 'POO', category: 'backend' },
+  { id: 24, name: 'Java', category: 'backend', icon: JavaLogo },
+  { id: 25, name: 'PHP', category: 'backend' },
 
   // DevOps
-  { id: 28, name: 'Docker', category: 'devops', icon: DockerLogo },
-  { id: 29, name: 'Kubernetes', category: 'devops', icon: KubernetesLogo },
-  { id: 30, name: 'Git / CI-CD', category: 'devops', icon: GitLogo },
-  { id: 31, name: 'Linux / Bash', category: 'devops', icon: LinuxLogo }
-]
+  { id: 26, name: 'Docker', category: 'devops', icon: DockerLogo },
+  { id: 27, name: 'Kubernetes', category: 'devops', icon: KubernetesLogo },
+  { id: 28, name: 'Git / CI-CD', category: 'devops', icon: GitLogo },
+  { id: 29, name: 'Linux / Bash', category: 'devops', icon: LinuxLogo },
 
-export const skillCategories: Record<ISkill['category'], Record<string, string>> = {
-  'frontend': { 'pt-BR': 'Frontend', 'en-US': 'Frontend' },
-  'backend': { 'pt-BR': 'Backend', 'en-US': 'Backend' },
-  'mobile': { 'pt-BR': 'Mobile', 'en-US': 'Mobile' },
-  'data-ai': { 'pt-BR': 'Dados & IA', 'en-US': 'Data & AI' },
-  'devops': { 'pt-BR': 'DevOps / Infra', 'en-US': 'DevOps / Infra' }
-}
+  // Mobile
+  { id: 30, name: 'Flutter', category: 'mobile', icon: FlutterLogo },
+  { id: 31, name: 'Dart', category: 'mobile', icon: DartLogo },
+
+  // Frontend
+  { id: 32, name: 'React', category: 'frontend', icon: ReactLogo },
+  { id: 33, name: 'JavaScript', category: 'frontend', icon: JavascriptLogo }
+]

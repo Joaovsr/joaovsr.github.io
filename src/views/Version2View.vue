@@ -83,7 +83,7 @@
             <span v-for="(p, i) in orbParticles" :key="i" class="v2-orb__particle" :style="p" />
           </div>
           <div class="v2-hero__metrics">
-            <div class="v2-metric"><span class="v2-metric__num">{{ yearsOfExperience }}</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_years') }}</span></div>
+            <div class="v2-metric"><span class="v2-metric__num">{{ yearsExp }}</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_years') }}</span></div>
             <div class="v2-metric"><span class="v2-metric__num">{{ projects.length }}+</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_projects') }}</span></div>
             <div class="v2-metric"><span class="v2-metric__num">{{ certifications.length }}</span><span class="v2-metric__lbl">{{ t('v2.hero.metric_certs') }}</span></div>
           </div>
@@ -138,7 +138,7 @@
             <template v-for="(node, idx) in ragPipeline" :key="node.id">
               <div class="v2-pipe-node" :class="{ active: pipeStep >= idx + 1 }">
                 <div class="v2-pipe-node__icon">{{ node.icon }}</div>
-                <div class="v2-pipe-node__label">{{ node.label }}</div>
+                <div class="v2-pipe-node__label">{{ t(node.labelKey) }}</div>
               </div>
               <div
                 v-if="idx < ragPipeline.length - 1"
@@ -152,13 +152,13 @@
           <div class="v2-ask__chips">
             <button
               v-for="(q, i) in askQuestions"
-              :key="i"
+              :key="q.id"
               class="v2-ask__chip"
               :class="{ active: askIndex === i }"
               :disabled="askLoading"
               @click="runAsk(i)"
             >
-              {{ q.q }}
+              {{ t(q.questionKey) }}
             </button>
           </div>
 
@@ -196,12 +196,12 @@
           <h2 class="v2-section__title">{{ t('projects.title') }}</h2>
         </div>
         <div class="v2-projects__grid">
-          <article v-for="proj in projects" :key="proj.id" class="v2-proj">
+          <article v-for="proj in projects" :key="proj.slug" class="v2-proj">
             <header class="v2-proj__head">
               <h3 class="v2-proj__title">{{ proj.title }}</h3>
               <span v-if="proj.status === 'private'" class="v2-proj__badge">{{ t('projects.private_label') }}</span>
             </header>
-            <p class="v2-proj__desc">{{ proj.description }}</p>
+            <p class="v2-proj__desc">{{ t(`projects.${proj.slug}.description`) }}</p>
             <div class="v2-proj__tech">
               <span v-for="t in proj.technologies" :key="t" class="v2-chip v2-chip--sm">{{ t }}</span>
             </div>
@@ -252,7 +252,7 @@
         <!-- Skill chips fallback / list -->
         <div class="v2-skills__list">
           <div v-for="(skillList, cat) in groupedSkills" :key="cat" class="v2-skills__group">
-            <div class="v2-skills__group-name">{{ categoryLabel(cat) }}</div>
+            <div class="v2-skills__group-name">{{ t(`skills.categories.${cat}`) }}</div>
             <div class="v2-skills__group-tags">
               <span v-for="s in skillList" :key="s.id" class="v2-chip v2-chip--skill" @mouseenter="hoverNode = s.name" @mouseleave="hoverNode = null">{{ s.name }}</span>
             </div>
@@ -267,7 +267,7 @@
           <h2 class="v2-section__title">{{ t('experience.title') }}</h2>
         </div>
         <div class="v2-exp__list">
-          <article v-for="(exp, idx) in experiences" :key="exp.id" class="v2-exp-item">
+          <article v-for="(exp, idx) in experiences" :key="exp.slug" class="v2-exp-item">
             <div class="v2-exp-item__rail">
               <div class="v2-exp-item__node">
                 <div class="v2-exp-item__node-inner"></div>
@@ -277,12 +277,12 @@
             <div class="v2-exp-item__body">
               <header class="v2-exp-item__head">
                 <div>
-                  <div class="v2-exp-item__period">{{ formatDate(exp.startDate) }} → {{ exp.finishDate ? formatDate(exp.finishDate) : t('experience.present') }}</div>
-                  <h3 class="v2-exp-item__role">{{ exp.role }}</h3>
+                  <div class="v2-exp-item__period">{{ formatDate(exp.startDate, currentLocale) }} → {{ exp.finishDate ? formatDate(exp.finishDate, currentLocale) : t('experience.present') }}</div>
+                  <h3 class="v2-exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
                   <p class="v2-exp-item__company">@ {{ exp.company }}</p>
                 </div>
               </header>
-              <p class="v2-exp-item__desc">{{ exp.description }}</p>
+              <p class="v2-exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
               <div class="v2-exp-item__skills">
                 <span v-for="s in exp.skills" :key="s" class="v2-chip">{{ s }}</span>
               </div>
@@ -299,10 +299,10 @@
         </div>
         <div class="v2-edu__grid">
           <div>
-            <div v-for="edu in education" :key="edu.id" class="v2-edu-item">
+            <div v-for="edu in education" :key="edu.slug" class="v2-edu-item">
               <span class="v2-accent">▸</span>
               <div>
-                <p class="v2-edu-item__deg">{{ edu.degree }}</p>
+                <p class="v2-edu-item__deg">{{ t(`education.${edu.slug}.degree`) }}</p>
                 <p class="v2-edu-item__inst">{{ edu.institution }} · {{ edu.startDate }}–{{ edu.finishDate ?? t('education.ongoing') }}</p>
               </div>
             </div>
@@ -344,29 +344,29 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { usePortfolio } from '@/composables/usePortfolio'
-import { useCvPdf } from '@/composables/useCvPdf'
+import { useI18n } from 'vue-i18n'
+import type { Locale } from '@/plugins/i18n'
 import { toggleLocale } from '@/plugins/i18n'
+import { useCvPdf } from '@/composables/useCvPdf'
+import { profile } from '@/data/profile'
+import { experiences } from '@/data/experience'
+import { projects } from '@/data/projects'
+import { education, certifications } from '@/data/education'
+import { skills } from '@/data/skills'
+import { ragPipeline, ragQuestions as askQuestions } from '@/data/ragDemo'
+import { formatDate, yearsOfExperience, groupBy } from '@/utils/portfolio'
 import GithubIcon from '@/components/icons/Github.vue'
 import LinkedinIcon from '@/components/icons/Linkedin.vue'
 
-const {
-  t,
-  profile,
-  yearsOfExperience,
-  experiences,
-  groupedSkills,
-  projects,
-  education,
-  certifications,
-  differentials,
-  languages,
-  ragPipeline,
-  ragQuestions: askQuestions,
-  formatDate,
-  categoryLabel
-} = usePortfolio()
+const { t, tm, locale } = useI18n()
+const currentLocale = computed(() => locale.value as Locale)
+
 const { downloadCv } = useCvPdf()
+
+const groupedSkills = computed(() => groupBy(skills, 'category'))
+const differentials = computed(() => tm('about.differentials') as string[])
+const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
+const yearsExp = computed(() => yearsOfExperience(profile.careerStart))
 
 const firstName = computed(() => profile.nameShort.split(' ')[0] ?? profile.nameShort)
 const lastName = computed(() =>
@@ -533,7 +533,7 @@ async function runAsk(idx: number) {
   askAnswer.value = ''
   pipeStep.value = 0
 
-  const item = askQuestions.value[idx]
+  const item = askQuestions[idx]
 
   // Simulate pipeline
   pipeStep.value = 1
@@ -542,13 +542,13 @@ async function runAsk(idx: number) {
   await delay(360)
   pipeStep.value = 3
   await delay(420)
-  askChunks.value = item.chunks
+  askChunks.value = item.chunks.map(c => ({ src: c.src, score: c.score, text: t(c.textKey) }))
   pipeStep.value = 4
   await delay(380)
 
   // Stream answer
   pipeStep.value = 5
-  const text = item.answer
+  const text = t(item.answerKey)
   for (let i = 0; i <= text.length; i++) {
     askAnswer.value = text.slice(0, i)
     await delay(14)
@@ -579,7 +579,7 @@ const allSkills = computed(() => {
   return list
 })
 
-const categoryOrder = ['frontend', 'backend', 'mobile', 'data-ai', 'devops']
+const categoryOrder = ['data-ai', 'backend', 'devops', 'mobile', 'frontend']
 
 const graphCenters = computed(() => {
   const cats = categoryOrder.filter(c => groupedSkills.value[c]?.length)
@@ -588,7 +588,7 @@ const graphCenters = computed(() => {
     const r = 130
     return {
       cat: c,
-      label: categoryLabel(c).toUpperCase(),
+      label: t(`skills.categories.${c}`).toUpperCase(),
       x: graphCenter + Math.cos(angle) * r,
       y: graphCenter + Math.sin(angle) * r
     }
@@ -638,7 +638,7 @@ const hoverNodeLabel = computed(() => {
   if (!hoverNode.value) return ''
   const n = graphNodes.value.find(x => x.id === hoverNode.value)
   if (!n) return hoverNode.value
-  return `${n.label} — ${categoryLabel(n.cat)}`
+  return `${n.label} — ${t(`skills.categories.${n.cat}`)}`
 })
 
 // ─── Active section observer ──────────────────────────────────────

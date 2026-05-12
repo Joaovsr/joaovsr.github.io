@@ -1,7 +1,6 @@
 export interface IEducation {
-  id: number
+  slug: string
   institution: string
-  degree: Record<string, string>
   startDate: string
   finishDate?: string
   ongoing?: boolean

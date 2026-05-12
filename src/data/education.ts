@@ -2,22 +2,14 @@ import type { IEducation, ICertification } from '@/interfaces/education'
 
 export const education: IEducation[] = [
   {
-    id: 1,
+    slug: 'estacio',
     institution: 'Estácio',
-    degree: {
-      'pt-BR': 'Gestão da Tecnologia da Informação',
-      'en-US': 'Information Technology Management'
-    },
     startDate: '2024',
     finishDate: '2026',
   },
   {
-    id: 2,
+    slug: 'if_sudeste',
     institution: 'IF Sudeste de Minas',
-    degree: {
-      'pt-BR': 'Técnico em Informática',
-      'en-US': 'Technical in Computer Science'
-    },
     startDate: '2019',
     finishDate: '2022'
   }
@@ -72,5 +64,4 @@ export const certifications: ICertification[] = [
     issuer: 'RNP',
     status: 'completed'
   },
-
 ]

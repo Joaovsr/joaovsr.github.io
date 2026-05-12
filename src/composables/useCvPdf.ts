@@ -1,5 +1,12 @@
+import { computed } from 'vue'
 import type { jsPDF } from 'jspdf'
-import { usePortfolio } from './usePortfolio'
+import { useI18n } from 'vue-i18n'
+import type { Locale } from '@/plugins/i18n'
+import { profile } from '@/data/profile'
+import { experiences } from '@/data/experience'
+import { education, certifications } from '@/data/education'
+import { skills } from '@/data/skills'
+import { formatDate, groupBy } from '@/utils/portfolio'
 
 const ACCENT = [124, 92, 255] as const
 const TEXT = [30, 32, 42] as const
@@ -95,7 +102,10 @@ function chips(c: Cursor, items: string[]) {
 }
 
 export function useCvPdf() {
-  const { t, currentLocale, profile, experiences, groupedSkills, education, certifications, languages, formatDate, categoryLabel } = usePortfolio()
+  const { t, tm, locale } = useI18n()
+  const currentLocale = computed(() => locale.value as Locale)
+  const groupedSkills = computed(() => groupBy(skills, 'category'))
+  const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
 
   async function downloadCv() {
     const { default: JsPdfCtor } = await import('jspdf')
@@ -133,14 +143,14 @@ export function useCvPdf() {
 
     // ─── Experience ────────────────────────────────────────────────────
     sectionTitle(c, t('experience.title'))
-    for (const exp of experiences.value) {
+    for (const exp of experiences) {
       ensurePage(c, 16)
 
       // Period (right) + role (left)
-      const period = `${formatDate(exp.startDate)} - ${exp.finishDate ? formatDate(exp.finishDate) : t('experience.present')}`
+      const period = `${formatDate(exp.startDate, currentLocale.value)} - ${exp.finishDate ? formatDate(exp.finishDate, currentLocale.value) : t('experience.present')}`
       setFont(doc, 10, 'bold')
       setColor(doc, TEXT)
-      doc.text(exp.role, MARGIN, c.y)
+      doc.text(t(`experience.${exp.slug}.role`), MARGIN, c.y)
       setFont(doc, 8.5, 'normal')
       setColor(doc, MUTED)
       const periodW = doc.getTextWidth(period)
@@ -154,7 +164,7 @@ export function useCvPdf() {
       c.y += 5
 
       // Description
-      paragraph(c, exp.description, { size: 9, lineHeight: 4.4 })
+      paragraph(c, t(`experience.${exp.slug}.description`), { size: 9, lineHeight: 4.4 })
 
       // Skills
       if (exp.skills.length) chips(c, exp.skills)
@@ -169,7 +179,7 @@ export function useCvPdf() {
       ensurePage(c, 6)
       setFont(doc, 9, 'bold')
       setColor(doc, TEXT)
-      const label = `${categoryLabel(cat)}:`
+      const label = `${t(`skills.categories.${cat}`)}:`
       doc.text(label, MARGIN, c.y)
       const labelW = doc.getTextWidth(label)
       setFont(doc, 9, 'normal')
@@ -187,11 +197,11 @@ export function useCvPdf() {
 
     // ─── Education ─────────────────────────────────────────────────────
     sectionTitle(c, t('education.title'))
-    for (const edu of education.value) {
+    for (const edu of education) {
       ensurePage(c, 8)
       setFont(doc, 10, 'bold')
       setColor(doc, TEXT)
-      doc.text(edu.degree, MARGIN, c.y)
+      doc.text(t(`education.${edu.slug}.degree`), MARGIN, c.y)
       const period = `${edu.startDate} – ${edu.finishDate ?? t('education.ongoing')}`
       const periodW = doc.getTextWidth(period)
       setFont(doc, 8.5, 'normal')
