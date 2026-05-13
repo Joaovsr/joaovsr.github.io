@@ -5,8 +5,8 @@ import type { Locale } from '@/plugins/i18n'
 import { profile } from '@/data/profile'
 import { experiences } from '@/data/experience'
 import { education, certifications } from '@/data/education'
-import { skills } from '@/data/skills'
-import { formatDate, groupBy } from '@/utils/portfolio'
+import { skillCatalog } from '@/data/skills'
+import { formatDate } from '@/utils/portfolio'
 
 const ACCENT = [124, 92, 255] as const
 const TEXT = [30, 32, 42] as const
@@ -104,7 +104,6 @@ function chips(c: Cursor, items: string[]) {
 export function useCvPdf() {
   const { t, tm, locale } = useI18n()
   const currentLocale = computed(() => locale.value as Locale)
-  const groupedSkills = computed(() => groupBy(skills, 'category'))
   const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
 
   async function downloadCv() {
@@ -173,8 +172,9 @@ export function useCvPdf() {
 
     // ─── Skills ────────────────────────────────────────────────────────
     sectionTitle(c, t('skills.title'))
-    for (const cat in groupedSkills.value) {
-      const list = groupedSkills.value[cat]
+    for (const cat of skillCatalog.categories) {
+      const list = skillCatalog.byCategory[cat]
+      if (!list.length) continue
       const value = list.map(s => s.name).join('  ·  ')
       ensurePage(c, 6)
       setFont(doc, 9, 'bold')

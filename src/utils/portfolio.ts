@@ -11,13 +11,3 @@ export function yearsOfExperience(careerStart: string): number {
   const diffMs = Date.now() - start.getTime()
   return Math.max(1, Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25)))
 }
-
-export function groupBy<T, K extends keyof T>(items: readonly T[], key: K): Record<string, T[]> {
-  const out: Record<string, T[]> = {}
-  for (const item of items) {
-    const k = String(item[key])
-    if (!out[k]) out[k] = []
-    out[k].push(item)
-  }
-  return out
-}

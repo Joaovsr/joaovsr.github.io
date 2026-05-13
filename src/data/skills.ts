@@ -57,3 +57,17 @@ export const skills: ISkill[] = [
   { id: 32, name: 'React', category: 'frontend', icon: ReactLogo },
   { id: 33, name: 'JavaScript', category: 'frontend', icon: JavascriptLogo }
 ]
+
+const CATEGORY_ORDER: ISkill['category'][] = ['data-ai', 'backend', 'devops', 'mobile', 'frontend']
+
+function buildByCategory(): Record<ISkill['category'], ISkill[]> {
+  const out = { 'data-ai': [], backend: [], devops: [], mobile: [], frontend: [] } as Record<ISkill['category'], ISkill[]>
+  for (const s of skills) out[s.category].push(s)
+  return out
+}
+
+export const skillCatalog = {
+  all: skills,
+  byCategory: buildByCategory(),
+  categories: CATEGORY_ORDER
+}
