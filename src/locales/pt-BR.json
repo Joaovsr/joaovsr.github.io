@@ -3,12 +3,12 @@
   "lang_toggle": "EN",
   "name": "João Vinicius Rodrigues",
   "name_short": "João Vinicius",
-  "role": "IA Engineer",
-  "role_sub": "Backend & Data Analytics",
+  "role": "Software Engineer",
+  "role_sub": "Full Stack",
   "location": "Barbacena, MG — Brasil",
   "available_remote": "Disponível para remoto internacional",
   "download_cv": "Baixar CV",
-  "tagline": "Construo sistemas de IA em produção — do pipeline de dados ao agente que conversa com o negócio.",
+  "tagline": "Software Engineer com 4 anos de experiência criando aplicações web e mobile - do backend ao frontend, com integrações de IA e criação de agentes.",
   "nav": {
     "about": "Sobre",
     "experience": "Experiência",
@@ -18,8 +18,8 @@
   },
   "about": {
     "title": "Sobre Mim",
-    "text": "IA Engineer com 4 anos de experiência construindo sistemas de IA generativa em produção — RAG, agentes orquestrados com LangGraph, scoring semântico com pgvector e integrações com Azure OpenAI. Foco em transformar LLMs em features confiáveis de negócio, com observabilidade, fallbacks e testes determinísticos nos trechos críticos.",
-    "text2": "Background sólido em backend (Node.js, NestJS, Python, FastAPI) e análise de dados (SQL, Pandas, Power BI, Metabase). Trabalho com arquiteturas orientadas a eventos, Clean Architecture, SOLID, CI/CD, Docker, Kubernetes e cloud (Azure, AWS). Combino engenharia de software, dados e IA para entregar produtos que funcionam de ponta a ponta — do pipeline de ingestão até a interface conversacional.",
+    "text": "Atuo com o desenvolvimento web e mobile, do backend ao frontend até o deploy da aplicação. Construo produtos com integrações de IA, RAG e criação de agentes — transformando LLMs em features confiáveis de negócio com observabilidade, fallbacks e testes determinísticos nos trechos críticos.",
+    "text2": "Combino engenharia de software e IA para entregar produtos que funcionam de ponta a ponta. Acredito que a IA Generativa vai muito além de prompts — quero construir soluções robustas, seguras e escaláveis que transformam a forma como pessoas interagem com dados e informações.",
     "differentials": [
       "Curiosidade e aprendizado contínuo",
       "Adaptabilidade",
@@ -44,7 +44,7 @@
     "skills_label": "Tecnologias",
     "fictor": {
       "role": "Desenvolvedor Full Stack | IA Engineer",
-      "description": "Desenvolvi aplicações web e mobile integradas com IA utilizadas em múltiplas empresas do grupo. Plataforma completa de RH com scoring semântico de currículos via RAG + Azure OpenAI + pgvector, avaliação de fit técnico e integração com Totvs/RM. Super-app corporativo em Flutter, React e Node.js com reserva de veículos com validação por IA, hospedagem, notificações em tempo real, dashboards de BI e autenticação via Azure AD com RBAC por módulo. Fictor360 AI: consulta de indicadores corporativos em linguagem natural via LLM + MCP PowerBI. Infraestrutura com Docker, Kubernetes e pipelines CI/CD via Azure DevOps + GitFlow."
+      "description": "Desenvolvi aplicações web e mobile integradas com IA utilizadas em múltiplas empresas do grupo. Plataforma completa de RH com scoring semântico de currículos, avaliação de fit técnico e integração com Totvs/RM. Super-app corporativo em Flutter, React e Node.js com reserva de veículos com validação por IA, hospedagem, notificações em tempo real, dashboards de BI e autenticação via Azure AD com RBAC por módulo. Fictor360 AI: consulta de indicadores corporativos em linguagem natural via LLM + MCP PowerBI. Infraestrutura com Docker, Kubernetes e pipelines CI/CD via Azure DevOps + GitFlow."
     },
     "atalaia": {
       "role": "Analista de Desenvolvimento de Sistemas | Analista de Dados",
@@ -58,11 +58,12 @@
   "skills": {
     "title": "Skills",
     "categories": {
-      "frontend": "Frontend",
+      "ai": "IA",
       "backend": "Backend",
+      "data": "Dados",
+      "devops": "DevOps / Infra",
       "mobile": "Mobile",
-      "data-ai": "IA & Dados",
-      "devops": "DevOps / Infra"
+      "frontend": "Frontend"
     },
     "sub": "Hover nos nós para ver as conexões. As habilidades estão organizadas por domínio."
   },
@@ -165,6 +166,6 @@
     "q8": "O que você procura na próxima vaga?",
     "q8_chunk1": "Disponível para remoto internacional, foco em produto com IA aplicada.",
     "q8_chunk2": "Interesse em times pequenos com autonomia técnica e ownership de produto.",
-    "q8_answer": "Procuro posição de AI Engineer ou Backend focado em IA, preferencialmente remoto internacional. Quero trabalhar com produto — onde a IA não é demo, é feature que paga conta. Times pequenos (até ~15 engenheiros) com autonomia técnica e ownership de ponta a ponta funcionam melhor pra mim do que estruturas matriciais. Stack ideal: Python ou TypeScript, LLM provider qualquer (Anthropic, OpenAI, Azure), cloud agnóstica. Aberto a startups em série A/B com problema real ou empresas estabelecidas com iniciativa séria de IA. Inglês avançado, fuso flexível."
+    "q8_answer": "Procuro posição de Software Engineer ou Backend focado em IA, preferencialmente remoto internacional. Quero trabalhar com produto — onde a IA não é demo, é feature que paga conta. Times pequenos (até ~15 engenheiros) com autonomia técnica e ownership de ponta a ponta funcionam melhor pra mim do que estruturas matriciais. Stack ideal: Python ou TypeScript, LLM provider qualquer (Anthropic, OpenAI, Azure), cloud agnóstica. Aberto a startups em série A/B com problema real ou empresas estabelecidas com iniciativa séria de IA. Inglês avançado, fuso flexível."
   }
 }

@@ -44,17 +44,34 @@ export function useSkillsGraph() {
 
   const edges = computed<GraphEdge[]>(() => {
     const out: GraphEdge[] = []
-    const byCat = new Map<string, GraphNode[]>()
-    for (const n of nodes.value) {
-      if (!byCat.has(n.cat)) byCat.set(n.cat, [])
-      byCat.get(n.cat)!.push(n)
-    }
+    const nodeById = new Map(nodes.value.map(n => [n.id, n]))
+
     for (const center of centers.value) {
-      const list = byCat.get(center.cat) ?? []
-      for (const n of list) {
+      const list = skillCatalog.byCategory[center.cat] ?? []
+      for (const s of list) {
+        const n = nodeById.get(s.name)
+        if (!n) continue
         out.push({ a: n.id, b: `cat-${center.cat}`, x1: center.x, y1: center.y, x2: n.x, y2: n.y })
       }
     }
+
+    // Skill-to-skill edges from `relatedTo`. Auto-mirror (a single declaration
+    // produces one undirected edge) and deduplicate via canonical pair key.
+    const seen = new Set<string>()
+    for (const s of skillCatalog.all) {
+      if (!s.relatedTo?.length) continue
+      const a = nodeById.get(s.name)
+      if (!a) continue
+      for (const otherName of s.relatedTo) {
+        const b = nodeById.get(otherName)
+        if (!b || b.id === a.id) continue
+        const key = a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`
+        if (seen.has(key)) continue
+        seen.add(key)
+        out.push({ a: a.id, b: b.id, x1: a.x, y1: a.y, x2: b.x, y2: b.y })
+      }
+    }
+
     return out
   })
 

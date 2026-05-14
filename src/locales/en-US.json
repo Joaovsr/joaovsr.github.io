@@ -3,12 +3,12 @@
   "lang_toggle": "PT",
   "name": "João Vinicius Rodrigues",
   "name_short": "João Vinicius",
-  "role": "AI Engineer",
-  "role_sub": "Backend & Data Analytics",
+  "role": "Software Engineer",
+  "role_sub": "Full Stack",
   "location": "Barbacena, MG — Brazil",
   "available_remote": "Available for international remote",
   "download_cv": "Download CV",
-  "tagline": "Building production AI systems — from data pipelines to agents that talk to the business.",
+  "tagline": "Software Engineer with 4 years of experience building web and mobile applications — from backend to frontend, with AI integrations and agent building.",
   "nav": {
     "about": "About",
     "experience": "Experience",
@@ -18,8 +18,8 @@
   },
   "about": {
     "title": "About Me",
-    "text": "AI Engineer with 4 years of experience building generative AI systems in production — RAG, agents orchestrated with LangGraph, semantic scoring with pgvector, and integrations with Azure OpenAI. Focus on turning LLMs into reliable business features with observability, fallbacks, and deterministic tests on the critical paths.",
-    "text2": "Solid background in backend (Node.js, NestJS, Python, FastAPI) and data analytics (SQL, Pandas, Power BI, Metabase). Hands-on with event-driven architectures, Clean Architecture, SOLID, CI/CD, Docker, Kubernetes, and cloud (Azure, AWS). I combine software engineering, data, and AI to ship products that work end-to-end — from ingestion pipelines to the conversational interface.",
+    "text": "Software Engineer with 4 years of experience in web and mobile development, working from backend to frontend all the way to cloud deployment (Azure, AWS). I ship end-to-end products with AI integrations, RAG, and agent building — turning LLMs into reliable business features with observability, fallbacks, and deterministic tests on critical paths.",
+    "text2": "I combine software engineering and AI to ship products that work end-to-end — from backend to the conversational interface. I believe Generative AI goes far beyond prompts — I want to build robust, secure, and scalable solutions that transform how people interact with data and information.",
     "differentials": [
       "Curiosity and continuous learning",
       "Adaptability",
@@ -58,11 +58,12 @@
   "skills": {
     "title": "Skills",
     "categories": {
-      "frontend": "Frontend",
+      "ai": "AI",
       "backend": "Backend",
+      "data": "Data",
+      "devops": "DevOps / Infra",
       "mobile": "Mobile",
-      "data-ai": "AI & Data",
-      "devops": "DevOps / Infra"
+      "frontend": "Frontend"
     },
     "sub": "Hover nodes to see connections. Skills are organized by domain."
   },

@@ -17,8 +17,15 @@
           :y2="e.y2"
           :class="['graph__edge', { active: hoverNode && (hoverNode === e.a || hoverNode === e.b) }]"
         />
-        <g v-for="c in centers" :key="`c-${c.cat}`">
-          <circle :cx="c.x" :cy="c.y" r="6" class="graph__cat-dot" />
+        <g
+          v-for="c in centers"
+          :key="`c-${c.cat}`"
+          class="graph__cat"
+          :class="{ hovered: hoverNode === `cat-${c.cat}` }"
+          @mouseenter="hoverNode = `cat-${c.cat}`"
+        >
+          <circle :cx="c.x" :cy="c.y" r="18" class="graph__cat-hit" />
+          <circle :cx="c.x" :cy="c.y" :r="hoverNode === `cat-${c.cat}` ? 10 : 6" class="graph__cat-dot" />
           <text :x="c.x" :y="c.y - 14" text-anchor="middle" class="graph__cat-label">
             {{ categoryLabel(c.cat).toUpperCase() }}
           </text>
@@ -27,7 +34,7 @@
           v-for="n in nodes"
           :key="n.id"
           class="graph__node"
-          :class="{ hovered: hoverNode === n.id }"
+          :class="{ hovered: hoverNode === n.id || hoverNode === `cat-${n.cat}` }"
           @mouseenter="hoverNode = n.id"
         >
           <circle
@@ -76,9 +83,15 @@ const { size, centers, nodes, edges, hoverNode } = useSkillsGraph()
 const categoryLabel = (cat: string) => t(`skills.categories.${cat}`)
 
 const hoverNodeLabel = computed(() => {
-  if (!hoverNode.value) return ''
-  const n = nodes.value.find(x => x.id === hoverNode.value)
-  if (!n) return hoverNode.value
+  const h = hoverNode.value
+  if (!h) return ''
+  if (h.startsWith('cat-')) {
+    const cat = h.slice(4)
+    const count = skillCatalog.byCategory[cat as keyof typeof skillCatalog.byCategory]?.length ?? 0
+    return `${categoryLabel(cat)} · ${count} skills`
+  }
+  const n = nodes.value.find(x => x.id === h)
+  if (!n) return h
   return `${n.label} — ${categoryLabel(n.cat)}`
 })
 </script>
@@ -100,14 +113,32 @@ const hoverNodeLabel = computed(() => {
   transition: stroke 0.2s, stroke-width 0.2s;
   &.active { stroke: $accent; stroke-width: 1.6; }
 }
-.graph__cat-dot { fill: $glow; opacity: 0.8; }
+.graph__cat { cursor: pointer; }
+.graph__cat-hit {
+  fill: transparent;
+  pointer-events: all;
+}
+.graph__cat-dot {
+  fill: $glow;
+  opacity: 0.8;
+  transition: all 0.2s;
+  filter: drop-shadow(0 0 4px rgba($glow, 0.5));
+}
+.graph__cat.hovered .graph__cat-dot {
+  fill: $accent;
+  opacity: 1;
+  filter: drop-shadow(0 0 14px rgba($accent, 0.9));
+}
 .graph__cat-label {
   fill: $glow;
   font-family: $mono;
   font-size: 10px;
   letter-spacing: 0.08em;
   font-weight: 700;
+  transition: fill 0.2s;
+  pointer-events: none;
 }
+.graph__cat.hovered .graph__cat-label { fill: $accent; }
 .graph__node { cursor: pointer; }
 .graph__node-circle {
   fill: $primary;

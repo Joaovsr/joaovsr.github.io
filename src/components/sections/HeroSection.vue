@@ -11,7 +11,7 @@
         </span>
       </h1>
       <p class="hero__role">
-        {{ t('role') }} <span class="divider">·</span>
+        <span class="accent">{{ t('role') }}</span> <span class="divider">·</span>
         <span class="accent">{{ t('role_sub') }}</span>
       </p>
       <p class="hero__tag">{{ t('tagline') }}</p>

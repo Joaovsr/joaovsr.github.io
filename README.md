@@ -1,6 +1,6 @@
 # joaovsr.is-a.dev
 
-Portfolio pessoal de João Vinicius Rodrigues — Full Stack Developer | Data & AI.
+Portfolio pessoal de João Vinicius Rodrigues — Full Stack Developer | Full Stack.
 
 ## Setup
 

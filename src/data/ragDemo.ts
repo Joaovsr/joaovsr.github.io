@@ -25,7 +25,7 @@ export const ragQuestions: IRagQuestion[] = [
     answerKey: 'ask.q2_answer',
     chunks: [
       { src: 'projects.json#fictor360-ai', score: '0.94', textKey: 'ask.q2_chunk1' },
-      { src: 'skills.json#data-ai', score: '0.83', textKey: 'ask.q2_chunk2' }
+      { src: 'skills.json#ai', score: '0.83', textKey: 'ask.q2_chunk2' }
     ]
   },
   {
