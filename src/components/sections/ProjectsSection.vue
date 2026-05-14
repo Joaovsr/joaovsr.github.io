@@ -5,7 +5,17 @@
       <h2 class="section__title">{{ t('projects.title') }}</h2>
     </div>
     <div class="projects__grid">
-      <article v-for="proj in projects" :key="proj.slug" class="proj">
+      <article
+        v-for="proj in projects"
+        :key="proj.slug"
+        class="proj"
+        tabindex="0"
+        role="button"
+        :aria-label="proj.title"
+        @click="selected = proj"
+        @keydown.enter="selected = proj"
+        @keydown.space.prevent="selected = proj"
+      >
         <header class="proj__head">
           <h3 class="proj__title">{{ proj.title }}</h3>
           <span v-if="proj.status === 'private'" class="proj__badge">
@@ -16,16 +26,25 @@
         <div class="proj__tech">
           <span v-for="tech in proj.technologies" :key="tech" class="chip chip--sm">{{ tech }}</span>
         </div>
+        <div class="proj__cta">
+          <span class="accent">{{ t('projects.see_details') }}</span> <span class="proj__arrow">→</span>
+        </div>
       </article>
     </div>
+
+    <ProjectModal :project="selected" @close="selected = null" />
   </section>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { projects } from '@/data/projects'
+import ProjectModal from '@/components/ProjectModal.vue'
+import type { IProject } from '@/interfaces/project'
 
 const { t } = useI18n()
+const selected = ref<IProject | null>(null)
 </script>
 
 <style lang="scss" scoped>
@@ -45,6 +64,8 @@ const { t } = useI18n()
   backdrop-filter: blur(8px);
   position: relative;
   overflow: hidden;
+  cursor: pointer;
+  outline: none;
   &::before {
     content: '';
     position: absolute;
@@ -57,11 +78,12 @@ const { t } = useI18n()
     transform-origin: left;
     transition: transform 0.5s ease;
   }
-  &:hover {
+  &:hover, &:focus-visible {
     border-color: rgba($accent, 0.4);
     transform: translateY(-4px);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
     &::before { transform: scaleX(1); }
+    .proj__arrow { transform: translateX(4px); }
   }
 }
 .proj__head {
@@ -87,4 +109,20 @@ const { t } = useI18n()
   flex: 1;
 }
 .proj__tech { display: flex; flex-wrap: wrap; gap: 6px; }
+.proj__cta {
+  font-family: $mono;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid $border;
+}
+.proj__arrow {
+  color: $accent;
+  transition: transform $transition-base;
+}
 </style>

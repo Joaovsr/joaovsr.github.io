@@ -74,23 +74,48 @@
     "site_label": "View site",
     "tech_label": "Technologies",
     "super_app": {
-      "description": "Internal platform built from scratch to digitize Fictor Alimentos operations. Centralizes vehicle reservations with approval workflows and AI validation, hotel bookings, internal announcements with real-time push notifications, and BI dashboards — all with Azure AD corporate auth and per-module RBAC."
+      "description": "Internal platform built from scratch to digitize Fictor Alimentos operations. Centralizes vehicle reservations with approval workflows and AI validation, hotel bookings, internal announcements with real-time push notifications, and BI dashboards — all with Azure AD corporate auth and per-module RBAC.",
+      "problem": "Fictor's operations scattered across multiple disconnected systems — vehicle reservations in spreadsheets, announcements over email, BI in separate portals, hotel bookings by phone. No single app, no structured internal communication.",
+      "solution": "InCubo — a digital ecosystem in Flutter + React + NestJS with Azure AD SSO, per-module RBAC, real-time push notifications (Firebase + RabbitMQ), AI-validated vehicle reservations, and embedded Power BI dashboards. Mobile + web running on Kubernetes with CI/CD via Azure DevOps.",
+      "result": "A single corporate platform used across all group companies. Replaced 4 disconnected systems and cut operational IT requests by ~40%."
     },
     "fictor360_pbi": {
-      "description": "Module that brings Power BI dashboards directly into the Super-App, ensuring each user sees only their own data through role and Azure group-based RLS. Dynamic embed token generation and workspace management via API."
+      "description": "Module that brings Power BI dashboards directly into the Super-App, ensuring each user sees only their own data through role and Azure group-based RLS. Dynamic embed token generation and workspace management via API.",
+      "problem": "Individual Power BI licenses created cost bottlenecks as the company scaled. Limited governance — controlling \"who sees what\" required duplicating workspaces per area, risking sensitive data exposure.",
+      "solution": "Custom Embedded Analytics portal with Dual-Layer Security: Azure AD group and user validation at the app layer, plus dynamic Row-Level Security (RLS) role injection into the access token. Dashboard lifecycle and identity management handled programmatically via API, eliminating dependence on the default Power BI Service portal.",
+      "result": "Drastic cost reduction (per-user license model → capacity-based), full data democratization, and granular per-user governance — unprecedented trust from stakeholders."
     },
     "hr_platform": {
-      "description": "Corporate recruitment system with Kanban pipeline, automatic SLA tracking, and semantic CV scoring using Azure OpenAI + pgvector. Azure AD authentication (SSO + RBAC), async jobs with Bull, and bidirectional integration with an external portal via webhooks."
+      "description": "Corporate recruitment system with Kanban pipeline, automatic SLA tracking, and semantic CV scoring using Azure OpenAI + pgvector. Azure AD authentication (SSO + RBAC), async jobs with Bull, and bidirectional integration with an external portal via webhooks.",
+      "problem": "Hiring requisition process handled manually via forms, emails, and Excel spreadsheets. No traceability, no approval flow, no SLA data. Roles lived in Excel, candidates arrived in scattered emails.",
+      "solution": "Multi-company platform with approval flows for roles (Culture & Performance) and hiring requisitions. AI at the core: form-filling assistant, RAG-based CV scoring against the role description (Azure OpenAI + pgvector), embeddings over Microsoft Teams transcripts for behavioral evaluation, and native Teams integration for interview scheduling. All on Kubernetes with Git Flow and CI/CD.",
+      "result": "CV scoring in milliseconds instead of hours of manual reading. Kanban with stage-level SLA and async jobs in Bull. Solid foundation for future Totvs/RM integrations and KPI dashboards."
     },
     "fictor360_ai": {
-      "description": "Conversational agent that turns natural language questions into DAX queries and queries Power BI semantic models in real time. Orchestrated with LangGraph, generates and validates DAX via MCP, streams responses over WebSocket, and produces a full semantic model profile to guide LLM reasoning."
+      "description": "Conversational agent that turns natural language questions into DAX queries and queries Power BI semantic models in real time. Orchestrated with LangGraph, generates and validates DAX via MCP, streams responses over WebSocket, and produces a full semantic model profile to guide LLM reasoning.",
+      "problem": "Managers had data in front of them, but for any deep analysis they had to ask an analyst. The data was there, but real access was not — it required knowing DAX and the Power BI semantic model.",
+      "solution": "Conversational AI agent for Power BI. MCP exposes the full semantic model (tables, measures, relationships); a reasoning model validates the query plan before generating DAX (killing hallucination at the root). LangChain TS orchestrates the end-to-end flow. Few-shot examples of question-DAX pairs increased consistency by 90%.",
+      "result": "An analyst opens the dashboard, types a question in natural language, and gets the data with a chart — instantly, without needing DAX. AI does not replace the BI analyst, it frees them from operational work to focus on strategy."
     },
     "candidate_portal": {
-      "description": "Public recruitment portal decoupled from the internal HR system, with multi-channel authentication (OAuth2 Google/LinkedIn + email), automatic AI-powered CV scoring, and bidirectional sync via webhooks. Built with LGPD compliance and IP-based rate limiting."
+      "description": "Public recruitment portal decoupled from the internal HR system, with multi-channel authentication (OAuth2 Google/LinkedIn + email), automatic AI-powered CV scoring, and bidirectional sync via webhooks. Built with LGPD compliance and IP-based rate limiting.",
+      "problem": "External candidates had no dedicated channel — HR received CVs by email with no process visibility. Hunters needed a structured showcase to publish open roles.",
+      "solution": "Public portal decoupled from the internal HR system, built with NestJS + React + Vite. Multi-channel auth (OAuth2 Google/LinkedIn + email/password), automatic CV scoring at upload via AI, and bidirectional sync with HMAC-SHA256 signed webhooks. LGPD compliance and IP-based rate limiting on sensitive endpoints.",
+      "result": "Candidates track process status in real time. HR receives pre-scored CVs auto-integrated into the management system. Significant reduction in operational emails between candidates and recruiters."
     },
     "data_pipeline": {
-      "description": "Python pipelines for extracting, transforming, and loading data from multiple internal sources. Metabase deployment as a self-service BI tool for managers, with dashboards connected to Power BI for KPI consolidation."
-    }
+      "description": "Python pipelines for extracting, transforming, and loading data from multiple internal sources. Metabase deployment as a self-service BI tool for managers, with dashboards connected to Power BI for KPI consolidation.",
+      "problem": "Data from different systems (legacy ERP, spreadsheets, internal APIs) arrived in inconsistent formats and required manual consolidation before any analysis. Managers depended on IT for every metric.",
+      "solution": "Python + Pandas pipelines for automated extraction, transformation, and loading from multiple internal sources. Metabase deployed as self-service BI for managers, with dashboards connected to Power BI for corporate KPI consolidation.",
+      "result": "10+ automated dashboards running daily. Managers access their own metrics without depending on IT. A unified database as the foundation for future analyses."
+    },
+    "problem_label": "The problem",
+    "solution_label": "The solution",
+    "result_label": "The result",
+    "screenshots_label": "Screenshots",
+    "screenshots_pending": "Screenshots coming soon.",
+    "see_details": "See details",
+    "close": "Close"
   },
   "education": {
     "title": "Education",

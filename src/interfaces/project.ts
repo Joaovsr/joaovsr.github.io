@@ -5,4 +5,5 @@ export interface IProject {
   repoUrl?: string
   siteUrl?: string
   status?: 'private' | 'public'
+  images?: string[]
 }

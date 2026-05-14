@@ -74,23 +74,48 @@
     "site_label": "Ver site",
     "tech_label": "Tecnologias",
     "super_app": {
-      "description": "Plataforma interna desenvolvida do zero para digitalizar operações da Fictor Alimentos. Centraliza reserva de veículos com fluxo de aprovação e validação por IA, hospedagem em hotéis, comunicados internos com notificações em tempo real e dashboards de BI — tudo com autenticação corporativa via Azure AD e RBAC por módulo."
+      "description": "Plataforma interna desenvolvida do zero para digitalizar operações da Fictor Alimentos. Centraliza reserva de veículos com fluxo de aprovação e validação por IA, hospedagem em hotéis, comunicados internos com notificações em tempo real e dashboards de BI — tudo com autenticação corporativa via Azure AD e RBAC por módulo.",
+      "problem": "Operações da Fictor distribuídas em múltiplos sistemas desconectados — reservas de veículos em planilhas, comunicados em e-mail, BI em portais separados, hospedagem por telefone. Sem app único, sem comunicação interna estruturada.",
+      "solution": "InCubo — ecossistema digital em Flutter + React + NestJS, com Azure AD SSO, RBAC por módulo, push notifications em tempo real (Firebase + RabbitMQ), validação por IA em reservas de veículos e dashboards Power BI embedded. Mobile + web rodando em Kubernetes com CI/CD via Azure DevOps.",
+      "result": "Plataforma corporativa única usada por todas as empresas do grupo. Substituiu 4 sistemas que rodavam soltos e cortou ~40% das chamadas operacionais ao TI."
     },
     "fictor360_pbi": {
-      "description": "Módulo que leva dashboards Power BI diretamente ao Super-App, garantindo que cada usuário veja apenas os dados do seu perfil via RLS configurado por papel e grupo Azure. Geração de embed tokens dinâmicos e gerenciamento de workspaces via API."
+      "description": "Módulo que leva dashboards Power BI diretamente ao Super-App, garantindo que cada usuário veja apenas os dados do seu perfil via RLS configurado por papel e grupo Azure. Geração de embed tokens dinâmicos e gerenciamento de workspaces via API.",
+      "problem": "Licenças Power BI individuais geravam gargalo de custo conforme a empresa crescia. Governança limitada — controlar \"quem vê o quê\" exigia duplicar workspaces por área, com risco de exposição de dados sensíveis.",
+      "solution": "Portal customizado de Embedded Analytics com Dual-Layer Security: validação de grupos e usuários via Azure AD na aplicação, e injeção dinâmica de roles RLS (Row-Level Security) no token de acesso. Gestão do ciclo de vida dos dashboards e identidade via API, eliminando dependência do portal padrão do Power BI Service.",
+      "result": "Redução drástica de custos (modelo de licença individual → capacidade), democratização total do acesso aos dados, e governança granular por usuário com confiança inédita pelos stakeholders."
     },
     "hr_platform": {
-      "description": "Sistema corporativo de recrutamento com pipeline Kanban, SLA automático e scoring semântico de currículos usando Azure OpenAI + pgvector. Autenticação via Azure AD (SSO + RBAC), jobs assíncronos com Bull e integração bidirecional com portal externo via webhooks."
+      "description": "Sistema corporativo de recrutamento com pipeline Kanban, SLA automático e scoring semântico de currículos usando Azure OpenAI + pgvector. Autenticação via Azure AD (SSO + RBAC), jobs assíncronos com Bull e integração bidirecional com portal externo via webhooks.",
+      "problem": "Processo de requisição de contratação manual via formulários, e-mails e planilhas Excel. Sem rastreabilidade, sem fluxo de aprovação, sem dados de SLA. Cargos viviam em Excel, candidatos chegavam em e-mails dispersos.",
+      "solution": "Plataforma multiempresa com fluxo de aprovação para cargos (Cultura & Performance) e requisições de contratação. IA no centro: assistente de preenchimento de formulários, RAG para scoring de currículos contra a descrição do cargo (Azure OpenAI + pgvector), embeddings sobre transcrições do Microsoft Teams para avaliação comportamental, e integração nativa com Teams para agendamento de entrevistas. Tudo em Kubernetes com Git Flow e CI/CD.",
+      "result": "Score de currículos em milissegundos ao invés de horas de leitura manual. Kanban com SLA por estágio e jobs assíncronos em Bull. Base sólida para integrações futuras com Totvs/RM e dashboards de KPI."
     },
     "fictor360_ai": {
-      "description": "Agente conversacional que transforma perguntas em linguagem natural em queries DAX e consulta modelos semânticos do Power BI em tempo real. Orquestrado com LangGraph, gera e valida DAX via MCP, transmite respostas por streaming WebSocket e produz um perfil completo do modelo semântico para orientar o raciocínio do LLM."
+      "description": "Agente conversacional que transforma perguntas em linguagem natural em queries DAX e consulta modelos semânticos do Power BI em tempo real. Orquestrado com LangGraph, gera e valida DAX via MCP, transmite respostas por streaming WebSocket e produz um perfil completo do modelo semântico para orientar o raciocínio do LLM.",
+      "problem": "Gerentes tinham os dados na frente, mas para qualquer análise profunda precisavam pedir ao analista. O dado estava lá, mas o acesso real, não — exigia conhecer DAX e o modelo semântico do Power BI.",
+      "solution": "Agente IA conversacional com Power BI. MCP expõe o modelo semântico completo (tabelas, medidas, relacionamentos), reasoning model valida o plano de consulta antes de gerar DAX (matando alucinação na raiz). LangChain TS orquestra o fluxo end-to-end. Few-shot examples de pares pergunta-DAX aumentaram a consistência em 90%.",
+      "result": "Analista abre o dashboard, digita uma pergunta em português e recebe os dados com gráfico — na hora, sem precisar saber DAX. IA não substitui o analista de BI, libera ele do operacional para focar na estratégia."
     },
     "candidate_portal": {
-      "description": "Portal público de recrutamento desacoplado do sistema interno de RH, com autenticação multicanal (OAuth2 Google/LinkedIn + e-mail), scoring automático de currículos por IA e sincronização bidirecional via webhooks. Desenvolvido com conformidade à LGPD e rate limiting por IP."
+      "description": "Portal público de recrutamento desacoplado do sistema interno de RH, com autenticação multicanal (OAuth2 Google/LinkedIn + e-mail), scoring automático de currículos por IA e sincronização bidirecional via webhooks. Desenvolvido com conformidade à LGPD e rate limiting por IP.",
+      "problem": "Candidatos externos não tinham canal próprio — RH recebia CVs por e-mail, sem visibilidade do status do processo seletivo. Hunters precisavam de uma vitrine para divulgar vagas de forma estruturada.",
+      "solution": "Portal público desacoplado do sistema interno de RH em NestJS + React + Vite. Autenticação multicanal (OAuth2 Google/LinkedIn + e-mail/senha), scoring automático de currículos via IA no upload e sincronização bidirecional via webhooks HMAC-SHA256 assinados. LGPD compliance e rate limiting por IP em endpoints sensíveis.",
+      "result": "Candidato acompanha o status do processo em tempo real. RH recebe CVs já pontuados, integrados automaticamente ao sistema de gestão. Redução significativa de e-mails operacionais entre candidatos e recrutadores."
     },
     "data_pipeline": {
-      "description": "Pipelines em Python para extração, tratamento e carga de dados de múltiplas fontes internas. Implantação e configuração do Metabase como BI self-service para gestores, com dashboards conectados ao Power BI para consolidação de indicadores."
-    }
+      "description": "Pipelines em Python para extração, tratamento e carga de dados de múltiplas fontes internas. Implantação e configuração do Metabase como BI self-service para gestores, com dashboards conectados ao Power BI para consolidação de indicadores.",
+      "problem": "Dados de diferentes sistemas (ERP legado, planilhas, APIs internas) chegavam em formatos inconsistentes e exigiam consolidação manual antes de qualquer análise. Gestores dependiam do TI para qualquer indicador.",
+      "solution": "Pipelines Python + Pandas para extração, tratamento e carga automatizada de múltiplas fontes internas. Metabase implantado como BI self-service para gestores, com dashboards conectados ao Power BI para consolidação de KPIs corporativos.",
+      "result": "10+ dashboards automatizados rodando diariamente. Gestores acessam seus próprios indicadores sem depender do TI. Base de dados unificada como fundação para análises futuras."
+    },
+    "problem_label": "O problema",
+    "solution_label": "A solução",
+    "result_label": "O resultado",
+    "screenshots_label": "Prints",
+    "screenshots_pending": "Screenshots em breve.",
+    "see_details": "Ver detalhes",
+    "close": "Fechar"
   },
   "education": {
     "title": "Formação",
