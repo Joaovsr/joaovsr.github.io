@@ -1,30 +1,30 @@
 <template>
-  <section id="experience" class="v2-section v2-exp">
-    <div class="v2-section__head">
-      <span class="v2-section__num">// 05</span>
-      <h2 class="v2-section__title">{{ t('experience.title') }}</h2>
+  <section id="experience" class="section exp">
+    <div class="section__head">
+      <span class="section__num">// 05</span>
+      <h2 class="section__title">{{ t('experience.title') }}</h2>
     </div>
-    <div class="v2-exp__list">
-      <article v-for="(exp, idx) in experiences" :key="exp.slug" class="v2-exp-item">
-        <div class="v2-exp-item__rail">
-          <div class="v2-exp-item__node">
-            <div class="v2-exp-item__node-inner"></div>
+    <div class="exp__list">
+      <article v-for="(exp, idx) in experiences" :key="exp.slug" class="exp-item">
+        <div class="exp-item__rail">
+          <div class="exp-item__node">
+            <div class="exp-item__node-inner"></div>
           </div>
-          <div v-if="idx < experiences.length - 1" class="v2-exp-item__line"></div>
+          <div v-if="idx < experiences.length - 1" class="exp-item__line"></div>
         </div>
-        <div class="v2-exp-item__body">
-          <header class="v2-exp-item__head">
+        <div class="exp-item__body">
+          <header class="exp-item__head">
             <div>
-              <div class="v2-exp-item__period">
+              <div class="exp-item__period">
                 {{ fmt(exp.startDate) }} → {{ exp.finishDate ? fmt(exp.finishDate) : t('experience.present') }}
               </div>
-              <h3 class="v2-exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
-              <p class="v2-exp-item__company">@ {{ exp.company }}</p>
+              <h3 class="exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
+              <p class="exp-item__company">@ {{ exp.company }}</p>
             </div>
           </header>
-          <p class="v2-exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
-          <div class="v2-exp-item__skills">
-            <span v-for="s in exp.skills" :key="s" class="v2-chip">{{ s }}</span>
+          <p class="exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
+          <div class="exp-item__skills">
+            <span v-for="s in exp.skills" :key="s" class="chip">{{ s }}</span>
           </div>
         </div>
       </article>
@@ -42,78 +42,78 @@ const fmt = (date: string) => formatDate(date, locale.value)
 </script>
 
 <style lang="scss" scoped>
-.v2-exp__list { display: flex; flex-direction: column; }
-.v2-exp-item {
+.exp__list { display: flex; flex-direction: column; }
+.exp-item {
   display: grid;
   grid-template-columns: 32px 1fr;
   gap: 24px;
   padding-bottom: 36px;
 }
-.v2-exp-item__rail {
+.exp-item__rail {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 8px;
 }
-.v2-exp-item__node {
+.exp-item__node {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid $v2-primary;
+  border: 2px solid $primary;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $v2-bg;
-  box-shadow: 0 0 14px rgba($v2-primary, 0.4);
+  background: $bg;
+  box-shadow: 0 0 14px rgba($primary, 0.4);
 }
-.v2-exp-item__node-inner {
+.exp-item__node-inner {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: $v2-accent;
+  background: $accent;
 }
-.v2-exp-item__line {
+.exp-item__line {
   flex: 1;
   width: 1px;
-  background: linear-gradient(to bottom, $v2-primary, transparent);
+  background: linear-gradient(to bottom, $primary, transparent);
   margin-top: 8px;
   min-height: 60px;
 }
-.v2-exp-item__body {
-  background: rgba($v2-surface, 0.5);
-  border: 1px solid $v2-border;
+.exp-item__body {
+  background: rgba($surface, 0.5);
+  border: 1px solid $border;
   padding: 22px 26px;
   backdrop-filter: blur(8px);
   transition: all $transition-base;
   &:hover {
-    border-color: rgba($v2-primary, 0.4);
+    border-color: rgba($primary, 0.4);
     transform: translateX(4px);
   }
 }
-.v2-exp-item__period {
-  font-family: $v2-mono;
+.exp-item__period {
+  font-family: $mono;
   font-size: 11px;
-  color: $v2-accent;
+  color: $accent;
   margin-bottom: 6px;
   letter-spacing: 0.04em;
 }
-.v2-exp-item__role {
+.exp-item__role {
   font-size: 18px;
   font-weight: 700;
-  color: $v2-secondary;
+  color: $secondary;
   margin-bottom: 4px;
 }
-.v2-exp-item__company {
+.exp-item__company {
   font-size: 13px;
-  color: $v2-glow;
+  color: $glow;
   margin-bottom: 14px;
-  font-family: $v2-mono;
+  font-family: $mono;
 }
-.v2-exp-item__desc {
+.exp-item__desc {
   font-size: 14px;
   line-height: 1.75;
-  color: rgba($v2-secondary, 0.72);
+  color: rgba($secondary, 0.72);
   margin-bottom: 16px;
 }
-.v2-exp-item__skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.exp-item__skills { display: flex; flex-wrap: wrap; gap: 6px; }
 </style>

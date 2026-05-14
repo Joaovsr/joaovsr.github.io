@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" class="v2-canvas" aria-hidden="true" />
+  <canvas ref="canvasRef" class="canvas" aria-hidden="true" />
 </template>
 
 <script lang="ts" setup>
@@ -11,7 +11,7 @@ useNeuralCanvas(canvasRef)
 </script>
 
 <style lang="scss" scoped>
-.v2-canvas {
+.canvas {
   position: fixed;
   top: 0;
   left: 0;

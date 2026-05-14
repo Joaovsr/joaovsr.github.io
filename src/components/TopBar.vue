@@ -1,7 +1,7 @@
 <template>
-  <header class="v2-top">
-    <div class="v2-top__brand">
-      <div class="v2-logo">
+  <header class="top">
+    <div class="top__brand">
+      <div class="logo">
         <svg viewBox="0 0 24 24" width="24" height="24">
           <circle cx="12" cy="12" r="3" fill="currentColor" />
           <circle cx="4" cy="6" r="1.5" fill="currentColor" opacity="0.7" />
@@ -14,30 +14,30 @@
           <line x1="12" y1="12" x2="20" y2="18" stroke="currentColor" stroke-width="0.6" opacity="0.5" />
         </svg>
       </div>
-      <div class="v2-top__title">
-        <span class="v2-top__name">{{ profile.nameShort }}</span>
-        <span class="v2-top__sys">{{ profile.brand }}</span>
+      <div class="top__title">
+        <span class="top__name">{{ profile.nameShort }}</span>
+        <span class="top__sys">{{ profile.brand }}</span>
       </div>
     </div>
 
-    <nav class="v2-top__nav">
+    <nav class="top__nav">
       <a
         v-for="(s, i) in NAV_SECTIONS"
         :key="s"
         :href="`#${s}`"
-        class="v2-top__link"
+        class="top__link"
         :class="{ active: activeIdx === i }"
       >
         {{ t(`nav.${s}`) }}
       </a>
     </nav>
 
-    <div class="v2-top__actions">
-      <span class="v2-status">
-        <span class="v2-status__dot"></span>
-        <span class="v2-status__txt">{{ t('v2.status_online') }}</span>
+    <div class="top__actions">
+      <span class="status">
+        <span class="status__dot"></span>
+        <span class="status__txt">{{ t('status_online') }}</span>
       </span>
-      <button class="v2-lang" @click="toggleLocale">{{ t('lang_toggle') }}</button>
+      <button class="lang" @click="toggleLocale">{{ t('lang_toggle') }}</button>
     </div>
   </header>
 </template>
@@ -78,7 +78,7 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.v2-top {
+.top {
   position: fixed;
   top: 0;
   left: 0;
@@ -87,64 +87,64 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 16px 32px;
-  background: rgba($v2-bg, 0.7);
+  background: rgba($bg, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid $v2-border;
+  border-bottom: 1px solid $border;
   z-index: 80;
 
   @media (max-width: $mobile) { padding: 12px 18px; }
 }
-.v2-top__brand { display: flex; align-items: center; gap: 14px; }
-.v2-logo { color: $v2-primary; display: flex; align-items: center; }
-.v2-top__title { display: flex; flex-direction: column; line-height: 1.1; }
-.v2-top__name { font-size: 14px; font-weight: 700; color: $v2-secondary; }
-.v2-top__sys { font-family: $v2-mono; font-size: 10px; color: $v2-muted; }
+.top__brand { display: flex; align-items: center; gap: 14px; }
+.logo { color: $primary; display: flex; align-items: center; }
+.top__title { display: flex; flex-direction: column; line-height: 1.1; }
+.top__name { font-size: 14px; font-weight: 700; color: $secondary; }
+.top__sys { font-family: $mono; font-size: 10px; color: $muted; }
 
-.v2-top__nav {
+.top__nav {
   display: flex;
   gap: 22px;
 
   @media (max-width: $tablet) { display: none; }
 }
-.v2-top__link {
-  font-family: $v2-mono;
+.top__link {
+  font-family: $mono;
   font-size: 12px;
-  color: $v2-muted;
+  color: $muted;
   letter-spacing: 0.04em;
   transition: color $transition-base;
   text-transform: lowercase;
-  &:hover, &.active { color: $v2-secondary; }
-  &.active { color: $v2-accent; }
+  &:hover, &.active { color: $secondary; }
+  &.active { color: $accent; }
 }
-.v2-top__actions { display: flex; align-items: center; gap: 14px; }
-.v2-status {
+.top__actions { display: flex; align-items: center; gap: 14px; }
+.status {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: $v2-mono;
+  font-family: $mono;
   font-size: 11px;
-  color: $v2-muted;
+  color: $muted;
 
   @media (max-width: $mobile) { display: none; }
 }
-.v2-status__dot {
+.status__dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #4ade80;
   box-shadow: 0 0 8px #4ade80;
-  animation: pulse2 2s infinite;
+  animation: pulse 2s infinite;
 }
-.v2-lang {
-  font-family: $v2-mono;
+.lang {
+  font-family: $mono;
   font-size: 11px;
-  color: $v2-muted;
-  border: 1px solid $v2-border;
+  color: $muted;
+  border: 1px solid $border;
   padding: 6px 10px;
   background: transparent;
   cursor: pointer;
   transition: all $transition-base;
-  &:hover { color: $v2-primary; border-color: $v2-primary; }
+  &:hover { color: $primary; border-color: $primary; }
 }
 </style>

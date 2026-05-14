@@ -1,8 +1,8 @@
 <template>
-  <div class="v2">
+  <div class="home">
     <NeuralBackground />
     <TopBar />
-    <main class="v2-main">
+    <main class="main">
       <HeroSection />
       <AboutSection />
       <RagDemoSection />
@@ -29,16 +29,16 @@ import ContactSection from '@/components/sections/ContactSection.vue'
 </script>
 
 <style lang="scss" scoped>
-.v2 {
-  background: $v2-bg;
-  color: $v2-secondary;
-  font-family: $v2-font;
+.home {
+  background: $bg;
+  color: $secondary;
+  font-family: $font;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
-.v2-main {
+.main {
   position: relative;
   z-index: 2;
   padding-top: 60px;
