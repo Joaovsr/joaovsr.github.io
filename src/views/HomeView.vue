@@ -1,16 +1,21 @@
 <template>
   <div class="home">
     <NeuralBackground />
-    <TopBar />
+    <TopBar v-if="content" :profile="content.profile" />
     <main class="main">
-      <HeroSection />
-      <AboutSection />
+      <template v-if="content">
+        <HeroSection :profile="content.profile" :project-count="content.projects.length" />
+        <AboutSection :profile="content.profile" />
+      </template>
+      <section v-else class="content-state section" role="status">
+        {{ loading ? 'Carregando conteúdo publicado…' : 'O conteúdo publicado está indisponível.' }}
+      </section>
       <RagDemoSection />
-      <ProjectsSection />
+      <ProjectsSection v-if="content" :projects="content.projects" />
       <SkillsGraphSection />
-      <ExperienceSection />
+      <ExperienceSection v-if="content" :experiences="content.experiences" />
       <EducationSection />
-      <ContactSection />
+      <ContactSection v-if="content" :profile="content.profile" :experiences="content.experiences" />
     </main>
   </div>
 </template>
@@ -26,6 +31,11 @@ import SkillsGraphSection from '@/components/sections/SkillsGraphSection.vue'
 import ExperienceSection from '@/components/sections/ExperienceSection.vue'
 import EducationSection from '@/components/sections/EducationSection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
+import { useI18n } from 'vue-i18n'
+import { usePortfolioContent } from '@/composables/usePortfolioContent'
+
+const { locale } = useI18n()
+const { content, loading } = usePortfolioContent(locale)
 </script>
 
 <style lang="scss" scoped>
@@ -43,4 +53,6 @@ import ContactSection from '@/components/sections/ContactSection.vue'
   z-index: 2;
   padding-top: 60px;
 }
+
+.content-state { min-height: 40vh; display: grid; place-items: center; color: $muted; }
 </style>

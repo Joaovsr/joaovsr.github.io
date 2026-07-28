@@ -7,10 +7,10 @@
     <p class="contact__sub">{{ t('contact.subtitle') }}</p>
     <a :href="`mailto:${profile.email}`" class="contact__email">{{ profile.email }}</a>
     <div class="contact__row">
-      <a :href="profile.social.github" target="_blank" rel="noopener noreferrer" class="contact__btn">
+      <a :href="profile.github" target="_blank" rel="noopener noreferrer" class="contact__btn">
         <GithubIcon /> GitHub
       </a>
-      <a :href="profile.social.linkedin" target="_blank" rel="noopener noreferrer" class="contact__btn">
+      <a :href="profile.linkedin" target="_blank" rel="noopener noreferrer" class="contact__btn">
         <LinkedinIcon /> LinkedIn
       </a>
       <button type="button" @click="downloadCv" class="contact__btn">↓ {{ t('download_cv') }}</button>
@@ -24,13 +24,14 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import { profile } from '@/data/profile'
 import { useCvPdf } from '@/composables/useCvPdf'
+import type { PortfolioExperience, PortfolioProfile } from '@/api/content'
 import GithubIcon from '@/components/icons/Github.vue'
 import LinkedinIcon from '@/components/icons/Linkedin.vue'
 
 const { t } = useI18n()
-const { downloadCv } = useCvPdf()
+const props = defineProps<{ profile: PortfolioProfile; experiences: PortfolioExperience[] }>()
+const { downloadCv } = useCvPdf(props.profile, props.experiences)
 const year = new Date().getFullYear()
 </script>
 

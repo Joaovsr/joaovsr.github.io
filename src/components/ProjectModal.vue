@@ -15,27 +15,27 @@
           <span v-for="tech in project.technologies" :key="tech" class="chip chip--sm">{{ tech }}</span>
         </div>
 
-        <p class="modal__desc">{{ t(`projects.${project.slug}.description`) }}</p>
+        <p class="modal__desc">{{ project.description }}</p>
 
         <section class="modal__section">
           <h4 class="modal__section-title">
             <span class="accent">›</span> {{ t('projects.problem_label') }}
           </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.problem`) }}</p>
+          <p class="modal__section-body">{{ project.problem }}</p>
         </section>
 
         <section class="modal__section">
           <h4 class="modal__section-title">
             <span class="accent">›</span> {{ t('projects.solution_label') }}
           </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.solution`) }}</p>
+          <p class="modal__section-body">{{ project.solution }}</p>
         </section>
 
         <section class="modal__section">
           <h4 class="modal__section-title">
             <span class="accent">›</span> {{ t('projects.result_label') }}
           </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.result`) }}</p>
+          <p class="modal__section-body">{{ project.result }}</p>
         </section>
 
         <section class="modal__section">
@@ -62,9 +62,9 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { IProject } from '@/interfaces/project'
+import type { PortfolioProject } from '@/api/content'
 
-const props = defineProps<{ project: IProject | null }>()
+const props = defineProps<{ project: PortfolioProject | null }>()
 const emit = defineEmits<{ (e: 'close'): void }>()
 
 const { t } = useI18n()

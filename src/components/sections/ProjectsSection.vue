@@ -22,7 +22,7 @@
             {{ t('projects.private_label') }}
           </span>
         </header>
-        <p class="proj__desc">{{ t(`projects.${proj.slug}.description`) }}</p>
+        <p class="proj__desc">{{ proj.description }}</p>
         <div class="proj__tech">
           <span v-for="tech in proj.technologies" :key="tech" class="chip chip--sm">{{ tech }}</span>
         </div>
@@ -39,12 +39,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { projects } from '@/data/projects'
 import ProjectModal from '@/components/ProjectModal.vue'
-import type { IProject } from '@/interfaces/project'
+import type { PortfolioProject } from '@/api/content'
 
 const { t } = useI18n()
-const selected = ref<IProject | null>(null)
+defineProps<{ projects: PortfolioProject[] }>()
+const selected = ref<PortfolioProject | null>(null)
 </script>
 
 <style lang="scss" scoped>

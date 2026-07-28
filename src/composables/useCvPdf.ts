@@ -1,12 +1,10 @@
-import { computed } from 'vue'
 import type { jsPDF } from 'jspdf'
 import { useI18n } from 'vue-i18n'
 import type { Locale } from '@/plugins/i18n'
-import { profile } from '@/data/profile'
-import { experiences } from '@/data/experience'
 import { education, certifications } from '@/data/education'
 import { skillCatalog } from '@/data/skills'
 import { formatDate } from '@/utils/portfolio'
+import type { PortfolioExperience, PortfolioProfile } from '@/api/content'
 
 const ACCENT = [124, 92, 255] as const
 const TEXT = [30, 32, 42] as const
@@ -101,10 +99,9 @@ function chips(c: Cursor, items: string[]) {
   c.y += 1
 }
 
-export function useCvPdf() {
-  const { t, tm, locale } = useI18n()
-  const currentLocale = computed(() => locale.value as Locale)
-  const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
+export function useCvPdf(profile: PortfolioProfile, experiences: PortfolioExperience[] = []) {
+  const { t, locale } = useI18n()
+  const currentLocale = () => locale.value as Locale
 
   async function downloadCv() {
     const { default: JsPdfCtor } = await import('jspdf')
@@ -119,14 +116,14 @@ export function useCvPdf() {
 
     setFont(doc, 11, 'normal')
     setColor(doc, ACCENT)
-    doc.text(`${t('role')} · ${t('role_sub')}`, MARGIN, c.y)
+    doc.text(`${profile.role} · ${profile.roleSub}`, MARGIN, c.y)
     c.y += 6
 
     setFont(doc, 8.5, 'normal')
     setColor(doc, MUTED)
-    const githubLabel = profile.social.github.replace(/^https?:\/\//, '')
-    const linkedinLabel = profile.social.linkedin.replace(/^https?:\/\//, '').replace(/\/$/, '')
-    const contactLine1 = `${t('location')}  ·  ${profile.email}`
+    const githubLabel = profile.github.replace(/^https?:\/\//, '')
+    const linkedinLabel = profile.linkedin.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    const contactLine1 = `${profile.location}  ·  ${profile.email}`
     const contactLine2 = `${githubLabel}  ·  ${linkedinLabel}`
     doc.text(contactLine1, MARGIN, c.y)
     c.y += 4
@@ -135,10 +132,10 @@ export function useCvPdf() {
     rule(c)
 
     // ─── Summary ───────────────────────────────────────────────────────
-    sectionTitle(c, currentLocale.value === 'pt-BR' ? 'Resumo' : 'Summary')
-    paragraph(c, t('about.text'))
+    sectionTitle(c, currentLocale() === 'pt-BR' ? 'Resumo' : 'Summary')
+    paragraph(c, profile.aboutLead)
     c.y += 1
-    paragraph(c, t('about.text2'))
+    paragraph(c, profile.aboutBody)
 
     // ─── Experience ────────────────────────────────────────────────────
     sectionTitle(c, t('experience.title'))
@@ -146,10 +143,10 @@ export function useCvPdf() {
       ensurePage(c, 16)
 
       // Period (right) + role (left)
-      const period = `${formatDate(exp.startDate, currentLocale.value)} - ${exp.finishDate ? formatDate(exp.finishDate, currentLocale.value) : t('experience.present')}`
+      const period = `${formatDate(exp.startDate, currentLocale())} - ${exp.finishDate ? formatDate(exp.finishDate, currentLocale()) : t('experience.present')}`
       setFont(doc, 10, 'bold')
       setColor(doc, TEXT)
-      doc.text(t(`experience.${exp.slug}.role`), MARGIN, c.y)
+      doc.text(exp.role, MARGIN, c.y)
       setFont(doc, 8.5, 'normal')
       setColor(doc, MUTED)
       const periodW = doc.getTextWidth(period)
@@ -163,7 +160,7 @@ export function useCvPdf() {
       c.y += 5
 
       // Description
-      paragraph(c, t(`experience.${exp.slug}.description`), { size: 9, lineHeight: 4.4 })
+      paragraph(c, exp.description, { size: 9, lineHeight: 4.4 })
 
       // Skills
       if (exp.skills.length) chips(c, exp.skills)
@@ -231,7 +228,7 @@ export function useCvPdf() {
 
     // ─── Languages ─────────────────────────────────────────────────────
     sectionTitle(c, t('about.languages_title'))
-    for (const lang of languages.value) {
+    for (const lang of profile.languages) {
       keyValueLine(c, lang.name, ` · ${lang.level}`)
     }
 
@@ -241,12 +238,12 @@ export function useCvPdf() {
       doc.setPage(i)
       setFont(doc, 7.5, 'normal')
       setColor(doc, MUTED)
-      const footerText = `${currentLocale.value === 'pt-BR' ? 'Gerado pelo portfolio' : 'Generated from portfolio'} · joaovsr.github.io  ·  ${i} / ${totalPages}`
+      const footerText = `${currentLocale() === 'pt-BR' ? 'Gerado pelo portfolio' : 'Generated from portfolio'} · joaovsr.github.io  ·  ${i} / ${totalPages}`
       doc.text(footerText, PAGE_W / 2, PAGE_H - 8, { align: 'center' })
     }
 
     const slug = profile.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '-')
-    const filename = `${slug}-CV-${currentLocale.value === 'pt-BR' ? 'PT' : 'EN'}.pdf`
+    const filename = `${slug}-CV-${currentLocale() === 'pt-BR' ? 'PT' : 'EN'}.pdf`
     doc.save(filename)
   }
 

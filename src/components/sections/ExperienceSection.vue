@@ -18,11 +18,11 @@
               <div class="exp-item__period">
                 {{ fmt(exp.startDate) }} → {{ exp.finishDate ? fmt(exp.finishDate) : t('experience.present') }}
               </div>
-              <h3 class="exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
+              <h3 class="exp-item__role">{{ exp.role }}</h3>
               <p class="exp-item__company">@ {{ exp.company }}</p>
             </div>
           </header>
-          <p class="exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
+          <p class="exp-item__desc">{{ exp.description }}</p>
           <div class="exp-item__skills">
             <span v-for="s in exp.skills" :key="s" class="chip">{{ s }}</span>
           </div>
@@ -34,10 +34,11 @@
 
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import { experiences } from '@/data/experience'
 import { formatDate } from '@/utils/portfolio'
+import type { PortfolioExperience } from '@/api/content'
 
 const { t, locale } = useI18n()
+defineProps<{ experiences: PortfolioExperience[] }>()
 const fmt = (date: string) => formatDate(date, locale.value)
 </script>
 

@@ -9,6 +9,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  server: {
+    proxy: {
+      '/ask': 'http://127.0.0.1:8000',
+      '/admin': 'http://127.0.0.1:8000',
+      '/portfolio': 'http://127.0.0.1:8000'
+    }
+  },
   css: {
     preprocessorOptions: {
       scss: {

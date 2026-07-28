@@ -4,7 +4,7 @@ Terms used across this codebase. Keep this file synced when new concepts crystal
 
 ## Domain entities
 
-The portfolio surfaces a fixed set of entity kinds: **Experience**, **Project**, **Education**, **Certification**, **Skill**, **Profile**, **RagQuestion** (the RAG demo).
+The portfolio surfaces a fixed set of entity kinds: **Experience**, **Project**, **Education**, **Certification**, **Skill**, **Profile**, **RagQuestion** (a suggested prompt for the embedded portfolio RAG).
 
 ## Slug
 
@@ -31,4 +31,4 @@ Consequences:
 - Templates and the PDF renderer call `t(\`experience.${exp.slug}.role\`)` directly. No wrapper composable.
 - vue-i18n handles fallback (configured to `pt-BR`).
 
-Exception: the RAG demo (`src/data/ragDemo.ts`) carries explicit i18n keys on its data (`questionKey`, `answerKey`, etc.) instead of using the slug convention. Its structure makes per-chunk keys natural; the convention isn't a fit. Left as-is on purpose.
+Exception: the suggested RAG questions (`src/data/ragDemo.ts`) carry an explicit `questionKey` instead of using the slug convention. Answers and citations always come from `POST /ask`; they are not localized static data.

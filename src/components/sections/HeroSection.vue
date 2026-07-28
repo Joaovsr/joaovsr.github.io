@@ -11,10 +11,10 @@
         </span>
       </h1>
       <p class="hero__role">
-        <span class="accent">{{ t('role') }}</span> <span class="divider">·</span>
-        <span class="accent">{{ t('role_sub') }}</span>
+        <span class="accent">{{ profile.role }}</span> <span class="divider">·</span>
+        <span class="accent">{{ profile.roleSub }}</span>
       </p>
-      <p class="hero__tag">{{ t('tagline') }}</p>
+      <p class="hero__tag">{{ profile.tagline }}</p>
 
       <div class="hero__embed">
         <div class="hero__embed-label">{{ t('hero.embed_label') }}</div>
@@ -48,7 +48,7 @@
           <span class="metric__lbl">{{ t('hero.metric_years') }}</span>
         </div>
         <div class="metric">
-          <span class="metric__num">{{ projects.length }}+</span>
+          <span class="metric__num">{{ projectCount }}+</span>
           <span class="metric__lbl">{{ t('hero.metric_projects') }}</span>
         </div>
         <div class="metric">
@@ -63,18 +63,18 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { profile } from '@/data/profile'
-import { projects } from '@/data/projects'
 import { certifications } from '@/data/education'
 import { yearsOfExperience } from '@/utils/portfolio'
 import { useCvPdf } from '@/composables/useCvPdf'
+import type { PortfolioProfile } from '@/api/content'
 
 const { t } = useI18n()
-const { downloadCv } = useCvPdf()
+const props = defineProps<{ profile: PortfolioProfile; projectCount: number }>()
+const { downloadCv } = useCvPdf(props.profile)
 
-const years = yearsOfExperience(profile.careerStart)
-const firstName = computed(() => profile.nameShort.split(' ')[0] ?? profile.nameShort)
-const lastName = computed(() => profile.nameShort.split(' ').slice(1).join(' ') || '')
+const years = computed(() => yearsOfExperience(props.profile.careerStart))
+const firstName = computed(() => props.profile.nameShort.split(' ')[0] ?? props.profile.nameShort)
+const lastName = computed(() => props.profile.nameShort.split(' ').slice(1).join(' ') || '')
 
 const embedSample = computed(() =>
   Array.from({ length: 6 }, (_, i) => {

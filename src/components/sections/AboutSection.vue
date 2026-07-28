@@ -6,10 +6,10 @@
     </div>
     <div class="about__grid">
       <div class="about__main">
-        <p class="about__lead">{{ t('about.text') }}</p>
-        <p class="about__body">{{ t('about.text2') }}</p>
+        <p class="about__lead">{{ profile.aboutLead }}</p>
+        <p class="about__body">{{ profile.aboutBody }}</p>
         <ul class="about__diff">
-          <li v-for="d in differentials" :key="d">
+          <li v-for="d in profile.differentials" :key="d">
             <span class="accent">›</span> {{ d }}
           </li>
         </ul>
@@ -19,7 +19,7 @@
         <div class="about__meta">
           <div class="about__row">
             <span class="about__key">location</span>
-            <span class="about__val">{{ t('location') }}</span>
+            <span class="about__val">{{ profile.location }}</span>
           </div>
           <div class="about__row">
             <span class="about__key">email</span>
@@ -28,13 +28,13 @@
           <div class="about__row">
             <span class="about__key">status</span>
             <span class="about__val">
-              <span class="pulse"></span> {{ t('about.open_to') }}
+              <span class="pulse"></span> {{ profile.openTo }}
             </span>
           </div>
         </div>
         <div class="about__langs">
           <span class="about__key">{{ t('about.languages_title') }}</span>
-          <div v-for="lang in languages" :key="lang.name" class="about__lang">
+          <div v-for="lang in profile.languages" :key="lang.name" class="about__lang">
             <span>{{ lang.name }}</span>
             <span class="accent">{{ lang.level }}</span>
           </div>
@@ -45,13 +45,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { profile } from '@/data/profile'
+import type { PortfolioProfile } from '@/api/content'
 
-const { t, tm } = useI18n()
-const differentials = computed(() => tm('about.differentials') as string[])
-const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
+const { t } = useI18n()
+defineProps<{ profile: PortfolioProfile }>()
 </script>
 
 <style lang="scss" scoped>

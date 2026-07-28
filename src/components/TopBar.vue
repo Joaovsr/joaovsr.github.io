@@ -45,12 +45,13 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { profile } from '@/data/profile'
 import { toggleLocale } from '@/plugins/i18n'
+import type { PortfolioProfile } from '@/api/content'
 
 const NAV_SECTIONS = ['about', 'projects', 'skills', 'experience', 'contact'] as const
 
 const { t } = useI18n()
+defineProps<{ profile: PortfolioProfile }>()
 const activeIdx = ref(-1)
 
 let observer: IntersectionObserver | null = null
