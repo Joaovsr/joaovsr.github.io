@@ -1,10 +1,7 @@
 @import 'reset';
 @import 'shared';
-
-// Font imports
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/700.css';
-@import '@fontsource/inter/800.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/700.css';
+@import '@fontsource/metropolis/latin-400.css';
+@import '@fontsource/metropolis/latin-600.css';
+@import '@fontsource/metropolis/latin-700.css';
+body { background: $bg; color: $secondary; font-family: $font; }
+button { color: inherit; }

@@ -5,10 +5,10 @@
   "name_short": "João Vinicius",
   "role": "Software Engineer",
   "role_sub": "Full Stack",
-  "location": "Barbacena, MG — Brazil",
+  "location": "Barbacena, Brazil",
   "available_remote": "Available for international remote",
   "download_cv": "Download CV",
-  "tagline": "Software Engineer with 4 years of experience building web and mobile applications — from backend to frontend, with AI integrations and agent building.",
+  "tagline": "I build web and mobile applications, from backend to interface. My projects use AI to review résumés, run agents and query business data.",
   "nav": {
     "about": "About",
     "experience": "Experience",
@@ -17,14 +17,9 @@
     "contact": "Contact"
   },
   "about": {
-    "title": "About Me",
-    "text": "Software Engineer with 4 years of experience in web and mobile development, working from backend to frontend all the way to cloud deployment (Azure, AWS). I ship end-to-end products with AI integrations, RAG, and agent building — turning LLMs into reliable business features with observability, fallbacks, and deterministic tests on critical paths.",
-    "text2": "I combine software engineering and AI to ship products that work end-to-end — from backend to the conversational interface. I believe Generative AI goes far beyond prompts — I want to build robust, secure, and scalable solutions that transform how people interact with data and information.",
-    "differentials": [
-      "Curiosity and continuous learning",
-      "Adaptability",
-      "End-to-end vision"
-    ],
+    "title": "A little about me",
+    "text": "I work across web and mobile development, from backend to deployment. At Fictor Alimentos, I built a corporate super-app, a recruitment platform and an agent for querying Power BI data.",
+    "text2": "Before that, at Atalaia Alimentos, I automated processes with Python and organized data for business teams. I now bring that experience to products with AI, taking care of integrations, testing and how the system behaves when something fails.",
     "open_to": "Open to remote opportunities",
     "languages_title": "Languages",
     "languages": [
@@ -43,20 +38,21 @@
     "present": "Present",
     "skills_label": "Technologies",
     "fictor": {
-      "role": "Full Stack Developer | AI Engineer",
-      "description": "Developed web and mobile applications integrated with AI, used across multiple companies in the group. Complete HR platform with semantic resume scoring via RAG + Azure OpenAI + pgvector, role fit evaluation, and Totvs/RM integration. Corporate super-app built in Flutter, React, and Node.js with AI-validated vehicle reservation, hosting, real-time notifications, BI dashboards, and Azure AD authentication with RBAC per module. Fictor360 AI: corporate indicator queries in natural language via LLM + MCP PowerBI. Infrastructure with Docker, Kubernetes, and CI/CD pipelines via Azure DevOps + GitFlow."
+      "role": "Full Stack Developer · AI Engineer",
+      "description": "I built web and mobile applications used across the group: the InCubo super-app, the recruitment platform and Fictor360 AI. My work covered interfaces, APIs and integrations with Azure AD, Power BI and AI services, as well as Docker and Kubernetes infrastructure and Azure DevOps deployment pipelines."
     },
     "atalaia": {
-      "role": "Systems Developer | Data Analyst",
-      "description": "Developed and deployed technology solutions with Python, automating operations, structuring data pipelines, and building internal systems to support business areas. Built a client debt collection agent, data pipelines and ETL with Pandas, data analysis and visualization with Pandas and Seaborn, deployed Metabase with 10+ automated dashboards for decision support, and developed the institutional website and intranet platform using Django. Technical and functional support for Agrosys ERP, bug analysis, and access management."
+      "role": "Systems Developer · Data Analyst",
+      "description": "I automated operations with Python, built Pandas data pipelines and deployed Metabase with more than ten dashboards. I developed the company website and intranet in Django and a debt collection agent. I also supported the Agrosys ERP, investigating bugs and managing access."
     },
     "inss": {
       "role": "IT Intern",
-      "description": "Responsible for computer equipment maintenance, technical user support focused on hardware, software, and networking, as well as system recovery through OS formatting and reinstallation, improving machine performance."
-    }
+      "description": "I maintained computers and supported users with hardware, software and networking issues. I also recovered systems and reinstalled operating systems."
+    },
+    "eyebrow": "Background"
   },
   "skills": {
-    "title": "Skills",
+    "title": "Tools I work with",
     "categories": {
       "ai": "AI",
       "backend": "Backend",
@@ -65,57 +61,87 @@
       "mobile": "Mobile",
       "frontend": "Frontend"
     },
-    "sub": "Hover nodes to see connections. Skills are organized by domain."
+    "sub": "The technologies I use, grouped by discipline."
   },
   "projects": {
-    "title": "Projects",
+    "title": "Selected work",
     "private_label": "Private project",
     "repo_label": "View code",
     "site_label": "View site",
     "tech_label": "Technologies",
     "super_app": {
-      "description": "Internal platform built from scratch to digitize Fictor Alimentos operations. Centralizes vehicle reservations with approval workflows and AI validation, hotel bookings, internal announcements with real-time push notifications, and BI dashboards — all with Azure AD corporate auth and per-module RBAC.",
-      "problem": "Fictor's operations scattered across multiple disconnected systems — vehicle reservations in spreadsheets, announcements over email, BI in separate portals, hotel bookings by phone. No single app, no structured internal communication.",
-      "solution": "InCubo — a digital ecosystem in Flutter + React + NestJS with Azure AD SSO, per-module RBAC, real-time push notifications (Firebase + RabbitMQ), AI-validated vehicle reservations, and embedded Power BI dashboards. Mobile + web running on Kubernetes with CI/CD via Azure DevOps.",
-      "result": "A single corporate platform used across all group companies. Replaced 4 disconnected systems and cut operational IT requests by ~40%."
+      "description": "An internal app for Fictor Alimentos that brings together vehicle reservations, hotel bookings, announcements and dashboards. I built the mobile and web interfaces and backend, with corporate authentication and module-level permissions.",
+      "problem": "Vehicle reservations lived in spreadsheets, announcements in emails and business metrics in separate portals. Hotel bookings were handled by phone.",
+      "solution": "I built InCubo with Flutter, React and NestJS, integrating Azure AD login, module-level permissions, Firebase and RabbitMQ notifications, AI-assisted reservation validation and Power BI dashboards. It runs on Kubernetes with Azure DevOps deployment.",
+      "result": "The app was adopted across the group and replaced four separate systems. The project reported around 40% fewer operational IT requests.",
+      "name": "InCubo",
+      "category": "Corporate app / Fictor Alimentos",
+      "image_alt": "Internal announcements screen in the InCubo mobile app",
+      "summary": "Bookings, announcements and business data in one app. I built the mobile app, web interface and backend connecting the group's operations."
     },
     "fictor360_pbi": {
-      "description": "Module that brings Power BI dashboards directly into the Super-App, ensuring each user sees only their own data through role and Azure group-based RLS. Dynamic embed token generation and workspace management via API.",
-      "problem": "Individual Power BI licenses created cost bottlenecks as the company scaled. Limited governance — controlling \"who sees what\" required duplicating workspaces per area, risking sensitive data exposure.",
-      "solution": "Custom Embedded Analytics portal with Dual-Layer Security: Azure AD group and user validation at the app layer, plus dynamic Row-Level Security (RLS) role injection into the access token. Dashboard lifecycle and identity management handled programmatically via API, eliminating dependence on the default Power BI Service portal.",
-      "result": "Drastic cost reduction (per-user license model → capacity-based), full data democratization, and granular per-user governance — unprecedented trust from stakeholders."
+      "description": "I integrated Power BI reports into the super-app. Each person sees the data allowed by their profile, using user and Azure AD group rules.",
+      "problem": "Individual license costs grew with the company. Restricting data by department required duplicate workspaces, making permissions harder to maintain.",
+      "solution": "I built a Power BI Embedded portal. The app checks Azure AD users and groups and injects row-level security roles into each session token. Dashboards and workspaces are managed through the API.",
+      "result": "Access moved from individual licensing to a capacity-based model. Reports became available inside the app with per-user data permissions.",
+      "name": "Fictor360",
+      "category": "Data / Power BI Embedded",
+      "image_alt": "Fictor360 portal displaying Power BI reports",
+      "summary": "Power BI dashboards inside the app, with access defined by each person's profile."
     },
     "hr_platform": {
-      "description": "Corporate recruitment system with Kanban pipeline, automatic SLA tracking, and semantic CV scoring using Azure OpenAI + pgvector. Azure AD authentication (SSO + RBAC), async jobs with Bull, and bidirectional integration with an external portal via webhooks.",
-      "problem": "Hiring requisition process handled manually via forms, emails, and Excel spreadsheets. No traceability, no approval flow, no SLA data. Roles lived in Excel, candidates arrived in scattered emails.",
-      "solution": "Multi-company platform with approval flows for roles (Culture & Performance) and hiring requisitions. AI at the core: form-filling assistant, RAG-based CV scoring against the role description (Azure OpenAI + pgvector), embeddings over Microsoft Teams transcripts for behavioral evaluation, and native Teams integration for interview scheduling. All on Kubernetes with Git Flow and CI/CD.",
-      "result": "CV scoring in milliseconds instead of hours of manual reading. Kanban with stage-level SLA and async jobs in Bull. Solid foundation for future Totvs/RM integrations and KPI dashboards."
+      "description": "A recruitment system with approval workflows, Kanban, deadline tracking and semantic résumé analysis using Azure OpenAI and pgvector.",
+      "problem": "Hiring requests passed through forms, emails and spreadsheets. Approvals and deadlines were hard to track, and résumés arrived across scattered emails.",
+      "solution": "I built approval flows for roles and hiring requests, RAG-based résumé matching and Teams interview integration. Azure AD handles authentication and permissions, Bull processes background jobs, and webhooks synchronize the candidate portal.",
+      "result": "HR can track candidates and deadlines in a Kanban, with automatically scored résumés. Queued processing handles batches without blocking the interface.",
+      "name": "People management",
+      "category": "Recruitment / Applied AI",
+      "image_alt": "Fictor Alimentos people management platform interface",
+      "summary": "From opening a role to the interview: approvals, Kanban and résumé analysis in one HR platform."
     },
     "fictor360_ai": {
-      "description": "Conversational agent that turns natural language questions into DAX queries and queries Power BI semantic models in real time. Orchestrated with LangGraph, generates and validates DAX via MCP, streams responses over WebSocket, and produces a full semantic model profile to guide LLM reasoning.",
-      "problem": "Managers had data in front of them, but for any deep analysis they had to ask an analyst. The data was there, but real access was not — it required knowing DAX and the Power BI semantic model.",
-      "solution": "Conversational AI agent for Power BI. MCP exposes the full semantic model (tables, measures, relationships); a reasoning model validates the query plan before generating DAX (killing hallucination at the root). LangChain TS orchestrates the end-to-end flow. Few-shot examples of question-DAX pairs increased consistency by 90%.",
-      "result": "An analyst opens the dashboard, types a question in natural language, and gets the data with a chart — instantly, without needing DAX. AI does not replace the BI analyst, it frees them from operational work to focus on strategy."
+      "description": "An agent that takes natural language questions, generates DAX queries and accesses Power BI semantic models. Answers stream back alongside the queried data.",
+      "problem": "For deeper analysis, managers depended on someone who knew DAX and the structure of their Power BI models.",
+      "solution": "I connected the agent to Power BI through MCP, exposing tables, measures and relationships as context. The flow generates and validates DAX before execution. I used LangChain, LangGraph and Azure OpenAI, with WebSocket streaming and example question-query pairs to guide generation.",
+      "result": "Users can ask a question and receive data with a chart without writing DAX. The conversation sits alongside the dashboard during analysis.",
+      "name": "Fictor360 AI",
+      "category": "AI agent / Data analysis",
+      "image_alt": "Fictor360 conversational agent alongside a dashboard",
+      "summary": "Questions become Power BI queries, with answers and charts on the same screen."
     },
     "candidate_portal": {
-      "description": "Public recruitment portal decoupled from the internal HR system, with multi-channel authentication (OAuth2 Google/LinkedIn + email), automatic AI-powered CV scoring, and bidirectional sync via webhooks. Built with LGPD compliance and IP-based rate limiting.",
-      "problem": "External candidates had no dedicated channel — HR received CVs by email with no process visibility. Hunters needed a structured showcase to publish open roles.",
-      "solution": "Public portal decoupled from the internal HR system, built with NestJS + React + Vite. Multi-channel auth (OAuth2 Google/LinkedIn + email/password), automatic CV scoring at upload via AI, and bidirectional sync with HMAC-SHA256 signed webhooks. LGPD compliance and IP-based rate limiting on sensitive endpoints.",
-      "result": "Candidates track process status in real time. HR receives pre-scored CVs auto-integrated into the management system. Significant reduction in operational emails between candidates and recruiters."
+      "description": "A public recruitment portal connected to the internal HR system, with Google, LinkedIn or email login, résumé analysis and webhook synchronization.",
+      "problem": "HR received résumés by email. Candidates had no place to follow their applications, and recruiters needed a way to publish open roles.",
+      "solution": "I built the portal in NestJS and React, separate from the internal system. I integrated OAuth2, scoring on résumé upload and HMAC-SHA256 signed webhooks. Privacy controls and per-IP rate limits protect sensitive endpoints.",
+      "result": "Candidates follow their applications through the portal. HR receives scored résumés directly in the management system.",
+      "name": "Candidate portal",
+      "category": "Web / Recruitment",
+      "image_alt": "Fictor Alimentos jobs and applications portal",
+      "summary": "A place to find roles, send a résumé and follow an application, connected to the HR system."
     },
     "data_pipeline": {
-      "description": "Python pipelines for extracting, transforming, and loading data from multiple internal sources. Metabase deployment as a self-service BI tool for managers, with dashboards connected to Power BI for KPI consolidation.",
-      "problem": "Data from different systems (legacy ERP, spreadsheets, internal APIs) arrived in inconsistent formats and required manual consolidation before any analysis. Managers depended on IT for every metric.",
-      "solution": "Python + Pandas pipelines for automated extraction, transformation, and loading from multiple internal sources. Metabase deployed as self-service BI for managers, with dashboards connected to Power BI for corporate KPI consolidation.",
-      "result": "10+ automated dashboards running daily. Managers access their own metrics without depending on IT. A unified database as the foundation for future analyses."
+      "description": "Python pipelines for extracting, transforming and loading internal data. I deployed Metabase so managers could access their metrics, with dashboards and consolidation in Power BI.",
+      "problem": "ERP systems, spreadsheets and APIs supplied inconsistent formats. Consolidation was manual, and managers depended on IT to retrieve metrics.",
+      "solution": "I automated extraction and transformation with Python and Pandas, deployed Metabase and connected dashboards to Power BI for company reporting.",
+      "result": "More than ten automated dashboards run daily. Managers access their metrics without asking IT for each query.",
+      "name": "Data pipelines",
+      "category": "Automation / Business intelligence",
+      "image_alt": "Illustrative diagram of a Python data pipeline",
+      "summary": "ERP, spreadsheet and API data brought together with Python to power the company's reporting."
     },
     "problem_label": "The problem",
-    "solution_label": "The solution",
+    "solution_label": "What I built",
     "result_label": "The result",
-    "screenshots_label": "Screenshots",
+    "screenshots_label": "Project images",
     "screenshots_pending": "Screenshots coming soon.",
-    "see_details": "See details",
-    "close": "Close"
+    "see_details": "View project",
+    "close": "Close",
+    "intro": "Applications I built for operations, recruitment and data analysis.",
+    "open": "View project {name}",
+    "enlarge": "Enlarge image {number}",
+    "image_hint": "Click an image to view it at its original size.",
+    "eyebrow": "Portfolio",
+    "featured": "Featured project"
   },
   "education": {
     "title": "Education",
@@ -130,8 +156,8 @@
     }
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Let's talk?",
+    "title": "Let's talk.",
+    "subtitle": "I'm open to remote opportunities in software development and AI. Here's where you can find me.",
     "email_label": "Send email",
     "copy_label": "Copy email",
     "copied": "Copied!",
@@ -139,58 +165,16 @@
     "linkedin_label": "View LinkedIn",
     "footer": "Built with Vue 3, TypeScript and SCSS"
   },
-  "status_online": "online · available",
   "hero": {
-    "tag": "AI · BACKEND · DATA",
-    "embed_label": "embedding vector · semantic representation",
-    "ask_cta": "Ask my portfolio",
-    "metric_years": "years of exp",
-    "metric_projects": "projects",
-    "metric_certs": "certifications"
+    "intro": "Software development portfolio",
+    "role": "Full stack developer, putting AI to work.",
+    "projects_cta": "Explore my work",
+    "portrait_note": "Open to remote work",
+    "headline": "Full stack.",
+    "headline_accent": "AI in practice."
   },
-  "ask": {
-    "title": "Ask my portfolio",
-    "sub": "Conceptual RAG demo. Your question is converted to an embedding, similar chunks are retrieved from my experience vector, and the LLM answers grounded on that context.",
-    "retrieved": "Retrieved context",
-    "chunks": "chunks",
-    "pipeline": {
-      "query": "query",
-      "embed": "embed",
-      "vector": "vector db",
-      "llm": "LLM",
-      "answer": "answer"
-    },
-    "q1": "How do you use LLMs in production?",
-    "q1_chunk1": "HR platform with semantic CV scoring via RAG + Azure OpenAI + pgvector.",
-    "q1_chunk2": "Role-fit evaluation, integration with Totvs/RM and candidate portal.",
-    "q1_answer": "I use LLMs in production on three main fronts: (1) RAG for semantic CV scoring in the HR platform — Azure OpenAI embeddings stored in pgvector, similarity search against the job description + reranking; (2) a conversational agent (Fictor360 AI) that translates natural-language questions into DAX queries on Power BI via MCP, orchestrated with LangGraph and WebSocket streaming; (3) business-rule validation in approval flows in the super-app. Always with observability, fallbacks, and deterministic tests on the critical paths.",
-    "q2": "How does Fictor360 AI work?",
-    "q2_chunk1": "Conversational agent that turns questions into DAX and queries Power BI semantic models in real time.",
-    "q2_chunk2": "LangGraph + Azure OpenAI + Power BI MCP, WebSocket streaming.",
-    "q2_answer": "Fictor360 AI is an agent that talks to Power BI. Pipeline: user asks in natural language → the agent loads the full semantic model profile (tables, measures, relationships) as context → LangGraph orchestrates: generate DAX, validate via MCP, execute, interpret result → response streams back over WebSocket. The model profile grounds the LLM's reasoning and dramatically cuts hallucination on measure names. Stack: NestJS, LangGraph, Azure OpenAI, Power BI MCP server, DAX.",
-    "q3": "Tell me about the HR platform with AI",
-    "q3_chunk1": "Semantic CV scoring with Azure OpenAI + pgvector, Kanban with automatic SLA.",
-    "q3_chunk2": "Decoupled candidate portal, OAuth2 Google/LinkedIn, webhook sync.",
-    "q3_answer": "Corporate recruitment platform that replaced the manual HR flow. Each job opening generates an embedding (Azure OpenAI text-embedding-3-small) compared against CV embeddings via cosine similarity in pgvector — score comes back in ms, with reranking by hard-skill criteria. Kanban pipeline with per-stage SLA, async jobs in Bull to batch-process CVs, Totvs/RM integration to pull active employee data. The public candidate portal is decoupled (its own NestJS), authenticates via OAuth2 Google/LinkedIn or email, and syncs with the internal system via webhooks + HMAC signatures. All with Azure AD SSO + RBAC on the internal side and LGPD compliance on the portal.",
-    "q4": "How do you structure a scalable backend?",
-    "q4_chunk1": "Clean Architecture + modular architecture (NestJS), RabbitMQ events, Bull jobs.",
-    "q4_chunk2": "Corporate super-app with domain-isolated modules and granular RBAC.",
-    "q4_answer": "My go-to pattern is modular NestJS: each bounded context becomes an isolated module with controller/service/repository, dependencies injected and contracts through interfaces — makes it easy to test and swap implementations (e.g. pgvector ↔ redis vector). For async flows, Bull for short-lived jobs and RabbitMQ for events between modules (reservation approved → push notification → audit dashboard). PostgreSQL with versioned migrations, Redis for session cache and rate limiting. Observability via structured logs + requestId correlation, and the critical paths have integration tests running in Docker on CI. Deploy on Kubernetes with health probes and horizontal autoscaling.",
-    "q5": "How do you handle auth and corporate integration?",
-    "q5_chunk1": "Azure AD SSO + per-module RBAC in the super-app; multi-provider OAuth2 in the public portal.",
-    "q5_chunk2": "HMAC-signed webhooks, IP-based rate limiting, Totvs/RM integration.",
-    "q5_answer": "Internal systems use Azure AD SSO with custom claims — RBAC lives at the module and resource level (e.g. an HR user only sees jobs from their BU). For Power BI integration I used service principals with group-based RLS and dynamic embed token generation. External systems (candidate portal) sit behind OAuth2 (Google + LinkedIn + email/password) with IP rate limiting and captcha on sensitive endpoints. Sync between systems is via HMAC-SHA256 signed webhooks with exponential backoff retry and a dead-letter queue for persistent failures. Legacy ERP integration (Totvs/RM) without an API: REST when available, RPA with Selenium when not.",
-    "q6": "What's your experience with data and BI?",
-    "q6_chunk1": "Python pipelines, ETL with Pandas, dashboards on Metabase and Power BI.",
-    "q6_chunk2": "RPA with Selenium for data extraction from legacy ERP without an API.",
-    "q6_answer": "I started at Atalaia turning manual processes into automation: RPA in Python + Selenium to scrape a legacy ERP without an API (~70% drop in collection time), ETL pipelines with Pandas, Metabase deployment with 10+ dashboards. At Fictor I evolved into Power BI integration via REST/MCP, semantic modeling (tables, measures, relationships), and embedded BI with Azure AD RLS. SQL is my Swiss army knife — from optimized production queries to exploratory analysis to understand feature behavior before writing code.",
-    "q7": "What's your biggest project shipped?",
-    "q7_chunk1": "Fictor Super-App: internal platform that digitized multiple group operations.",
-    "q7_chunk2": "AI-validated vehicle reservation, hosting, embedded BI, real-time push.",
-    "q7_answer": "Fictor Alimentos corporate super-app. Built from scratch, it's the internal platform used by every company in the group: vehicle reservation with approval flow and AI validation (evaluates whether the employee's justification is consistent with destination and time), hotel booking integrated with finance, internal announcements with real-time push (Firebase + RabbitMQ), embedded Power BI dashboards with Azure AD RLS, and self-service Metabase BI. Mobile frontend in Flutter + web in React, modular NestJS backend on Kubernetes, CI/CD via Azure DevOps with GitFlow. Replaced 4 disconnected systems and cut operational IT requests by ~40%.",
-    "q8": "What are you looking for in your next role?",
-    "q8_chunk1": "Available for international remote, focused on AI-applied product work.",
-    "q8_chunk2": "Interested in small teams with technical autonomy and product ownership.",
-    "q8_answer": "Looking for an AI Engineer or AI-focused Backend role, preferably international remote. I want to work on product — where AI isn't a demo, it's a feature that pays the bill. Small teams (up to ~15 engineers) with technical autonomy and end-to-end ownership work better for me than matrix structures. Ideal stack: Python or TypeScript, any LLM provider (Anthropic, OpenAI, Azure), cloud-agnostic. Open to Series A/B startups solving real problems or established companies with a serious AI initiative. Advanced English, flexible time zone."
-  }
+  "skip_content": "Skip to content",
+  "navigation": "Main navigation",
+  "change_language": "Ler em português",
+  "back_top": "Back to top"
 }

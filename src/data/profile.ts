@@ -4,8 +4,8 @@ export const profile: IProfile = {
   name: 'João Vinicius Rodrigues',
   nameShort: 'João Vinicius',
   email: 'joaovinicius2525@gmail.com',
-  avatar: '/avatar.jpg',
-  brand: '// neural-lab',
+  avatar: '/avatar.webp',
+  brand: 'João Vinicius',
   careerStart: '2022-09',
   social: {
     github: 'https://github.com/joaovsr',

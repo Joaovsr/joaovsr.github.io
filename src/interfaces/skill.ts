@@ -1,9 +1,5 @@
-import type { Component } from 'vue'
-
 export interface ISkill {
   id: number
   name: string
   category: 'frontend' | 'backend' | 'mobile' | 'data' | 'ai' | 'devops'
-  icon?: Component
-  relatedTo?: string[]
 }

@@ -1,119 +1,26 @@
 <template>
-  <section id="experience" class="section exp">
-    <div class="section__head">
-      <span class="section__num">// 05</span>
-      <h2 class="section__title">{{ t('experience.title') }}</h2>
-    </div>
-    <div class="exp__list">
-      <article v-for="(exp, idx) in experiences" :key="exp.slug" class="exp-item">
-        <div class="exp-item__rail">
-          <div class="exp-item__node">
-            <div class="exp-item__node-inner"></div>
-          </div>
-          <div v-if="idx < experiences.length - 1" class="exp-item__line"></div>
-        </div>
-        <div class="exp-item__body">
-          <header class="exp-item__head">
-            <div>
-              <div class="exp-item__period">
-                {{ fmt(exp.startDate) }} → {{ exp.finishDate ? fmt(exp.finishDate) : t('experience.present') }}
-              </div>
-              <h3 class="exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
-              <p class="exp-item__company">@ {{ exp.company }}</p>
-            </div>
-          </header>
-          <p class="exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
-          <div class="exp-item__skills">
-            <span v-for="s in exp.skills" :key="s" class="chip">{{ s }}</span>
-          </div>
-        </div>
-      </article>
-    </div>
+  <section id="experience" class="section experience">
+    <header class="section__head"><p class="eyebrow"><span>03 /</span> {{ t('experience.eyebrow') }}</p><h2 class="section__title">{{ t('experience.title') }}</h2></header>
+    <article v-for="exp in experiences" :key="exp.slug" class="job">
+      <div class="job__company"><h3>{{ exp.company }}</h3><p>{{ fmt(exp.startDate) }} / {{ exp.finishDate ? fmt(exp.finishDate) : t('experience.present') }}</p></div>
+      <div><h4>{{ t('experience.' + exp.slug + '.role') }}</h4><p class="job__description">{{ t('experience.' + exp.slug + '.description') }}</p><div class="job__skills"><span v-for="skill in exp.skills" :key="skill" class="chip">{{ skill }}</span></div></div>
+    </article>
   </section>
 </template>
-
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { experiences } from '@/data/experience'
 import { formatDate } from '@/utils/portfolio'
-
 const { t, locale } = useI18n()
 const fmt = (date: string) => formatDate(date, locale.value)
 </script>
-
-<style lang="scss" scoped>
-.exp__list { display: flex; flex-direction: column; }
-.exp-item {
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 24px;
-  padding-bottom: 36px;
-}
-.exp-item__rail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 8px;
-}
-.exp-item__node {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid $primary;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $bg;
-  box-shadow: 0 0 14px rgba($primary, 0.4);
-}
-.exp-item__node-inner {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: $accent;
-}
-.exp-item__line {
-  flex: 1;
-  width: 1px;
-  background: linear-gradient(to bottom, $primary, transparent);
-  margin-top: 8px;
-  min-height: 60px;
-}
-.exp-item__body {
-  background: rgba($surface, 0.5);
-  border: 1px solid $border;
-  padding: 22px 26px;
-  backdrop-filter: blur(8px);
-  transition: all $transition-base;
-  &:hover {
-    border-color: rgba($primary, 0.4);
-    transform: translateX(4px);
-  }
-}
-.exp-item__period {
-  font-family: $mono;
-  font-size: 11px;
-  color: $accent;
-  margin-bottom: 6px;
-  letter-spacing: 0.04em;
-}
-.exp-item__role {
-  font-size: 18px;
-  font-weight: 700;
-  color: $secondary;
-  margin-bottom: 4px;
-}
-.exp-item__company {
-  font-size: 13px;
-  color: $glow;
-  margin-bottom: 14px;
-  font-family: $mono;
-}
-.exp-item__desc {
-  font-size: 14px;
-  line-height: 1.75;
-  color: rgba($secondary, 0.72);
-  margin-bottom: 16px;
-}
-.exp-item__skills { display: flex; flex-wrap: wrap; gap: 6px; }
+<style scoped lang="scss">
+.experience { border-top: 1px solid $border; }
+.job { display: grid; grid-template-columns: 1fr 1.7fr; gap: 72px; padding: 36px 0; border-bottom: 1px solid $border; }
+.job__company h3 { font-size: 22px; font-weight: 600; letter-spacing: -.035em; margin-bottom: 12px; }
+.job__company p { font-size: 12px; color: $muted; }
+h4 { font-size: 18px; line-height: 1.5; font-weight: 600; margin-bottom: 16px; }
+.job__description { font-size: 14px; line-height: 1.85; color: $muted; max-width: 72ch; }
+.job__skills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 20px; }
+@media (max-width: 850px) { .job { grid-template-columns: 1fr; gap: 24px; } }
 </style>

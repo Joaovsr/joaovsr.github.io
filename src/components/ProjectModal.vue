@@ -1,227 +1,58 @@
 <template>
-  <Transition name="modal">
-    <div v-if="project" class="modal-backdrop" @click.self="$emit('close')" @keydown.esc="$emit('close')">
-      <div class="modal" role="dialog" aria-modal="true">
-        <button class="modal__close" type="button" :aria-label="t('projects.close')" @click="$emit('close')">×</button>
-
-        <header class="modal__head">
-          <h3 class="modal__title">{{ project.title }}</h3>
-          <span v-if="project.status === 'private'" class="proj__badge">
-            {{ t('projects.private_label') }}
-          </span>
-        </header>
-
-        <div class="modal__tech">
-          <span v-for="tech in project.technologies" :key="tech" class="chip chip--sm">{{ tech }}</span>
-        </div>
-
-        <p class="modal__desc">{{ t(`projects.${project.slug}.description`) }}</p>
-
-        <section class="modal__section">
-          <h4 class="modal__section-title">
-            <span class="accent">›</span> {{ t('projects.problem_label') }}
-          </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.problem`) }}</p>
-        </section>
-
-        <section class="modal__section">
-          <h4 class="modal__section-title">
-            <span class="accent">›</span> {{ t('projects.solution_label') }}
-          </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.solution`) }}</p>
-        </section>
-
-        <section class="modal__section">
-          <h4 class="modal__section-title">
-            <span class="accent">›</span> {{ t('projects.result_label') }}
-          </h4>
-          <p class="modal__section-body">{{ t(`projects.${project.slug}.result`) }}</p>
-        </section>
-
-        <section class="modal__section">
-          <h4 class="modal__section-title">
-            <span class="accent">›</span> {{ t('projects.screenshots_label') }}
-          </h4>
-          <div v-if="project.images && project.images.length" class="modal__gallery">
-            <img
-              v-for="(src, i) in project.images"
-              :key="src"
-              :src="src"
-              :alt="`${project.title} — ${i + 1}`"
-              class="modal__img"
-              loading="lazy"
-            />
-          </div>
-          <p v-else class="modal__pending">{{ t('projects.screenshots_pending') }}</p>
-        </section>
+  <dialog ref="dialog" class="project-dialog" aria-labelledby="project-title" @close="emit('close')" @click="closeBackdrop">
+    <template v-if="project">
+      <header class="dialog__header"><span>{{ t('projects.private_label') }}</span><button type="button" autofocus :aria-label="t('projects.close')" @click="dialog?.close()">{{ t('projects.close') }} ×</button></header>
+      <div class="dialog__body">
+        <p class="eyebrow">{{ t('projects.' + project.slug + '.category') }}</p>
+        <h2 id="project-title">{{ t('projects.' + project.slug + '.name') }}</h2>
+        <p class="dialog__description">{{ t('projects.' + project.slug + '.description') }}</p>
+        <div class="dialog__tech"><span v-for="tech in project.technologies" :key="tech" class="chip">{{ tech }}</span></div>
+        <div class="dialog__story"><section v-for="part in ['problem', 'solution', 'result']" :key="part" :class="'dialog__' + part"><h3>{{ t('projects.' + part + '_label') }}</h3><p>{{ t('projects.' + project.slug + '.' + part) }}</p></section></div>
+        <section><h3>{{ t('projects.screenshots_label') }}</h3><div class="dialog__gallery"><a v-for="(src, index) in project.images" :key="src" :href="src" target="_blank" rel="noopener noreferrer" :aria-label="t('projects.enlarge', { number: index + 1 }) + ': ' + t('projects.' + project.slug + '.name')"><img :src="src" :alt="t('projects.' + project.slug + '.image_alt') + ' (' + (index + 1) + ')'" loading="lazy" /></a></div><p class="dialog__hint">{{ t('projects.image_hint') }}</p></section>
       </div>
-    </div>
-  </Transition>
+    </template>
+  </dialog>
 </template>
-
-<script lang="ts" setup>
-import { onMounted, onUnmounted, watch } from 'vue'
+<script setup lang="ts">
+import { ref, watch, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { IProject } from '@/interfaces/project'
-
 const props = defineProps<{ project: IProject | null }>()
 const emit = defineEmits<{ (e: 'close'): void }>()
-
 const { t } = useI18n()
-
-function onKey(e: KeyboardEvent) {
-  if (e.key === 'Escape' && props.project) emit('close')
+const dialog = ref<HTMLDialogElement | null>(null)
+watch(() => props.project, project => {
+  if (project) dialog.value?.showModal()
+  else dialog.value?.close()
+  document.body.style.overflow = project ? 'hidden' : ''
+}, { flush: 'post' })
+onUnmounted(() => { document.body.style.overflow = '' })
+function closeBackdrop(event: MouseEvent) {
+  if (event.target !== dialog.value) return
+  const bounds = dialog.value.getBoundingClientRect()
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.value.close()
 }
-
-onMounted(() => window.addEventListener('keydown', onKey))
-onUnmounted(() => window.removeEventListener('keydown', onKey))
-
-watch(() => props.project, (p) => {
-  document.body.style.overflow = p ? 'hidden' : ''
-})
 </script>
-
-<style lang="scss" scoped>
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  z-index: 200;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 60px 20px;
-  overflow-y: auto;
-}
-
-.modal {
-  position: relative;
-  max-width: 800px;
-  width: 100%;
-  background: $surface;
-  border: 1px solid $border;
-  border-radius: 12px;
-  padding: 36px 40px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
-
-  @media (max-width: $mobile) { padding: 28px 22px; }
-}
-
-.modal__close {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  background: transparent;
-  border: 1px solid $border;
-  color: $muted;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  transition: all $transition-base;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:hover { border-color: $accent; color: $accent; }
-}
-
-.modal__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 14px;
-  padding-right: 40px;
-}
-.modal__title {
-  font-size: clamp(20px, 3vw, 26px);
-  font-weight: 700;
-  color: $secondary;
-  letter-spacing: -0.015em;
-}
-
-.proj__badge {
-  font-family: $mono;
-  font-size: 9px;
-  padding: 3px 8px;
-  background: rgba($accent, 0.1);
-  color: $accent;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  flex-shrink: 0;
-}
-
-.modal__tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 22px;
-}
-
-.modal__desc {
-  font-size: 14px;
-  line-height: 1.75;
-  color: rgba($secondary, 0.85);
-  margin-bottom: 24px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid $border;
-}
-
-.modal__section {
-  margin-bottom: 22px;
-}
-.modal__section-title {
-  font-family: $mono;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: $glow;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.modal__section-body {
-  font-size: 14px;
-  line-height: 1.75;
-  color: rgba($secondary, 0.85);
-}
-
-.modal__gallery {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.modal__img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border: 1px solid $border;
-  border-radius: 8px;
-  background: rgba($bg, 0.5);
-}
-.modal__pending {
-  font-family: $mono;
-  font-size: 12px;
-  color: $muted;
-  padding: 24px;
-  border: 1px dashed $border;
-  border-radius: 8px;
-  text-align: center;
-  background: rgba($bg, 0.3);
-}
-
-// Transition
-.modal-enter-active, .modal-leave-active { transition: opacity 0.2s ease; }
-.modal-enter-active .modal, .modal-leave-active .modal {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
-}
-.modal-enter-from, .modal-leave-to { opacity: 0; }
-.modal-enter-from .modal, .modal-leave-to .modal {
-  opacity: 0;
-  transform: translateY(20px);
-}
+<style scoped lang="scss">
+.project-dialog { width: min(880px, calc(100% - 32px)); max-height: calc(100dvh - 48px); margin: auto; border: 0; border-radius: 12px; padding: 0; background: $bg; color: $secondary; overscroll-behavior: contain; }
+.project-dialog::backdrop { background: #192a43b3; }
+.dialog__header { position: sticky; top: 0; background: $bg; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 32px; border-bottom: 1px solid $border; font-size: 12px; color: $muted; }
+.dialog__header button { padding: 12px 0 12px 16px; color: $secondary; }
+.dialog__body { padding: 32px; }
+.dialog__body > .eyebrow { font-size: 10px; margin-bottom: 14px; }
+h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.045em; font-weight: 600; line-height: 1.15; margin-bottom: 20px; }
+p { font-size: 14px; line-height: 1.85; color: $muted; }
+.dialog__description { font-size: 16px; }
+.dialog__tech { display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0 32px; }
+section { margin-top: 28px; }
+.dialog__story { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 28px; }
+.dialog__story section { margin: 0; }
+.dialog__story .dialog__result { grid-column: 1 / -1; padding: 24px; border-left: 3px solid $primary; background: $elevated; }
+.dialog__result h3 { color: $primary; }
+h3 { font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+.dialog__gallery { display: grid; gap: 20px; }
+.dialog__gallery a { display: block; background: $elevated; padding: 16px; border-radius: 6px; }
+.dialog__gallery img { max-height: 420px; width: auto; max-width: 100%; margin: auto; object-fit: contain; }
+.dialog__hint { margin-top: 12px; font-size: 12px; }
+@media (max-width: 650px) { .dialog__body { padding: 24px 20px; } .dialog__header { padding-inline: 20px; } .dialog__story { grid-template-columns: 1fr; } }
 </style>

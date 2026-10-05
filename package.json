@@ -2,17 +2,14 @@
   "name": "joaovsr-portfolio",
   "version": "0.1.0",
   "scripts": {
+    "test": "node tests/content.mjs",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.1.0",
-    "@fontsource/jetbrains-mono": "^5.1.0",
     "@fontsource/metropolis": "^5.2.5",
-    "@fontsource/poppins": "^5.1.0",
-    "@fontsource/space-grotesk": "^5.1.0",
     "jspdf": "^4.2.1",
     "vue": "^3.5.0",
     "vue-i18n": "^10.0.0",
