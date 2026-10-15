@@ -12,9 +12,9 @@ O site já usa Vue 3, TypeScript e Vite. Não há motivo para trocar de framewor
 
 | Trecho | O que aparece | Movimento e interação | Versão móvel / movimento reduzido |
 | --- | --- | --- | --- |
-| Abertura | Nome, frase de atuação, foto pequena, chamada para projetos e um modelo 3D com telefone InCubo diante do painel Fictor360 | Os aparelhos flutuam discretamente e acompanham o ponteiro; as telas são capturas reais | Composição estática dos dois produtos, sem WebGL |
-| Projetos em destaque | InCubo, Fictor360 e plataforma de Gestão de Pessoas como três capítulos mais detalhados | Uma única área de destaque acompanha a rolagem: a imagem e o texto mudam juntos, com indicação clara do capítulo ativo | Capítulos em fluxo vertical comum, sem travar a rolagem |
-| Demais projetos | Fictor360 AI, Portal do Candidato e Pipeline de Dados em lista editorial | Prévia responde a foco/hover com um recorte da tela e informação de papel, tecnologia e problema resolvido | Lista tocável com todas as informações visíveis |
+| Abertura | Nome, frase de atuação, foto pequena, chamada para projetos e um modelo 3D com a plataforma de Gestão de Pessoas e o agente Fictor360 AI | Os painéis flutuam discretamente e acompanham o ponteiro; as telas são capturas reais | Composição estática dos dois produtos, sem WebGL |
+| Projetos em destaque | Plataforma de Gestão de Pessoas, Fictor360 AI e Fictor360 como três capítulos mais detalhados | Uma única área de destaque acompanha a rolagem: a imagem e o texto mudam juntos, com indicação clara do capítulo ativo | Capítulos em fluxo vertical comum, sem travar a rolagem |
+| Demais projetos | InCubo, Portal do Candidato e Pipeline de Dados em lista editorial | Prévia responde a foco/hover com um recorte da tela e informação de papel, tecnologia e problema resolvido | Lista tocável com todas as informações visíveis |
 | Sobre e experiência | Texto pessoal e linha cronológica de trabalho | A linha progride com a leitura; marcos recebem ênfase quando entram na área visível | Linha estática e ordem natural do documento |
 | Competências e formação | Agrupamentos já existentes | Expansão curta, com indicador de estado claro; sem nuvem de logos girando | Mesma interação por teclado e toque |
 | Contato | Convite direto e links úteis | Um traço azul, vindo do percurso visual dos projetos, converge para a ação principal | Traço estático; contato sempre clicável |
@@ -25,7 +25,7 @@ Os três projetos em destaque precisam de microcasos mais completos: contexto, r
 
 ### 0. Primeiro modelo 3D — iniciado
 
-O componente `HeroScene.vue` constrói geometria 3D leve em tempo de execução: dois aparelhos com espessura, bordas arredondadas, luz e texturas das capturas de InCubo e Fictor360. A cena entra por importação dinâmica; o fallback HTML aparece de imediato e continua disponível em telas pequenas, quando o usuário pede menos movimento ou se WebGL falha. O retrato foi preservado como avatar ao lado do nome.
+O componente `HeroScene.vue` constrói geometria 3D leve em tempo de execução: dois painéis com espessura, bordas arredondadas, luz e texturas das capturas da plataforma de Gestão de Pessoas e do agente Fictor360 AI. A cena entra por importação dinâmica; o fallback HTML aparece de imediato e continua disponível em telas pequenas, quando o usuário pede menos movimento ou se WebGL falha. O retrato foi preservado como avatar ao lado do nome. O InCubo permanece na grade de projetos, com o mesmo peso dos demais itens dessa lista.
 
 **Critério de conclusão:** aparelhos inteiros em 1440, 820 e 390 px; texto e ações legíveis antes de a cena carregar; nenhuma rolagem horizontal; resposta perceptível e discreta ao ponteiro; nenhuma mensagem de erro no console; build e testes existentes passando.
 
@@ -37,7 +37,7 @@ Desenhar um storyboard de cinco quadros: abertura, transição para projetos, pr
 
 ### 2. Galeria narrativa dos projetos
 
-Substituir a apresentação uniforme dos três primeiros projetos por um destaque editorial único. No desktop, a captura permanece visível durante a leitura de cada capítulo; a troca usa deslocamento e máscara curtos, sincronizados com a rolagem. O usuário pode navegar pelos capítulos com links explícitos, inclusive pelo teclado. As páginas ou modais de detalhe continuam acessíveis por clique. Os demais projetos aparecem logo depois em uma lista compacta, sem ficarem escondidos em um carrossel.
+Evoluir a grade atual dos três primeiros projetos para um destaque editorial único. No desktop, a captura permanece visível durante a leitura de cada capítulo; a troca usa deslocamento e máscara curtos, sincronizados com a rolagem. O usuário pode navegar pelos capítulos com links explícitos, inclusive pelo teclado. As páginas ou modais de detalhe continuam acessíveis por clique. Os demais projetos aparecem logo depois em uma lista compacta, sem ficarem escondidos em um carrossel.
 
 **Ferramenta:** usar [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) apenas no trecho que precisa de pinning e progresso contínuo; animações de hover e estado permanecem em CSS. A biblioteca oferece `pin` e `scrub` para esse tipo de sequência. Evitar substituir a rolagem nativa do navegador.
 

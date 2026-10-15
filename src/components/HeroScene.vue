@@ -1,8 +1,8 @@
 <template>
   <div ref="stage" class="hero-scene" aria-hidden="true">
     <div class="hero-scene__fallback" :class="{ 'hero-scene__fallback--hidden': ready }">
-      <div class="hero-scene__dashboard"><img src="/projects/fictor360.webp" alt="" /></div>
-      <div class="hero-scene__phone"><img src="/projects/super-app-mobile.webp" alt="" /></div>
+      <div class="hero-scene__dashboard"><img src="/projects/hr-platform.webp" alt="" /></div>
+      <div class="hero-scene__assistant"><img src="/projects/fictor360ai.webp" alt="" /></div>
     </div>
   </div>
 </template>
@@ -24,19 +24,21 @@ async function buildScene() {
   try {
     const THREE = await import('three')
     const loader = new THREE.TextureLoader()
-    const [dashboardTexture, phoneTexture] = await Promise.all([
-      loader.loadAsync('/projects/fictor360.webp'),
-      loader.loadAsync('/projects/super-app-mobile.webp')
+    const [dashboardTexture, assistantTexture] = await Promise.all([
+      loader.loadAsync('/projects/hr-platform.webp'),
+      loader.loadAsync('/projects/fictor360ai.webp')
     ])
 
     if (!mounted || currentRequest !== request) {
       dashboardTexture.dispose()
-      phoneTexture.dispose()
+      assistantTexture.dispose()
       return
     }
 
     dashboardTexture.colorSpace = THREE.SRGBColorSpace
-    phoneTexture.colorSpace = THREE.SRGBColorSpace
+    assistantTexture.colorSpace = THREE.SRGBColorSpace
+    assistantTexture.repeat.set(0.24, 1)
+    assistantTexture.offset.set(0.76, 0)
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
@@ -85,7 +87,7 @@ async function buildScene() {
     const dashboard = new THREE.Group()
     dashboard.add(roundedPanel(4.45, 2.62, 0.14, 0.12, 0xdce5f3))
     const dashboardScreen = new THREE.Mesh(
-      new THREE.PlaneGeometry(4.17, 2.2),
+      new THREE.PlaneGeometry(4.17, 2.09),
       new THREE.MeshBasicMaterial({ map: dashboardTexture, toneMapped: false })
     )
     dashboardScreen.position.set(0, 0.025, 0.17)
@@ -97,20 +99,17 @@ async function buildScene() {
     dashboard.rotation.set(0.08, -0.16, -0.045)
     model.add(dashboard)
 
-    const phone = new THREE.Group()
-    phone.add(roundedPanel(1.55, 3.22, 0.22, 0.19, 0x16243d))
-    const phoneScreen = new THREE.Mesh(
+    const assistant = new THREE.Group()
+    assistant.add(roundedPanel(1.55, 3.22, 0.13, 0.19, 0x244bd7))
+    const assistantScreen = new THREE.Mesh(
       new THREE.PlaneGeometry(1.39, 2.89),
-      new THREE.MeshBasicMaterial({ map: phoneTexture, toneMapped: false })
+      new THREE.MeshBasicMaterial({ map: assistantTexture, toneMapped: false })
     )
-    phoneScreen.position.set(0, -0.015, 0.24)
-    phone.add(phoneScreen)
-    const phoneCamera = new THREE.Mesh(new THREE.SphereGeometry(0.027, 12, 12), new THREE.MeshBasicMaterial({ color: 0x405473 }))
-    phoneCamera.position.set(0, 1.54, 0.24)
-    phone.add(phoneCamera)
-    phone.position.set(-1.47, -0.59, 0.85)
-    phone.rotation.set(-0.08, 0.2, -0.085)
-    model.add(phone)
+    assistantScreen.position.set(0, -0.015, 0.24)
+    assistant.add(assistantScreen)
+    assistant.position.set(-1.47, -0.59, 0.85)
+    assistant.rotation.set(-0.08, 0.2, -0.085)
+    model.add(assistant)
 
     const target = { x: 0, y: 0 }
     const onPointerMove = (event: PointerEvent) => {
@@ -173,7 +172,7 @@ async function buildScene() {
         }
       })
       dashboardTexture.dispose()
-      phoneTexture.dispose()
+      assistantTexture.dispose()
       renderer.dispose()
       renderer.domElement.remove()
       ready.value = false
@@ -194,11 +193,11 @@ onBeforeUnmount(() => { mounted = false; request++; cleanup?.() })
 :deep(.hero-scene__canvas) { position: relative; z-index: 2; display: block; width: 100%; height: 100%; }
 .hero-scene__fallback { position: absolute; inset: 0; z-index: 1; transition: opacity .35s ease; }
 .hero-scene__fallback--hidden { opacity: 0; }
-.hero-scene__dashboard, .hero-scene__phone { position: absolute; overflow: hidden; box-shadow: 18px 24px 35px #20365a30; }
+.hero-scene__dashboard, .hero-scene__assistant { position: absolute; overflow: hidden; box-shadow: 18px 24px 35px #20365a30; }
 .hero-scene__dashboard { width: 82%; left: 17%; top: 18%; padding: 8px; border: 2px solid #cbd6e8; border-radius: 12px; background: #e4eaf4; transform: perspective(900px) rotateY(-9deg) rotateZ(-2deg); }
 .hero-scene__dashboard img { display: block; width: 100%; border-radius: 3px; }
-.hero-scene__phone { width: 29%; left: 4%; top: 29%; padding: 7px; border: 3px solid #17263d; border-radius: 20px; background: #17263d; transform: perspective(900px) rotateY(11deg) rotateZ(-5deg); }
-.hero-scene__phone img { display: block; width: 100%; border-radius: 11px; }
+.hero-scene__assistant { width: 29%; height: 70%; left: 4%; top: 25%; border: 6px solid #244bd7; border-radius: 12px; background: white; transform: perspective(900px) rotateY(11deg) rotateZ(-5deg); }
+.hero-scene__assistant img { position: absolute; right: 0; top: 0; display: block; height: 100%; width: auto; max-width: none; }
 @media (max-width: 1050px) { .hero-scene { height: 390px; } }
 @media (max-width: 799px) { .hero-scene { height: min(78vw, 420px); max-width: 540px; margin-inline: auto; } }
 @media (max-width: 650px) { .hero-scene { height: min(76vw, 340px); } }
