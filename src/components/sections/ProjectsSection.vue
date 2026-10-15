@@ -8,7 +8,7 @@
       <article v-for="(project, index) in projects" :key="project.slug" class="project" :class="{ 'project--featured': index === 0 }">
         <button class="project__image" :class="'project__image--' + project.slug" type="button" :aria-label="t('projects.open', { name: t('projects.' + project.slug + '.name') })" @click="selected = project">
           <span class="project__number" aria-hidden="true">{{ String(index + 1).padStart(2, '0') }} / {{ String(projects.length).padStart(2, '0') }}</span>
-          <img v-if="project.images?.length" :src="project.images[0]" :alt="t('projects.' + project.slug + '.image_alt')" :loading="index === 0 ? 'eager' : 'lazy'" />
+          <img v-if="project.images?.length" :src="project.images[0]" :alt="t('projects.' + project.slug + '.image_alt')" :loading="index === 0 ? 'eager' : 'lazy'" :width="index === 0 ? 1280 : undefined" :height="index === 0 ? 2629 : undefined" />
           <span class="project__open" aria-hidden="true">↗</span>
         </button>
         <div class="project__info">
@@ -58,9 +58,9 @@ h3 button:hover { color: $primary; }
 .project__description { font-size: 14px; line-height: 1.8; color: $muted; max-width: 54ch; }
 .project__tools { display: flex; flex-wrap: wrap; gap: 6px; margin: 20px 0 12px; }
 .project__tools li { font-size: 10px; line-height: 1.6; padding: 4px 8px; border: 1px solid $border; border-radius: 3px; color: $muted; }
-.project--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 24px; background: #e8efe9; border-radius: 10px; overflow: hidden; }
-.project--featured .project__image { grid-column: 2; grid-row: 1; height: 460px; aspect-ratio: auto; background: #dbe8de; border-radius: 0; padding: 35px; }
-.project--featured .project__image img { width: 100%; height: auto; max-width: calc(100% - 20px); max-height: calc(100% - 30px); object-fit: contain; border: 1px solid #c8d7ce; border-radius: 8px; box-shadow: 12px 20px 30px #17263d26; transform: rotate(-2deg); }
+.project--featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 24px; background: #e8edf8; border-radius: 10px; overflow: hidden; }
+.project--featured .project__image { grid-column: 2; grid-row: 1; height: 460px; aspect-ratio: auto; background: #dce5f5; border-radius: 0; padding: 35px; }
+.project--featured .project__image img { height: 100%; width: auto; max-width: calc(100% - 36px); object-fit: cover; border: 5px solid #23334b; border-radius: 24px; box-shadow: 12px 20px 30px #17263d26; transform: rotate(-6deg); }
 .project--featured .project__number { left: 22px; }
 .project--featured .project__info { grid-column: 1; grid-row: 1; padding: 44px; }
 .project__featured-label { display: flex; gap: 20px; align-items: center; color: $primary; font: 10px $mono; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 40px; }
@@ -73,7 +73,7 @@ h3 button:hover { color: $primary; }
 .project:last-child .project__info { padding: 0; }
 @media (hover: hover) {
   .project__image:hover img { transform: translateY(-4px) scale(1.025); }
-  .project--featured .project__image:hover img { transform: rotate(0deg) translateY(-3px); }
+  .project--featured .project__image:hover img { transform: rotate(-3deg) translateY(-3px); }
 }
 @media (max-width: 950px) {
   .project--featured { gap: 0; }
@@ -89,9 +89,9 @@ h3 button:hover { color: $primary; }
   .projects__heading .eyebrow { margin-bottom: 14px; }
   .projects__grid { display: flex; flex-direction: column; gap: 40px; }
   .project--featured { display: flex; flex-direction: column; }
-  .project--featured .project__image { height: 260px; padding: 24px; }
+  .project--featured .project__image { height: 360px; padding: 30px; }
   .project--featured .project__info { padding: 28px 24px; }
-  .project--featured .project__image img { border-radius: 6px; }
+  .project--featured .project__image img { border-radius: 20px; border-width: 4px; }
   .project__featured-label { margin-bottom: 20px; }
   .project--featured h3 { font-size: 40px; }
   h3 { font-size: 25px; }

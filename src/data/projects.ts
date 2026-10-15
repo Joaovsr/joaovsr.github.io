@@ -2,6 +2,20 @@ import type { IProject } from '@/interfaces/project'
 
 export const projects: IProject[] = [
   {
+    slug: 'super_app',
+    title: 'InCubo — Super-App Fictor Alimentos',
+    technologies: ['Flutter', 'NestJS', 'React', 'TypeScript', 'Kubernetes', 'RabbitMQ', 'Azure AD'],
+    status: 'private',
+    images: ['/projects/super-app-mobile.webp']
+  },
+  {
+    slug: 'fictor360_pbi',
+    title: 'Fictor360 — Power BI Embedded',
+    technologies: ['Power BI Embedded', 'NestJS', 'TypeScript', 'Azure AD', 'RLS', 'API'],
+    status: 'private',
+    images: ['/projects/fictor360.webp']
+  },
+  {
     slug: 'hr_platform',
     title: 'Plataforma de Gestão de Pessoas com IA',
     technologies: ['NestJS', 'React', 'PostgreSQL', 'pgvector', 'Azure OpenAI', 'Azure AD', 'Bull', 'Microsoft Teams', 'Kubernetes'],
@@ -14,20 +28,6 @@ export const projects: IProject[] = [
     technologies: ['LangChain', 'Azure OpenAI', 'TypeScript', 'Power BI MCP', 'DAX', 'WebSocket'],
     status: 'private',
     images: ['/projects/fictor360ai.webp']
-  },
-  {
-    slug: 'fictor360_pbi',
-    title: 'Fictor360 — Power BI Embedded',
-    technologies: ['Power BI Embedded', 'NestJS', 'TypeScript', 'Azure AD', 'RLS', 'API'],
-    status: 'private',
-    images: ['/projects/fictor360.webp']
-  },
-  {
-    slug: 'super_app',
-    title: 'InCubo — Super-App Fictor Alimentos',
-    technologies: ['Flutter', 'NestJS', 'React', 'TypeScript', 'Kubernetes', 'RabbitMQ', 'Azure AD'],
-    status: 'private',
-    images: ['/projects/super-app-mobile.webp']
   },
   {
     slug: 'candidate_portal',
