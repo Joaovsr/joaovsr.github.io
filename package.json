@@ -11,14 +11,12 @@
   "dependencies": {
     "@fontsource/metropolis": "^5.2.5",
     "jspdf": "^4.2.1",
-    "three": "^0.186.1",
     "vue": "^3.5.0",
     "vue-i18n": "^10.0.0",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@types/three": "^0.186.0",
     "@vitejs/plugin-vue": "^5.2.0",
     "@vue/eslint-config-typescript": "^14.0.0",
     "eslint": "^9.0.0",
