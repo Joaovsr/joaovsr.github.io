@@ -8,7 +8,8 @@
   "location": "Barbacena, Brazil",
   "available_remote": "Available for international remote",
   "download_cv": "Download CV",
-  "tagline": "I build web and mobile applications, from backend to interface. My projects use AI to review résumés, run agents and query business data.",
+  "status_online": "online · available",
+  "tagline": "I build web applications, mobile apps and AI agents. I work across the entire product: interface, backend, integrations and deployment.",
   "nav": {
     "about": "About",
     "experience": "Experience",
@@ -18,8 +19,9 @@
   },
   "about": {
     "title": "A little about me",
-    "text": "I work across web and mobile development, from backend to deployment. At Fictor Alimentos, I built a corporate super-app, a recruitment platform and an agent for querying Power BI data.",
-    "text2": "Before that, at Atalaia Alimentos, I automated processes with Python and organized data for business teams. I now bring that experience to products with AI, taking care of integrations, testing and how the system behaves when something fails.",
+    "headline": "From the first idea to a live application.",
+    "text": "I'm João Vinicius. I build web and mobile applications and AI agents, working across interfaces, APIs, integrations and deployment.",
+    "text2": "I started in IT support, where I began automating tasks with Python. As I took on more development work, I moved into full stack development while keeping hands-on experience with infrastructure and operations.",
     "open_to": "Open to remote opportunities",
     "languages_title": "Languages",
     "languages": [
@@ -37,13 +39,18 @@
     "title": "Experience",
     "present": "Present",
     "skills_label": "Technologies",
+    "onsite": "On-site",
     "fictor": {
       "role": "Full Stack Developer · AI Engineer",
       "description": "I built web and mobile applications used across the group: the InCubo super-app, the recruitment platform and Fictor360 AI. My work covered interfaces, APIs and integrations with Azure AD, Power BI and AI services, as well as Docker and Kubernetes infrastructure and Azure DevOps deployment pipelines."
     },
-    "atalaia": {
-      "role": "Systems Developer · Data Analyst",
-      "description": "I automated operations with Python, built Pandas data pipelines and deployed Metabase with more than ten dashboards. I developed the company website and intranet in Django and a debt collection agent. I also supported the Agrosys ERP, investigating bugs and managing access."
+    "atalaia_dev": {
+      "role": "Mid-level Full Stack Developer",
+      "description": "I designed and built a debt collection agent integrated with WhatsApp, automating negotiation steps and contributing to the recovery of outstanding payments.\n\nI built Python data integrations and automations to collect, process and deliver information for corporate applications and business analysis.\n\nI deployed Metabase, integrating data, building analytical models and creating dashboards to support business decisions.\n\nI delivered internal systems for booking vehicles, accommodation and meeting rooms, with NestJS APIs and React and TypeScript interfaces."
+    },
+    "atalaia_it": {
+      "role": "IT Technician",
+      "description": "I provided technical support, maintained IT infrastructure and supported corporate systems to help keep operations running.\n\nI developed up to 20 RPA solutions with Python and Selenium to automate repetitive operational work and reduce manual tasks.\n\nI contributed to the Atalaia Alimentos website in Django, including configuration and deployment on a GoDaddy VPS.\n\nAs my responsibilities expanded into software development and process automation, I was promoted internally to Full Stack Developer."
     },
     "inss": {
       "role": "IT Intern",
@@ -148,6 +155,9 @@
     "certifications_title": "Certifications",
     "ongoing": "Ongoing",
     "in_progress": "In progress",
+    "usp": {
+      "degree": "Lato Sensu Postgraduate MBA in Data Science, Artificial Intelligence and Analytics"
+    },
     "estacio": {
       "degree": "Information Technology Management"
     },
@@ -166,6 +176,11 @@
     "footer": "Built with Vue 3, TypeScript and SCSS"
   },
   "hero": {
+    "tag": "AI · BACKEND · DATA",
+    "embed_label": "embedding vector · semantic representation",
+    "metric_years": "years of exp",
+    "metric_projects": "projects",
+    "metric_certs": "certifications",
     "intro": "Software development portfolio",
     "role": "Full stack developer, putting AI to work.",
     "projects_cta": "Explore my work",

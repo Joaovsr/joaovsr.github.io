@@ -2,6 +2,11 @@ import type { IEducation, ICertification } from '@/interfaces/education'
 
 export const education: IEducation[] = [
   {
+    slug: 'usp',
+    institution: 'Universidade de São Paulo (USP)',
+    startDate: '2026-06'
+  },
+  {
     slug: 'estacio',
     institution: 'Estácio',
     startDate: '2024',

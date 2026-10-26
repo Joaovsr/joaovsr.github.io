@@ -1,42 +1,87 @@
 <template>
-  <section id="contact" class="contact">
-    <div class="section">
-      <p class="eyebrow"><span>04 /</span> {{ t('nav.contact') }}</p>
-      <div class="contact__intro"><h2>{{ t('contact.title') }}</h2><p>{{ t('contact.subtitle') }}</p></div>
-      <a :href="'mailto:' + profile.email" class="contact__email">{{ profile.email }}<span aria-hidden="true">↗</span></a>
-      <div class="contact__links">
-        <a :href="profile.social.github" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-        <a :href="profile.social.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-        <button type="button" @click="downloadCv">{{ t('download_cv') }} <span aria-hidden="true">↓</span></button>
-      </div>
-      <footer><span>© {{ year }} {{ profile.nameShort }}</span><a href="#hero">{{ t('back_top') }} ↑</a></footer>
+  <section id="contact" class="section contact">
+    <div class="section__head">
+      <span class="section__num">// 07</span>
+      <h2 class="section__title">{{ t('contact.title') }}</h2>
     </div>
+    <p class="contact__sub">{{ t('contact.subtitle') }}</p>
+    <a :href="`mailto:${profile.email}`" class="contact__email">{{ profile.email }}</a>
+    <div class="contact__row">
+      <a :href="profile.social.github" target="_blank" rel="noopener noreferrer" class="contact__btn">
+        <GithubIcon /> GitHub
+      </a>
+      <a :href="profile.social.linkedin" target="_blank" rel="noopener noreferrer" class="contact__btn">
+        <LinkedinIcon /> LinkedIn
+      </a>
+      <button type="button" @click="downloadCv" class="contact__btn">↓ {{ t('download_cv') }}</button>
+    </div>
+    <footer class="footer">
+      <span>{{ t('contact.footer') }} · {{ profile.brand.replace(/^\/\/\s*/, '') }}</span>
+      <span class="footer__sig">© {{ year }} {{ profile.nameShort }}</span>
+    </footer>
   </section>
 </template>
-<script setup lang="ts">
+
+<script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
 import { useCvPdf } from '@/composables/useCvPdf'
+import GithubIcon from '@/components/icons/Github.vue'
+import LinkedinIcon from '@/components/icons/Linkedin.vue'
+
 const { t } = useI18n()
 const { downloadCv } = useCvPdf()
 const year = new Date().getFullYear()
 </script>
-<style scoped lang="scss">
-.contact { background: $primary; color: white; scroll-margin-top: 100px; }
-.contact .eyebrow { color: #dce4ff; margin-bottom: 32px; }
-.contact .eyebrow > span { color: #dce4ff; }
-.contact__intro { display: flex; justify-content: space-between; align-items: start; gap: 40px; }
-h2 { font-size: clamp(38px, 6vw, 76px); font-weight: 600; letter-spacing: -.06em; line-height: 1.1; }
-.contact__intro p { font-size: 14px; line-height: 1.8; max-width: 310px; color: #e0e7ff; }
-.contact__email { display: inline-flex; align-items: center; gap: 32px; max-width: 100%; font-size: clamp(16px, 3.1vw, 40px); letter-spacing: -.045em; padding: 32px 0 14px; color: white; border-bottom: 1px solid #ffffff70; }
-.contact__email:hover { border-color: white; }
-.contact__email span { flex-shrink: 0; }
-.contact__links { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 32px; font-size: 13px; }
-.contact__links a, .contact__links button { padding-block: 12px; }
-.contact__links a:hover, .contact__links button:hover { text-decoration: underline; text-underline-offset: 6px; }
-.contact__links span { margin-left: 12px; }
-footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid #ffffff40; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: $mono; font-size: 10px; color: #e0e7ff; }
-footer a { padding-block: 12px; }
-.contact :focus-visible { outline-color: white; }
-@media (max-width: 650px) { .contact__intro { flex-direction: column; gap: 20px; } .contact__email { gap: 12px; font-size: clamp(14px, 4.5vw, 27px); } footer { margin-top: 48px; } }
+
+<style lang="scss" scoped>
+.contact__sub {
+  font-size: clamp(20px, 3vw, 28px);
+  color: rgba($secondary, 0.55);
+  margin-bottom: 24px;
+}
+.contact__email {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  display: inline-block;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  background: linear-gradient(120deg, $primary, $accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 28px;
+  border-bottom: 1px solid $border;
+  padding-bottom: 6px;
+}
+.contact__row { display: flex; gap: 14px; flex-wrap: wrap; }
+.contact__btn {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: $mono;
+  font-size: 13px;
+  padding: 12px 22px;
+  border: 1px solid $border;
+  color: $secondary;
+  transition: all $transition-base;
+  &:hover { border-color: $primary; color: $primary; }
+  :deep(svg) { width: 16px; height: 16px; fill: currentColor; }
+}
+.footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid $border;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $mono;
+  font-size: 11px;
+  color: $muted;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer__sig { color: $muted; }
+@media (max-width: $mobile) { .contact__email { font-size: clamp(16px, 4.8vw, 24px); } }
 </style>

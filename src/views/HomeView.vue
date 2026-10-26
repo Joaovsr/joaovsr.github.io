@@ -2,11 +2,11 @@
   <div class="home">
     <a class="skip-link" href="#main">{{ t('skip_content') }}</a>
     <TopBar />
-    <main id="main" class="main">
+    <main id="main" ref="mainRef" class="main">
       <HeroSection />
-      <ProjectsSection />
       <AboutSection />
-      <SkillsSection />
+      <ProjectsSection />
+      <SkillsGraphSection />
       <ExperienceSection />
       <EducationSection />
       <ContactSection />
@@ -15,16 +15,20 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useScrollReveal } from '@/composables/useScrollReveal'
 import TopBar from '@/components/TopBar.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import ProjectsSection from '@/components/sections/ProjectsSection.vue'
-import SkillsSection from '@/components/sections/SkillsSection.vue'
+import SkillsGraphSection from '@/components/sections/SkillsGraphSection.vue'
 import ExperienceSection from '@/components/sections/ExperienceSection.vue'
 import EducationSection from '@/components/sections/EducationSection.vue'
 import ContactSection from '@/components/sections/ContactSection.vue'
 const { t } = useI18n()
+const mainRef = ref<HTMLElement>()
+useScrollReveal(mainRef)
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +43,6 @@ const { t } = useI18n()
 .main {
   position: relative;
   z-index: 2;
-  padding-top: 80px;
-  @media (max-width: 650px) { padding-top: 104px; }
+  padding-top: 76px;
 }
 </style>

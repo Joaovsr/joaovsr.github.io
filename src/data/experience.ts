@@ -9,11 +9,20 @@ export const experiences: IExperience[] = [
     skills: ['Flutter', 'React', 'Node.js', 'TypeScript', 'RAG', 'Azure OpenAI', 'pgvector', 'LLM', 'Docker', 'Kubernetes', 'CI/CD', 'Azure AD']
   },
   {
-    slug: 'atalaia',
+    slug: 'atalaia_dev',
+    company: 'Atalaia Alimentos',
+    startDate: '2024-01',
+    finishDate: '2025-03',
+    location: 'Barbacena, MG',
+    onsite: true,
+    skills: ['NestJS', 'React', 'TypeScript', 'Python', 'WhatsApp', 'Pandas', 'ETL', 'Metabase', 'SQL']
+  },
+  {
+    slug: 'atalaia_it',
     company: 'Atalaia Alimentos',
     startDate: '2022-09',
-    finishDate: '2025-03',
-    skills: ['Python', 'RPA', 'Selenium', 'Pandas', 'ETL', 'Metabase', 'Power BI', 'Django', 'SQL', 'LLMs']
+    finishDate: '2023-12',
+    skills: ['Python', 'Selenium', 'RPA', 'Django', 'Suporte Técnico', 'Infraestrutura', 'Deploy']
   },
   {
     slug: 'inss',

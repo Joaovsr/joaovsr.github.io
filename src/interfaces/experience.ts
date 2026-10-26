@@ -5,4 +5,6 @@ export interface IExperience {
   finishDate?: string
   skills: string[]
   companyUrl?: string
+  location?: string
+  onsite?: boolean
 }

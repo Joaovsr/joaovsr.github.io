@@ -37,7 +37,7 @@ function closeBackdrop(event: MouseEvent) {
 .project-dialog { width: min(880px, calc(100% - 32px)); max-height: calc(100dvh - 48px); margin: auto; border: 0; border-radius: 12px; padding: 0; background: $bg; color: $secondary; overscroll-behavior: contain; }
 .project-dialog::backdrop { background: #192a43b3; }
 .dialog__header { position: sticky; top: 0; background: $bg; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 32px; border-bottom: 1px solid $border; font-size: 12px; color: $muted; }
-.dialog__header button { padding: 12px 0 12px 16px; color: $secondary; }
+.dialog__header button { min-height: 44px; padding: 12px 0 12px 16px; color: $secondary; }
 .dialog__body { padding: 32px; }
 .dialog__body > .eyebrow { font-size: 10px; margin-bottom: 14px; }
 h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.045em; font-weight: 600; line-height: 1.15; margin-bottom: 20px; }
