@@ -159,10 +159,11 @@ export function useCvPdf() {
       // Company
       setFont(doc, 9, 'normal')
       setColor(doc, ACCENT)
-      doc.text(exp.company, MARGIN, c.y)
+      doc.text(exp.companyKey ? t(exp.companyKey) : exp.company, MARGIN, c.y)
       c.y += 5
-      if (exp.location) {
-        paragraph(c, `${exp.location}${exp.onsite ? ' · ' + t('experience.onsite') : ''}`, { size: 8, lineHeight: 4, color: MUTED })
+      if (exp.location || exp.workMode) {
+        const location = [exp.location, exp.workMode ? t(`experience.${exp.workMode}`) : ''].filter(Boolean).join(' · ')
+        paragraph(c, location, { size: 8, lineHeight: 4, color: MUTED })
         c.y += 1
       }
 

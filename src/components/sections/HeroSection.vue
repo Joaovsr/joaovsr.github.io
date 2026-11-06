@@ -29,29 +29,30 @@
         <button type="button" @click="downloadCv" class="btn btn--primary">
           {{ t('download_cv') }} <span>↓</span>
         </button>
-        <a href="#projects" class="btn btn--ghost">
-          {{ t('hero.projects_cta') }} <span aria-hidden="true">→</span>
+        <a href="#ask" class="btn btn--ghost">
+          {{ t('hero.ask_cta') }} <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
 
     <div class="hero__right">
-      <div ref="orbRef" class="orb" aria-hidden="true">
-        <ThreeOrb :active="motionActive" :pointer="pointer" :progress="progress" />
-      </div>
-      <div class="hero__metrics">
-        <div class="metric">
-          <span class="metric__num">{{ years }}</span>
-          <span class="metric__lbl">{{ t('hero.metric_years') }}</span>
-        </div>
-        <div class="metric">
-          <span class="metric__num">{{ projects.length }}+</span>
-          <span class="metric__lbl">{{ t('hero.metric_projects') }}</span>
-        </div>
-        <div class="metric">
-          <span class="metric__num">{{ certifications.length }}</span>
-          <span class="metric__lbl">{{ t('hero.metric_certs') }}</span>
-        </div>
+      <img
+        ref="portraitRef"
+        class="hero__portrait"
+        :src="profile.avatar"
+        :alt="profile.name"
+        width="1042"
+        height="1042"
+        fetchpriority="high"
+      />
+      <div class="hero__caption">
+        <p class="hero__location">{{ t('location') }}</p>
+        <dl class="hero__languages" :aria-label="t('about.languages_title')">
+          <div v-for="language in languages" :key="language.name">
+            <dt>{{ language.name }}</dt>
+            <dd>{{ language.level }}</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
@@ -61,23 +62,19 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
-import { projects } from '@/data/projects'
-import { certifications } from '@/data/education'
-import { yearsOfExperience } from '@/utils/portfolio'
 import { useCvPdf } from '@/composables/useCvPdf'
 import { useHeroMotion } from '@/composables/useHeroMotion'
 import NeuralBackground from '@/components/NeuralBackground.vue'
-import ThreeOrb from '@/components/ThreeOrb.vue'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
 const { downloadCv } = useCvPdf()
 const heroRef = ref<HTMLElement>()
-const orbRef = ref<HTMLElement>()
-const { active: motionActive, pointer, progress } = useHeroMotion(heroRef, orbRef)
+const portraitRef = ref<HTMLElement>()
+const { active: motionActive } = useHeroMotion(heroRef, portraitRef)
 
-const years = yearsOfExperience(profile.careerStart)
 const firstName = computed(() => profile.nameShort.split(' ')[0] ?? profile.nameShort)
 const lastName = computed(() => profile.nameShort.split(' ').slice(1).join(' ') || '')
+const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
 
 const embedSample = computed(() =>
   Array.from({ length: 6 }, (_, i) => {
@@ -159,9 +156,9 @@ const embedSample = computed(() =>
   margin-bottom: 18px;
 }
 .hero__tag {
-  font-size: 15px;
-  color: rgba($secondary, 0.72);
-  line-height: 1.7;
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: rgba($secondary, 0.78);
+  line-height: 1.75;
   max-width: 540px;
   margin-bottom: 28px;
 }
@@ -193,42 +190,30 @@ const embedSample = computed(() =>
 
 .hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
 
-.hero__right { display: flex; flex-direction: column; align-items: center; gap: 32px; }
-.orb {
-  position: relative;
+.hero__right { display: flex; flex-direction: column; align-items: center; }
+.hero__portrait {
+  display: block;
   width: 380px;
   height: 380px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translate(var(--orb-x, 0px), var(--orb-y, 0px));
-  transition: transform .6s cubic-bezier(.22, 1, .36, 1);
+  object-fit: cover;
+  border-radius: 50%;
 }
+.hero__caption {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid $border;
+  text-align: center;
+}
+.hero__location { margin-bottom: 12px; font-size: 13px; color: rgba($secondary, 0.8); }
+.hero__languages { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 24px; font-size: 12px; line-height: 1.5; }
+.hero__languages div { display: flex; gap: 6px; }
+.hero__languages dt { color: $muted; }
+.hero__languages dd { color: $accent; }
 
-.hero__metrics {
-  display: flex;
-  gap: 24px;
-}
-.metric { text-align: center; }
-.metric__num {
-  display: block;
-  font-size: 28px;
-  font-weight: 700;
-  color: $secondary;
-  line-height: 1;
-}
-.metric__lbl {
-  display: block;
-  font-family: $mono;
-  font-size: 10px;
-  color: $muted;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 6px;
-}
-@media (max-width: $tablet) { .orb { width: 280px; height: 280px; } }
+@media (max-width: $tablet) { .hero__portrait { width: 280px; height: 280px; } }
 @media (max-width: $mobile) {
-  .orb { width: 240px; height: 240px; }
-  .hero__right { gap: 20px; }
+  .hero__portrait { width: 240px; height: 240px; }
 }
 </style>

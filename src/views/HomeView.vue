@@ -4,7 +4,7 @@
     <TopBar />
     <main id="main" ref="mainRef" class="main">
       <HeroSection />
-      <AboutSection />
+      <RagDemoSection />
       <ProjectsSection />
       <SkillsGraphSection />
       <ExperienceSection />
@@ -20,7 +20,7 @@ import { useI18n } from 'vue-i18n'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import TopBar from '@/components/TopBar.vue'
 import HeroSection from '@/components/sections/HeroSection.vue'
-import AboutSection from '@/components/sections/AboutSection.vue'
+import RagDemoSection from '@/components/sections/RagDemoSection.vue'
 import ProjectsSection from '@/components/sections/ProjectsSection.vue'
 import SkillsGraphSection from '@/components/sections/SkillsGraphSection.vue'
 import ExperienceSection from '@/components/sections/ExperienceSection.vue'

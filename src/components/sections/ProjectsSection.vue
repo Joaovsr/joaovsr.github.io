@@ -1,7 +1,7 @@
 <template>
   <section id="projects" class="section projects">
     <div class="section__head">
-      <span class="section__num">// 03</span>
+      <span class="section__num">// 02</span>
       <h2 class="section__title">{{ t('projects.title') }}</h2>
     </div>
     <div class="projects__grid">
@@ -9,17 +9,12 @@
         v-for="proj in projects"
         :key="proj.slug"
         class="proj"
-        tabindex="0"
-        role="button"
-        :aria-label="proj.title"
-        @click="selected = proj"
-        @keydown.enter="selected = proj"
-        @keydown.space.prevent="selected = proj"
+        :aria-labelledby="`project-${proj.slug}`"
       >
         <header class="proj__head">
-          <h3 class="proj__title">{{ proj.title }}</h3>
-          <span v-if="proj.status === 'private'" class="proj__badge">
-            {{ t('projects.private_label') }}
+          <h3 :id="`project-${proj.slug}`" class="proj__title">{{ proj.title }}</h3>
+          <span v-if="proj.status" class="proj__badge" :class="{ 'proj__badge--public': proj.status === 'public' }">
+            {{ t(`projects.${proj.status}_label`) }}
           </span>
         </header>
         <p class="proj__desc">{{ t(`projects.${proj.slug}.description`) }}</p>
@@ -27,7 +22,12 @@
           <span v-for="tech in proj.technologies" :key="tech" class="chip chip--sm">{{ tech }}</span>
         </div>
         <div class="proj__cta">
-          <span class="accent">{{ t('projects.see_details') }}</span> <span class="proj__arrow">→</span>
+          <button class="proj__details" type="button" :aria-label="t('projects.open', { name: proj.title })" @click="selected = proj">
+            {{ t('projects.see_details') }} <span class="proj__arrow" aria-hidden="true">→</span>
+          </button>
+          <a v-if="proj.repoUrl" class="proj__repo" :href="proj.repoUrl" target="_blank" rel="noopener noreferrer" :aria-label="t('projects.repo_label') + ': ' + proj.title">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </article>
     </div>
@@ -65,7 +65,6 @@ const selected = ref<IProject | null>(null)
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  outline: none;
   &::before {
     content: '';
     position: absolute;
@@ -78,7 +77,7 @@ const selected = ref<IProject | null>(null)
     transform-origin: left;
     transition: transform 0.5s ease;
   }
-  &:hover, &:focus-visible {
+  &:hover, &:focus-within {
     border-color: rgba($accent, 0.4);
     transform: translateY(-4px);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
@@ -102,6 +101,7 @@ const selected = ref<IProject | null>(null)
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+.proj__badge--public { color: #4ade80; background: rgba(#4ade80, 0.08); }
 .proj__desc {
   font-size: 13px;
   line-height: 1.7;
@@ -116,11 +116,16 @@ const selected = ref<IProject | null>(null)
   letter-spacing: 0.06em;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
   margin-top: 4px;
   padding-top: 12px;
   border-top: 1px solid $border;
 }
+.proj__details { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: $accent; }
+.proj__details::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.proj__repo { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; color: $secondary; }
+.proj__repo:hover { color: $accent; }
 .proj__arrow {
   color: $accent;
   transition: transform $transition-base;

@@ -1,14 +1,18 @@
 <template>
   <dialog ref="dialog" class="project-dialog" aria-labelledby="project-title" @close="emit('close')" @click="closeBackdrop">
     <template v-if="project">
-      <header class="dialog__header"><span>{{ t('projects.private_label') }}</span><button type="button" autofocus :aria-label="t('projects.close')" @click="dialog?.close()">{{ t('projects.close') }} ×</button></header>
+      <header class="dialog__header">
+        <span v-if="project.status" :class="{ 'dialog__public': project.status === 'public' }">{{ t('projects.' + project.status + '_label') }}</span>
+        <button type="button" autofocus :aria-label="t('projects.close')" @click="dialog?.close()">{{ t('projects.close') }} ×</button>
+      </header>
       <div class="dialog__body">
         <p class="eyebrow">{{ t('projects.' + project.slug + '.category') }}</p>
         <h2 id="project-title">{{ t('projects.' + project.slug + '.name') }}</h2>
         <p class="dialog__description">{{ t('projects.' + project.slug + '.description') }}</p>
+        <a v-if="project.repoUrl" class="dialog__repo btn btn--ghost" :href="project.repoUrl" target="_blank" rel="noopener noreferrer">{{ t('projects.repo_label') }} <span aria-hidden="true">↗</span></a>
         <div class="dialog__tech"><span v-for="tech in project.technologies" :key="tech" class="chip">{{ tech }}</span></div>
         <div class="dialog__story"><section v-for="part in ['problem', 'solution', 'result']" :key="part" :class="'dialog__' + part"><h3>{{ t('projects.' + part + '_label') }}</h3><p>{{ t('projects.' + project.slug + '.' + part) }}</p></section></div>
-        <section><h3>{{ t('projects.screenshots_label') }}</h3><div class="dialog__gallery"><a v-for="(src, index) in project.images" :key="src" :href="src" target="_blank" rel="noopener noreferrer" :aria-label="t('projects.enlarge', { number: index + 1 }) + ': ' + t('projects.' + project.slug + '.name')"><img :src="src" :alt="t('projects.' + project.slug + '.image_alt') + ' (' + (index + 1) + ')'" loading="lazy" /></a></div><p class="dialog__hint">{{ t('projects.image_hint') }}</p></section>
+        <section v-if="project.images?.length"><h3>{{ t('projects.screenshots_label') }}</h3><div class="dialog__gallery"><a v-for="(src, index) in project.images" :key="src" :href="src" target="_blank" rel="noopener noreferrer" :aria-label="t('projects.enlarge', { number: index + 1 }) + ': ' + t('projects.' + project.slug + '.name')"><img :src="src" :alt="t('projects.' + project.slug + '.image_alt') + ' (' + (index + 1) + ')'" loading="lazy" /></a></div><p class="dialog__hint">{{ t('projects.image_hint') }}</p></section>
       </div>
     </template>
   </dialog>
@@ -38,6 +42,8 @@ function closeBackdrop(event: MouseEvent) {
 .project-dialog::backdrop { background: #192a43b3; }
 .dialog__header { position: sticky; top: 0; background: $bg; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 32px; border-bottom: 1px solid $border; font-size: 12px; color: $muted; }
 .dialog__header button { min-height: 44px; padding: 12px 0 12px 16px; color: $secondary; }
+.dialog__public { color: #4ade80; }
+.dialog__repo { margin-top: 20px; width: fit-content; }
 .dialog__body { padding: 32px; }
 .dialog__body > .eyebrow { font-size: 10px; margin-bottom: 14px; }
 h2 { font-size: clamp(28px, 4vw, 42px); letter-spacing: -.045em; font-weight: 600; line-height: 1.15; margin-bottom: 20px; }

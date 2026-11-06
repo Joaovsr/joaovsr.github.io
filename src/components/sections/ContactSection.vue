@@ -1,7 +1,7 @@
 <template>
   <section id="contact" class="section contact">
     <div class="section__head">
-      <span class="section__num">// 07</span>
+      <span class="section__num">// 06</span>
       <h2 class="section__title">{{ t('contact.title') }}</h2>
     </div>
     <p class="contact__sub">{{ t('contact.subtitle') }}</p>

@@ -4,7 +4,7 @@ export const profile: IProfile = {
   name: 'João Vinicius Rodrigues',
   nameShort: 'João Vinicius',
   email: 'joaovinicius2525@gmail.com',
-  avatar: '/avatar.webp',
+  avatar: '/hero-portrait.webp',
   brand: 'João Vinicius',
   careerStart: '2022-09',
   social: {

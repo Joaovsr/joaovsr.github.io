@@ -1,7 +1,7 @@
 <template>
   <section id="experience" class="section exp">
     <div class="section__head">
-      <span class="section__num">// 05</span>
+      <span class="section__num">// 04</span>
       <h2 class="section__title">{{ t('experience.title') }}</h2>
     </div>
     <div class="exp__list">
@@ -19,8 +19,8 @@
                 {{ fmt(exp.startDate) }} → {{ exp.finishDate ? fmt(exp.finishDate) : t('experience.present') }}
               </div>
               <h3 class="exp-item__role">{{ t(`experience.${exp.slug}.role`) }}</h3>
-              <p class="exp-item__company">@ {{ exp.company }}</p>
-              <p v-if="exp.location" class="exp-item__location">{{ exp.location }}<template v-if="exp.onsite"> · {{ t('experience.onsite') }}</template></p>
+              <p class="exp-item__company">@ {{ exp.companyKey ? t(exp.companyKey) : exp.company }}</p>
+              <p v-if="exp.location || exp.workMode" class="exp-item__location">{{ exp.location }}<template v-if="exp.location && exp.workMode"> · </template><template v-if="exp.workMode">{{ t(`experience.${exp.workMode}`) }}</template></p>
             </div>
           </header>
           <p class="exp-item__desc">{{ t(`experience.${exp.slug}.description`) }}</p>
