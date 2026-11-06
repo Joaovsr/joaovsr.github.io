@@ -143,7 +143,7 @@ export function useCvPdf() {
     // ─── Experience ────────────────────────────────────────────────────
     sectionTitle(c, t('experience.title'))
     for (const exp of experiences) {
-      ensurePage(c, 16)
+      ensurePage(c, 24)
 
       // Period (right) + role (left)
       const period = `${formatDate(exp.startDate, currentLocale.value)} - ${exp.finishDate ? formatDate(exp.finishDate, currentLocale.value) : t('experience.present')}`
@@ -159,8 +159,13 @@ export function useCvPdf() {
       // Company
       setFont(doc, 9, 'normal')
       setColor(doc, ACCENT)
-      doc.text(exp.company, MARGIN, c.y)
+      doc.text(exp.companyKey ? t(exp.companyKey) : exp.company, MARGIN, c.y)
       c.y += 5
+      if (exp.location || exp.workMode) {
+        const location = [exp.location, exp.workMode ? t(`experience.${exp.workMode}`) : ''].filter(Boolean).join(' · ')
+        paragraph(c, location, { size: 8, lineHeight: 4, color: MUTED })
+        c.y += 1
+      }
 
       // Description
       paragraph(c, t(`experience.${exp.slug}.description`), { size: 9, lineHeight: 4.4 })
@@ -198,19 +203,15 @@ export function useCvPdf() {
     // ─── Education ─────────────────────────────────────────────────────
     sectionTitle(c, t('education.title'))
     for (const edu of education) {
-      ensurePage(c, 8)
-      setFont(doc, 10, 'bold')
-      setColor(doc, TEXT)
-      doc.text(t(`education.${edu.slug}.degree`), MARGIN, c.y)
-      const period = `${edu.startDate} – ${edu.finishDate ?? t('education.ongoing')}`
-      const periodW = doc.getTextWidth(period)
-      setFont(doc, 8.5, 'normal')
-      setColor(doc, MUTED)
-      doc.text(period, PAGE_W - MARGIN - periodW, c.y)
-      c.y += 4.5
+      ensurePage(c, 18)
+      paragraph(c, t(`education.${edu.slug}.degree`), { size: 10, weight: 'bold', lineHeight: 4.5 })
+      const period = `${formatDate(edu.startDate, currentLocale.value)} - ${edu.finishDate ? formatDate(edu.finishDate, currentLocale.value) : t('education.ongoing')}`
       setFont(doc, 9, 'normal')
       setColor(doc, MUTED)
       doc.text(edu.institution, MARGIN, c.y)
+      setFont(doc, 8.5, 'normal')
+      const periodW = doc.getTextWidth(period)
+      doc.text(period, PAGE_W - MARGIN - periodW, c.y)
       c.y += 6
     }
 

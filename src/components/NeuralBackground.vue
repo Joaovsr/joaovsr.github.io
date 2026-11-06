@@ -1,13 +1,14 @@
 <template>
-  <canvas ref="canvasRef" class="canvas" aria-hidden="true" />
+  <canvas v-show="active" ref="canvasRef" class="canvas" aria-hidden="true" />
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, toRef } from 'vue'
 import { useNeuralCanvas } from '@/composables/useNeuralCanvas'
 
 const canvasRef = ref<HTMLCanvasElement>()
-useNeuralCanvas(canvasRef)
+const props = defineProps<{ active: boolean }>()
+useNeuralCanvas(canvasRef, toRef(props, 'active'))
 </script>
 
 <style lang="scss" scoped>
@@ -19,6 +20,6 @@ useNeuralCanvas(canvasRef)
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.45;
 }
 </style>

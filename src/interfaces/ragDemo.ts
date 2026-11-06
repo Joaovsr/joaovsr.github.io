@@ -14,5 +14,6 @@ export interface IRagQuestion {
   id: string
   questionKey: string
   answerKey: string
+  relatedIds: string[]
   chunks: IRagChunk[]
 }

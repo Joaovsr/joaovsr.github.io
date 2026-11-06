@@ -1,7 +1,7 @@
 <template>
   <section class="section edu">
     <div class="section__head">
-      <span class="section__num">// 06</span>
+      <span class="section__num">// 05</span>
       <h2 class="section__title">{{ t('education.title') }}</h2>
     </div>
     <div class="edu__grid">
@@ -11,7 +11,7 @@
           <div>
             <p class="edu-item__deg">{{ t(`education.${edu.slug}.degree`) }}</p>
             <p class="edu-item__inst">
-              {{ edu.institution }} · {{ edu.startDate }}–{{ edu.finishDate ?? t('education.ongoing') }}
+              {{ edu.institution }} · {{ formatDate(edu.startDate, locale) }}–{{ edu.finishDate ? formatDate(edu.finishDate, locale) : t('education.ongoing') }}
             </p>
           </div>
         </div>
@@ -33,8 +33,9 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { education, certifications } from '@/data/education'
+import { formatDate } from '@/utils/portfolio'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 </script>
 
 <style lang="scss" scoped>

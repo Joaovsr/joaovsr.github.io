@@ -1,7 +1,7 @@
 <template>
   <section id="contact" class="section contact">
     <div class="section__head">
-      <span class="section__num">// 07</span>
+      <span class="section__num">// 06</span>
       <h2 class="section__title">{{ t('contact.title') }}</h2>
     </div>
     <p class="contact__sub">{{ t('contact.subtitle') }}</p>
@@ -41,6 +41,8 @@ const year = new Date().getFullYear()
   margin-bottom: 24px;
 }
 .contact__email {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   display: inline-block;
   font-size: clamp(20px, 3vw, 32px);
   font-weight: 700;
@@ -54,6 +56,7 @@ const year = new Date().getFullYear()
 }
 .contact__row { display: flex; gap: 14px; flex-wrap: wrap; }
 .contact__btn {
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -80,4 +83,5 @@ const year = new Date().getFullYear()
   gap: 12px;
 }
 .footer__sig { color: $muted; }
+@media (max-width: $mobile) { .contact__email { font-size: clamp(16px, 4.8vw, 24px); } }
 </style>

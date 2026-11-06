@@ -1,13 +1,14 @@
 <template>
-  <section id="hero" class="section hero">
+  <section id="hero" ref="heroRef" class="section hero" :class="{ 'hero--paused': !motionActive }" aria-labelledby="hero-title">
+    <NeuralBackground :active="motionActive" />
     <div class="hero__left">
       <div class="tag">
-        <span class="tag__dot"></span> {{ t('hero.tag') }}
+        <span class="tag__dot" aria-hidden="true"></span> {{ t('hero.tag') }}
       </div>
-      <h1 class="hero__name">
+      <h1 id="hero-title" class="hero__name">
         <span class="hero__name-line">{{ firstName }}</span>
         <span class="hero__name-line hero__name-line--accent">
-          {{ lastName }}<span class="cursor">_</span>
+          {{ lastName }}<span class="cursor" aria-hidden="true">_</span>
         </span>
       </h1>
       <p class="hero__role">
@@ -29,52 +30,51 @@
           {{ t('download_cv') }} <span>↓</span>
         </button>
         <a href="#ask" class="btn btn--ghost">
-          {{ t('hero.ask_cta') }} <span>→</span>
+          {{ t('hero.ask_cta') }} <span aria-hidden="true">→</span>
         </a>
       </div>
     </div>
 
     <div class="hero__right">
-      <div class="orb">
-        <div class="orb__core"></div>
-        <div class="orb__ring orb__ring--1"></div>
-        <div class="orb__ring orb__ring--2"></div>
-        <div class="orb__ring orb__ring--3"></div>
-        <span v-for="(p, i) in orbParticles" :key="i" class="orb__particle" :style="p" />
-      </div>
-      <div class="hero__metrics">
-        <div class="metric">
-          <span class="metric__num">{{ years }}</span>
-          <span class="metric__lbl">{{ t('hero.metric_years') }}</span>
-        </div>
-        <div class="metric">
-          <span class="metric__num">{{ projects.length }}+</span>
-          <span class="metric__lbl">{{ t('hero.metric_projects') }}</span>
-        </div>
-        <div class="metric">
-          <span class="metric__num">{{ certifications.length }}</span>
-          <span class="metric__lbl">{{ t('hero.metric_certs') }}</span>
-        </div>
+      <img
+        ref="portraitRef"
+        class="hero__portrait"
+        :src="profile.avatar"
+        :alt="profile.name"
+        width="1042"
+        height="1042"
+        fetchpriority="high"
+      />
+      <div class="hero__caption">
+        <p class="hero__location">{{ t('location') }}</p>
+        <dl class="hero__languages" :aria-label="t('about.languages_title')">
+          <div v-for="language in languages" :key="language.name">
+            <dt>{{ language.name }}</dt>
+            <dd>{{ language.level }}</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
-import { projects } from '@/data/projects'
-import { certifications } from '@/data/education'
-import { yearsOfExperience } from '@/utils/portfolio'
 import { useCvPdf } from '@/composables/useCvPdf'
+import { useHeroMotion } from '@/composables/useHeroMotion'
+import NeuralBackground from '@/components/NeuralBackground.vue'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
 const { downloadCv } = useCvPdf()
+const heroRef = ref<HTMLElement>()
+const portraitRef = ref<HTMLElement>()
+const { active: motionActive } = useHeroMotion(heroRef, portraitRef)
 
-const years = yearsOfExperience(profile.careerStart)
 const firstName = computed(() => profile.nameShort.split(' ')[0] ?? profile.nameShort)
 const lastName = computed(() => profile.nameShort.split(' ').slice(1).join(' ') || '')
+const languages = computed(() => tm('about.languages') as Array<{ name: string; level: string }>)
 
 const embedSample = computed(() =>
   Array.from({ length: 6 }, (_, i) => {
@@ -84,30 +84,33 @@ const embedSample = computed(() =>
   })
 )
 
-const orbParticles = computed(() =>
-  Array.from({ length: 14 }, (_, i) => {
-    const angle = (i / 14) * Math.PI * 2
-    const distance = 110 + (i % 3) * 18
-    return {
-      transform: `rotate(${angle}rad) translateX(${distance}px)`,
-      animationDelay: `${i * 0.4}s`,
-      animationDuration: `${6 + (i % 4)}s`
-    }
-  })
-)
 </script>
 
 <style lang="scss" scoped>
 .hero {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: minmax(0, 1fr) 380px;
   gap: 60px;
-  min-height: calc(100vh - 60px);
+  min-height: calc(100svh - 76px);
   align-items: center;
   padding-top: 60px;
 
-  @media (max-width: $tablet) { grid-template-columns: 1fr; }
+  @media (max-width: $tablet) { grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; }
+  @media (max-width: $mobile) { grid-template-columns: minmax(0, 1fr); min-height: auto; gap: 36px; padding-top: 40px; }
 }
+.hero__left, .hero__right { position: relative; z-index: 1; }
+.hero--paused :deep(*) { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero__left > * { animation: hero-enter .6s both; }
+  .hero__left > :nth-child(2) { animation-delay: .06s; }
+  .hero__left > :nth-child(3) { animation-delay: .12s; }
+  .hero__left > :nth-child(4) { animation-delay: .18s; }
+  .hero__left > :nth-child(5) { animation-delay: .24s; }
+  .hero__left > :nth-child(6) { animation-delay: .3s; }
+  .hero__right { animation: hero-enter .8s .18s both; }
+}
+@keyframes hero-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 .tag {
   display: inline-flex;
   align-items: center;
@@ -127,7 +130,6 @@ const orbParticles = computed(() =>
   border-radius: 50%;
   background: $accent;
   box-shadow: 0 0 10px $accent;
-  animation: pulse 2s infinite;
 }
 .hero__name {
   font-size: clamp(56px, 9vw, 110px);
@@ -154,9 +156,9 @@ const orbParticles = computed(() =>
   margin-bottom: 18px;
 }
 .hero__tag {
-  font-size: 15px;
-  color: rgba($secondary, 0.72);
-  line-height: 1.7;
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: rgba($secondary, 0.78);
+  line-height: 1.75;
   max-width: 540px;
   margin-bottom: 28px;
 }
@@ -188,62 +190,30 @@ const orbParticles = computed(() =>
 
 .hero__cta { display: flex; gap: 14px; flex-wrap: wrap; }
 
-.hero__right { display: flex; flex-direction: column; align-items: center; gap: 32px; }
-.orb {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.orb__core {
-  width: 60px;
-  height: 60px;
+.hero__right { display: flex; flex-direction: column; align-items: center; }
+.hero__portrait {
+  display: block;
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, $glow, $primary);
-  box-shadow: 0 0 60px rgba($primary, 0.6), 0 0 120px rgba($glow, 0.3);
-  position: relative;
-  z-index: 2;
-  animation: orbPulse 3s infinite ease-in-out;
 }
-.orb__ring {
-  position: absolute;
-  border: 1px solid rgba($primary, 0.2);
-  border-radius: 50%;
-  &--1 { width: 140px; height: 140px; animation: spinSlow 12s linear infinite; }
-  &--2 { width: 200px; height: 200px; animation: spinSlow 18s linear reverse infinite; border-color: rgba($accent, 0.18); }
-  &--3 { width: 260px; height: 260px; animation: spinSlow 24s linear infinite; border-color: rgba($glow, 0.12); }
+.hero__caption {
+  width: 100%;
+  max-width: 340px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid $border;
+  text-align: center;
 }
-.orb__particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: $accent;
-  box-shadow: 0 0 8px $accent;
-  animation: particleFloat var(--dur, 6s) infinite ease-in-out;
-}
+.hero__location { margin-bottom: 12px; font-size: 13px; color: rgba($secondary, 0.8); }
+.hero__languages { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 24px; font-size: 12px; line-height: 1.5; }
+.hero__languages div { display: flex; gap: 6px; }
+.hero__languages dt { color: $muted; }
+.hero__languages dd { color: $accent; }
 
-.hero__metrics {
-  display: flex;
-  gap: 24px;
-}
-.metric { text-align: center; }
-.metric__num {
-  display: block;
-  font-size: 28px;
-  font-weight: 700;
-  color: $secondary;
-  line-height: 1;
-}
-.metric__lbl {
-  display: block;
-  font-family: $mono;
-  font-size: 10px;
-  color: $muted;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-top: 6px;
+@media (max-width: $tablet) { .hero__portrait { width: 280px; height: 280px; } }
+@media (max-width: $mobile) {
+  .hero__portrait { width: 240px; height: 240px; }
 }
 </style>

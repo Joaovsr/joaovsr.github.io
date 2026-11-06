@@ -1,10 +1,10 @@
-import { onMounted, onUnmounted, type Ref } from 'vue'
+import { onMounted, onUnmounted, watch, type Ref } from 'vue'
 
 const MOBILE_BREAKPOINT = 768
-const NODE_COUNT_MOBILE = 22
-const NODE_COUNT_DESKTOP = 38
+const NODE_COUNT_MOBILE = 12
+const NODE_COUNT_DESKTOP = 28
 const MAX_EDGE_DIST = 180
-const SIGNAL_SPAWN_MS = 320
+const SIGNAL_SPAWN_MS = 900
 const EDGE_COLOR = 'rgba(124, 92, 255'
 const NODE_COLOR = 'rgba(183, 148, 246, 0.6)'
 const SIGNAL_COLOR = '#22d3ee'
@@ -12,36 +12,37 @@ const SIGNAL_COLOR = '#22d3ee'
 interface Node { x: number; y: number; vx: number; vy: number; r: number }
 interface Signal { from: number; to: number; t: number; speed: number }
 
-export function useNeuralCanvas(canvasRef: Ref<HTMLCanvasElement | undefined>) {
+export function useNeuralCanvas(canvasRef: Ref<HTMLCanvasElement | undefined>, active: Ref<boolean>) {
   let rafId: number | null = null
-  let signalInterval: ReturnType<typeof setInterval> | null = null
   let resizeHandler: (() => void) | null = null
+  let stopWatching: (() => void) | undefined
 
   onMounted(() => {
     const canvas = canvasRef.value
     if (!canvas) return
 
-    const dpr = window.devicePixelRatio || 1
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let nodes: Node[] = []
     const resize = () => {
       canvas.width = window.innerWidth * dpr
       canvas.height = window.innerHeight * dpr
       canvas.style.width = `${window.innerWidth}px`
       canvas.style.height = `${window.innerHeight}px`
+      const count = window.innerWidth < MOBILE_BREAKPOINT ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.18 * dpr,
+        vy: (Math.random() - 0.5) * 0.18 * dpr,
+        r: (1 + Math.random() * 1.5) * dpr
+      }))
     }
     resize()
     resizeHandler = resize
     window.addEventListener('resize', resize)
 
-    const count = window.innerWidth < MOBILE_BREAKPOINT ? NODE_COUNT_MOBILE : NODE_COUNT_DESKTOP
-    const nodes: Node[] = Array.from({ length: count }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.18 * dpr,
-      vy: (Math.random() - 0.5) * 0.18 * dpr,
-      r: (1 + Math.random() * 1.5) * dpr
-    }))
-
-    const ctx = canvas.getContext('2d')!
     const maxDist = MAX_EDGE_DIST * dpr
     let signals: Signal[] = []
 
@@ -56,14 +57,20 @@ export function useNeuralCanvas(canvasRef: Ref<HTMLCanvasElement | undefined>) {
         signals.push({ from: a, to: b, t: 0, speed: 0.012 + Math.random() * 0.012 })
       }
     }
-    signalInterval = setInterval(spawnSignal, SIGNAL_SPAWN_MS)
-
-    const frame = () => {
+    let lastFrame = 0
+    let lastSignal = 0
+    const frame = (time: number) => {
+      const delta = lastFrame ? Math.min((time - lastFrame) / (1000 / 60), 2) : 1
+      lastFrame = time
+      if (time - lastSignal > SIGNAL_SPAWN_MS) {
+        spawnSignal()
+        lastSignal = time
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       for (const n of nodes) {
-        n.x += n.vx
-        n.y += n.vy
+        n.x += n.vx * delta
+        n.y += n.vy * delta
         if (n.x < 0 || n.x > canvas.width) n.vx *= -1
         if (n.y < 0 || n.y > canvas.height) n.vy *= -1
       }
@@ -95,7 +102,7 @@ export function useNeuralCanvas(canvasRef: Ref<HTMLCanvasElement | undefined>) {
 
       signals = signals.filter(s => s.t < 1)
       for (const s of signals) {
-        s.t += s.speed
+        s.t += s.speed * delta
         const a = nodes[s.from], b = nodes[s.to]
         if (!a || !b) continue
         const x = a.x + (b.x - a.x) * s.t
@@ -111,12 +118,20 @@ export function useNeuralCanvas(canvasRef: Ref<HTMLCanvasElement | undefined>) {
 
       rafId = requestAnimationFrame(frame)
     }
-    frame()
+    stopWatching = watch(active, running => {
+      if (rafId !== null) cancelAnimationFrame(rafId)
+      rafId = null
+      lastFrame = 0
+      lastSignal = performance.now()
+      signals = []
+      if (running) rafId = requestAnimationFrame(frame)
+      else ctx.clearRect(0, 0, canvas.width, canvas.height)
+    }, { immediate: true })
   })
 
   onUnmounted(() => {
     if (rafId !== null) cancelAnimationFrame(rafId)
-    if (signalInterval !== null) clearInterval(signalInterval)
+    stopWatching?.()
     if (resizeHandler) window.removeEventListener('resize', resizeHandler)
   })
 }

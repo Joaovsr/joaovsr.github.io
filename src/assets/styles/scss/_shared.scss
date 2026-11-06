@@ -6,6 +6,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 90px 60px;
+  scroll-margin-top: 90px;
 
   @media (max-width: $mobile) { padding: 70px 20px; }
 }
@@ -42,6 +43,7 @@
 .divider { color: $dim; margin: 0 6px; }
 
 .btn {
+  min-height: 44px;
   font-family: $mono;
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -87,7 +89,7 @@
 .cursor {
   display: inline-block;
   color: $accent;
-  animation: blink 1.1s step-end infinite;
+  animation: blink 1.1s step-end 3;
   margin-left: 4px;
 }
 
@@ -126,4 +128,13 @@
 @keyframes particleFloat {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
+}
+
+:focus-visible { outline: 2px solid $accent; outline-offset: 5px; }
+.skip-link { position: fixed; top: -100px; left: 20px; background: $primary; color: white; padding: 14px; z-index: 300; }
+.skip-link:focus { top: 12px; }
+.eyebrow { font-family: $mono; font-size: 11px; color: $accent; text-transform: uppercase; letter-spacing: .08em; }
+.text-link { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; color: $accent; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
 }

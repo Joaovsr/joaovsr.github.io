@@ -5,6 +5,7 @@ import enUS from '@/locales/en-US.json'
 export type Locale = 'pt-BR' | 'en-US'
 
 const savedLocale = (localStorage.getItem('portfolio:locale') as Locale) || 'pt-BR'
+document.documentElement.lang = savedLocale
 
 export const i18n = createI18n({
   legacy: false,
