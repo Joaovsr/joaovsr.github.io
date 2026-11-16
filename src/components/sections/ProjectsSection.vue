@@ -57,6 +57,7 @@ const selected = ref<IProject | null>(null)
   border: 1px solid $border;
   background: rgba($surface, 0.5);
   padding: 24px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -93,6 +94,8 @@ const selected = ref<IProject | null>(null)
 }
 .proj__title { font-size: 16px; font-weight: 700; color: $secondary; }
 .proj__badge {
+  flex-shrink: 0;
+  white-space: nowrap;
   font-family: $mono;
   font-size: 9px;
   padding: 3px 8px;
@@ -103,7 +106,7 @@ const selected = ref<IProject | null>(null)
 }
 .proj__badge--public { color: #4ade80; background: rgba(#4ade80, 0.08); }
 .proj__desc {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
   color: rgba($secondary, 0.7);
   flex: 1;
@@ -129,5 +132,10 @@ const selected = ref<IProject | null>(null)
 .proj__arrow {
   color: $accent;
   transition: transform $transition-base;
+}
+@media (max-width: $mobile) {
+  .proj__head { flex-direction: column; gap: 12px; }
+  .proj__badge { order: -1; }
+  .proj__title { font-size: 18px; line-height: 1.4; }
 }
 </style>
