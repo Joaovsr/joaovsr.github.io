@@ -17,21 +17,21 @@
       </p>
       <p class="hero__tag">{{ t('tagline') }}</p>
 
-      <div class="hero__embed">
+      <div class="hero__cta">
+        <button type="button" @click="downloadCv" class="btn btn--primary">
+          {{ t('download_cv') }} <span aria-hidden="true">↓</span>
+        </button>
+        <a href="#ask" class="btn btn--ghost">
+          {{ t('hero.ask_cta') }} <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="hero__embed" aria-hidden="true">
         <div class="hero__embed-label">{{ t('hero.embed_label') }}</div>
         <div class="hero__embed-vector">
           <span v-for="n in embedSample" :key="n.i" class="embed-num">{{ n.v }}</span>
           <span class="embed-num embed-num--dim">…dim 1536</span>
         </div>
-      </div>
-
-      <div class="hero__cta">
-        <button type="button" @click="downloadCv" class="btn btn--primary">
-          {{ t('download_cv') }} <span>↓</span>
-        </button>
-        <a href="#ask" class="btn btn--ghost">
-          {{ t('hero.ask_cta') }} <span aria-hidden="true">→</span>
-        </a>
       </div>
     </div>
 
@@ -97,7 +97,7 @@ const embedSample = computed(() =>
   padding-top: 60px;
 
   @media (max-width: $tablet) { grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; }
-  @media (max-width: $mobile) { grid-template-columns: minmax(0, 1fr); min-height: auto; gap: 36px; padding-top: 40px; }
+  @media (max-width: $mobile) { grid-template-columns: minmax(0, 1fr); min-height: auto; gap: 28px; padding-top: 28px; }
 }
 .hero__left, .hero__right { position: relative; z-index: 1; }
 .hero--paused :deep(*) { animation-play-state: paused !important; }
@@ -120,7 +120,7 @@ const embedSample = computed(() =>
   background: rgba($primary, 0.06);
   font-family: $mono;
   font-size: 11px;
-  color: $primary;
+  color: $glow;
   letter-spacing: 0.06em;
   margin-bottom: 28px;
 }
@@ -167,7 +167,7 @@ const embedSample = computed(() =>
   border: 1px dashed $border;
   padding: 14px 18px;
   background: rgba($surface, 0.4);
-  margin-bottom: 32px;
+  margin-top: 24px;
   max-width: 540px;
 }
 .hero__embed-label {
@@ -214,6 +214,22 @@ const embedSample = computed(() =>
 
 @media (max-width: $tablet) { .hero__portrait { width: 280px; height: 280px; } }
 @media (max-width: $mobile) {
-  .hero__portrait { width: 240px; height: 240px; }
+  .hero {
+    grid-template-columns: minmax(0, 1fr) clamp(80px, 24vw, 140px);
+    grid-template-areas: 'tag tag' 'name portrait' 'role role' 'description description' 'caption caption' 'actions actions';
+    gap: 0 16px;
+  }
+  .hero__left, .hero__right { display: contents; }
+  .tag { grid-area: tag; justify-self: start; margin-bottom: 24px; }
+  .hero__name { grid-area: name; align-self: center; font-size: clamp(40px, 11.5vw, 68px); margin-bottom: 0; }
+  .hero__role { grid-area: role; margin-top: 20px; }
+  .hero__tag { grid-area: description; margin-bottom: 20px; }
+  .hero__embed { display: none; }
+  .hero__cta { grid-area: actions; display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .hero__cta .btn { justify-content: space-between; }
+  .hero__portrait { grid-area: portrait; align-self: center; width: 100%; height: auto; aspect-ratio: 1; border-radius: 24%; }
+  .hero__caption { grid-area: caption; min-width: 0; max-width: none; margin: 0 0 24px; padding: 0; border: 0; text-align: left; }
+  .hero__location { margin-bottom: 8px; line-height: 1.5; }
+  .hero__languages { justify-content: flex-start; gap: 4px 16px; }
 }
 </style>
